@@ -1,19 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block main %}
 {% include 'users/usrsnav.html.twig' %}
-    <div id="body">
-        <div class="container">
-            <div class="products-wrap">
-                <div id="content">
-                    <section class="products">
-
-                    </section>
-                </div>
-                <!-- / content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12 box-text-aligns">
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                       <b>{{ msg }}}</b>
+                    </div>
+                {% endfor %}
             </div>
+            <div class="col-12"></div>
         </div>
-        <!-- / container -->
     </div>
-    <!-- / body -->
 {% endblock %}
 

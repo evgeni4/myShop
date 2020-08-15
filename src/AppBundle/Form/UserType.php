@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +27,10 @@ class UserType extends AbstractType
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Confirm Password')
                 ])
-            ->add('image', TextType::class);
+            ->add('image', FileType::class,
+                [
+                    'data_class' => null
+                ]);
     }
 
     /**

@@ -88,7 +88,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/edit", name="edit_profile", methods={"GET"})
+     * @Route("/dashboard/edit", name="edit_profile", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return Response|null
      */
@@ -104,7 +104,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/edit", methods={"POST"})
+     * @Route("/dashboard/edit", methods={"POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @param Request $request
      * @return Response
@@ -113,10 +113,17 @@ class UserController extends Controller
     {
         $currentUser = $this->userService->currentUser();
         $form = $this->createForm(UserType::class, $currentUser);
-        $form->remove('password');
+        if ($currentUser->getEmail() === $request->request->get('email')) {
+            $form->remove('email');
+            $form->remove('password');
+        }
+//        if ($request->request->get('image') == null) {
+//            $form->remove('image');
+//        }
         $form->handleRequest($request);
         $this->uploadFile($form, $currentUser);
         $this->userService->update($currentUser);
+        $this->addFlash('info','Update Profile successfully!');
         return $this->redirectToRoute("user_office");
     }
 
@@ -129,13 +136,14 @@ class UserController extends Controller
         /**
          * @var UploadedFile $file
          */
-        $file = $form['image']->getData();
-       // $fileName = md5(uniqid()) . ".".$file->getExtension();
-        $fileName = $file;
-       // var_dump(md5(uniqid()));
-//        if ($file) {
-//            $file->move($this->getParameter('user_image'), $fileName);
-//        }
+       $file = $form['image']->getData();
+        $fileName = md5(uniqid()) . "." . $file->guessExtension();
+        if ($file) {
+            $file->move(
+                $this->getParameter('user_image'),
+                $fileName
+            );
+        }
         $user->setImage($fileName);
     }
 }

@@ -17,6 +17,11 @@
     <script src="{{ asset('js/plugins.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        setTimeout(function () {
+            $('#alertMsg').fadeOut();
+        },2000);
+    </script>
 </head>
 <body>
 {% block header %}
@@ -29,7 +34,11 @@
                     {% if app.user %}
                     <li><a href="{{ path('user_office') }}">
                             <span class="imgProfile">
-                                <img src="{{ asset('images/user_image/no_image.png') }}" alt="">
+                                {% if user.image == null %}
+                                <img src="{{ asset('uploads/user_image/no_image.png') }}" alt="">
+                                {% else %}
+                                <img src="{{ asset('uploads/user_image/'~ user.image) }}" alt="">
+                                {% endif %}
                             </span>My account</a>
                     </li>
                     <li><a href="{{ path('security_logout')}}"><span class="ico-signout"></span>Logout</a></li>
