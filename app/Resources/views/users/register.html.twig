@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>Registration</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8"><br><br>
+                {% if errors|length >0 %}
+                    {% for error in errors %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>{{ error }}</strong>
+                </div>
+                    {% endfor %}
+                {% endif %}
+                <form action="{{ path('user_register') }}" class="form-horizontal" name="register" method="post">
+                    <div class="form-group">
+                        <label for="email" >Email</label>
+                        <input type="text" name="user[email]" autocomplete="off" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" name="user[password][first]"  autocomplete="off"  class="form-control"/>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password:</label>
+                        <input type="password" name="user[password][second]"  autocomplete="off" class="form-control"/>
+
+                    </div>
+                    {{ form_row(form._token) }}
+                    <div class="form-group">
+                        <button type="submit" class="btn-grey">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{% endblock %}

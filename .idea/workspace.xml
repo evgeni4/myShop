@@ -11,10 +11,42 @@
     <execution />
   </component>
   <component name="ProjectId" id="1g5sPbXrIvrvQ2Xe9XNtnq0v0xA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mytest" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\myShop\src\AppBundle\Service" />
+      <recent name="D:\xampp\htdocs\myShop\app" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="server" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/bin/console" scriptParameters="server:run">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="64a8ad1e-c5cd-404b-bea5-44f327533005" name="Default Changelist" comment="" />
@@ -22,11 +54,61 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1597415765496</updated>
-      <workItem from="1597415922004" duration="174000" />
+      <workItem from="1597415922004" duration="17207000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597417056538">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1597417056538" />
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1597426316761">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1597426316761" />
+    <state x="328" y="16" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597419254765">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="328" y="16" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1597419254765" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597426855404">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597426855404" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1597431537486">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597431537486" />
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1597429790516">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597429790516" />
+    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1597429790515">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
+    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1597429790515">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
+    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1597429790515">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
+    <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1597417070453">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1597417070453" />
+    <state x="440" y="67" key="NewPhpClassDialog" timestamp="1597423277939">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="440" y="67" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1597423277939" />
+    <state x="191" y="0" key="SettingsEditor" timestamp="1597423129020">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="191" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1597423129020" />
   </component>
 </project>

@@ -1,13 +1,109 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html class="ie8 oldie" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Diana’s jewelry{% endblock %}</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    {# {% block stylesheets %} #}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    {# {% endblock %} #}
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+{% block header %}
+    <header id="header">
+        <div class="container">
+            <a href="index.html" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+            <div class="right-links">
+                <ul>
+                    <li><a href="#"><span class="ico-products"></span>3 products, $4 500.00</a></li>
+                    {% if app.user %}
+                    <li><a href=""><span class="ico-account"></span>My account</a></li>
+                    <li><a href="{{ path('security_logout')}}"><span class="ico-signout"></span>Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ path('security_login') }}"><span class="ico-account"></span>Login</a></li>
+                        <li><a href="{{ path('user_register') }}"><span class="ico-signout"></span>registration</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <!-- / container -->
+    </header>
+    <!-- / header -->
+
+    <nav id="menu">
+        <div class="container">
+            <div class="trigger"></div>
+            <ul>
+                <li><a href="#">New collection</a></li>
+                <li><a href="#">necklaces</a></li>
+                <li><a href="#">earrings</a></li>
+                <li><a href="#">Rings</a></li>
+                <li><a href="#">Gift cards</a></li>
+                <li><a href="#">Promotions</a></li>
+            </ul>
+        </div>
+        <!-- / container -->
+    </nav>
+    <!-- / navigation -->
+{% endblock %}
+{% block body %}
+    {% block main %}{% endblock %}
+{% endblock %}
+{% block footer %}
+    <footer id="footer">
+        <div class="container">
+            <div class="cols">
+                <div class="col">
+                    <h3>Frequently Asked Questions</h3>
+                    <ul>
+                        <li><a href="#">Fusce eget dolor adipiscing </a></li>
+                        <li><a href="#">Posuere nisl eu venenatis gravida</a></li>
+                        <li><a href="#">Morbi dictum ligula mattis</a></li>
+                        <li><a href="#">Etiam diam vel dolor luctus dapibus</a></li>
+                        <li><a href="#">Vestibulum ultrices magna </a></li>
+                    </ul>
+                </div>
+                <div class="col media">
+                    <h3>Social media</h3>
+                    <ul class="social">
+                        <li><a href="#"><span class="ico ico-fb"></span>Facebook</a></li>
+                        <li><a href="#"><span class="ico ico-tw"></span>Twitter</a></li>
+                        <li><a href="#"><span class="ico ico-gp"></span>Google+</a></li>
+                        <li><a href="#"><span class="ico ico-pi"></span>Pinterest</a></li>
+                    </ul>
+                </div>
+                <div class="col contact">
+                    <h3>Contact us</h3>
+                    <p>Diana’s Jewelry INC.<br>54233 Avenue Street<br>New York</p>
+                    <p><span class="ico ico-em"></span><a href="#">contact@dianasjewelry.com</a></p>
+                    <p><span class="ico ico-ph"></span>(590) 423 446 924</p>
+                </div>
+                <div class="col newsletter">
+                    <h3>Join our newsletter</h3>
+                    <p>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium.</p>
+                    <form action="#">
+                        <input type="text" placeholder="Your email address...">
+                        <button type="submit"></button>
+                    </form>
+                </div>
+            </div>
+            <p class="copy">Copyright 2013 Jewelry. All rights reserved.</p>
+        </div>
+        <!-- / container -->
+    </footer>
+    <!-- / footer -->
+{% endblock %}
+{% block javascripts %}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
+</body>
 </html>
