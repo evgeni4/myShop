@@ -1,0 +1,91 @@
+<div id="breadcrumbs">
+    <div class="container">
+        <div class="box-text-aligns">
+            <h3 class="capt">Welcome, {{user.fullName }}</h3>
+            {% if app.getUser().isUser() %}
+                <span>Customer</span>
+            {% elseif app.getUser().isSales() %}
+                <span>Sales Manager</span>
+            {% elseif app.getUser().isAdmin() %}
+                <span>Administrator</span>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- / container -->
+</div>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- Links -->
+                <ul class="navbar-nav">
+                    <!--Admin -->
+                    {% if app.getUser().isSales or app.getUser().isAdmin() %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Catalog
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Products</a>
+                                <a class="dropdown-item" href="#">Categories</a>
+                                <a class="dropdown-item" href="#">Brands</a>
+                            </div>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Sales
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Orders</a>
+                                <a class="dropdown-item" href="#">Gift Vouchers</a>
+                            </div>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                Customers
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Link 1</a>
+                                <a class="dropdown-item" href="#">Link 2</a>
+                                <a class="dropdown-item" href="#">Link 3</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                My Account
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Edit profile</a>
+                            </div>
+                        </li>
+                        <!--End Admin -->
+                    {% else %}
+                        <!-- Customer Menu -->
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                My Account
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ path('edit_profile') }}">Edit profile</a>
+                                <a class="dropdown-item" href="#">Modify your address</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                My Orders
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">View order history</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

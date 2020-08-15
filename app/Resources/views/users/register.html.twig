@@ -20,6 +20,10 @@
                 {% endif %}
                 <form action="{{ path('user_register') }}" class="form-horizontal" name="register" method="post">
                     <div class="form-group">
+                        <label for="email" >Full Name</label>
+                        <input type="text" name="user[fullName]" autocomplete="off" class="form-control capt"/>
+                    </div>
+                    <div class="form-group">
                         <label for="email" >Email</label>
                         <input type="text" name="user[email]" autocomplete="off" class="form-control"/>
                     </div>

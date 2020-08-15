@@ -1,12 +1,20 @@
-
-
-
-
-
-
-
-
-
+.box-text-aligns{
+	text-align: center;
+}
+.capt{
+	text-transform: capitalize;
+}
+#changePass {
+	margin-bottom: 20px;
+}
+.imgProfile{
+	width: 60px;
+}
+.imgProfile img{
+	width: 40px;
+	border-radius: 100%;
+	margin: -21px -15px;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -703,19 +711,17 @@ h1 {
 }
 
 .btn-grey {
-	display: inline-block;
-	padding: 0 55px;
-	line-height: 53px;
-	font-size: 12px;
-	font-weight: 500;
+	padding:10px 30px;
 	color: #fff;
-	height: 53px;
-	font-family: "Novecentowide";
 	background-color: #373737;
+	border-radius: 5px;
+	border: 0px;
+	transition: width .85s ease-in-out;
 }
 
 .btn-grey:hover{
-	opacity: 0.9;
+	background-color: #737375;
+	font-weight: bold;
 	text-decoration: none;
 }
 

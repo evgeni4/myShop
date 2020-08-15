@@ -13,17 +13,25 @@
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 {% block header %}
     <header id="header">
         <div class="container">
             <a href="index.html" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
-            <div class="right-links">
+            <article class="right-links">
                 <ul>
                     <li><a href="#"><span class="ico-products"></span>3 products, $4 500.00</a></li>
                     {% if app.user %}
-                    <li><a href=""><span class="ico-account"></span>My account</a></li>
+                    <li><a href="{{ path('user_office') }}">
+                            <span class="imgProfile">
+                                <img src="{{ asset('images/user_image/no_image.png') }}" alt="">
+                            </span>My account</a>
+                    </li>
                     <li><a href="{{ path('security_logout')}}"><span class="ico-signout"></span>Logout</a></li>
                     {% else %}
                         <li><a href="{{ path('security_login') }}"><span class="ico-account"></span>Login</a></li>
@@ -100,10 +108,9 @@
     <!-- / footer -->
 {% endblock %}
 {% block javascripts %}
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
 {% endblock %}
 </body>
 </html>

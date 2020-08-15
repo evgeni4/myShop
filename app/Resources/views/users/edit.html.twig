@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8"><br><br>
+                <form action="{{ path('edit_profile') }}"  class="form-horizontal" name="register" method="post">
+                    <div class="form-group">
+                        <label for="email">Full Name</label>
+                        <input type="text" name="user[fullName]" value="{{ user.fullName }}" class="form-control capt"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="user[email]" value="{{ user.email }}" class="form-control"/>
+                    </div>
+                    <div id="changePass" class="btn btn-info btn-sm">Change Password</div>
+                    <div id="pass"></div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" name="user[image]" class="form-control"/>
+                    </div>
+                     {{ form_row(form._token) }}
+                    <div class="form-group">
+                        <button type="submit" class="btn-grey">Edit</button>
+                    </div>
+                </form>
+            </div>
+            <script>
+                $('#changePass').click(function () {
+                    $('#pass').empty();
+                    let form =
+                        ' <div class="form-group">\n' +
+                        '                        <label for="password">Password:</label>\n' +
+                        '                        <input type="password" name="user[password][first]"  autocomplete="off"  class="form-control"/>\n' +
+                        '                    </div>\n' +
+                        '                    <div class="form-group">\n' +
+                        '                        <label for="password">Confirm Password:</label>\n' +
+                        '                        <input type="password" name="user[password][second]"  autocomplete="off" class="form-control"/>\n' +
+                        '                    </div>';
+                 $('#pass').append(form);
+                 $('#pass').toggle();
+                });
+            </script>
+            <div class="col-2"></div>
+        </div>
+    </div>
+{% endblock %}
+

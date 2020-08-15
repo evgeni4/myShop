@@ -6,8 +6,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Service\Users\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +27,7 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
+
     /**
      * @Route("register", name="user_register", methods={"GET"})
      *
@@ -33,9 +37,10 @@ class UserController extends Controller
     {
         $messages = [];
         return $this->render('users/register.html.twig',
-            ['form' => $this->createForm(UserType::class)->createView(),'errors'=>$messages]
+            ['form' => $this->createForm(UserType::class)->createView(), 'errors' => $messages]
         );
     }
+
     /**
      * @Route("register", methods={"POST"})
      * @param Request $request
@@ -43,7 +48,7 @@ class UserController extends Controller
      */
     public function registerProcess(Request $request)
     {
-       $messages = [];
+        $messages = [];
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -54,12 +59,13 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->save($user);
-           return $this->redirectToRoute('security_login');
+            return $this->redirectToRoute('security_login');
         }
         return $this->render('users/register.html.twig',
-            [ 'form' => $this->createForm(UserType::class)->createView(), 'errors' => $messages]
+            ['form' => $this->createForm(UserType::class)->createView(), 'errors' => $messages]
         );
     }
+
     /**
      * @Route("logout",name="security_logout")
      * @throws Exception
@@ -67,5 +73,69 @@ class UserController extends Controller
     public function logout()
     {
         throw new Exception("Logout failed");
+    }
+
+    /**
+     * @Route("/dashboard", name="user_office")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @return Response|null
+     */
+    public function dashboard()
+    {
+
+        $currentUser = $this->userService->currentUser();
+        return $this->render('users/dashboard.html.twig', ['user' => $currentUser]);
+    }
+
+    /**
+     * @Route("/edit", name="edit_profile", methods={"GET"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @return Response|null
+     */
+    public function edit()
+    {
+        $currentUser = $this->userService->currentUser();
+        return $this->render('users/edit.html.twig',
+            [
+                'user' => $currentUser,
+                'form' => $this->createForm(UserType::class)->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/edit", methods={"POST"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @param Request $request
+     * @return Response
+     */
+    public function editProcess(Request $request)
+    {
+        $currentUser = $this->userService->currentUser();
+        $form = $this->createForm(UserType::class, $currentUser);
+        $form->remove('password');
+        $form->handleRequest($request);
+        $this->uploadFile($form, $currentUser);
+        $this->userService->update($currentUser);
+        return $this->redirectToRoute("user_office");
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param User $user
+     */
+    private function uploadFile(FormInterface $form, User $user)
+    {
+        /**
+         * @var UploadedFile $file
+         */
+        $file = $form['image']->getData();
+       // $fileName = md5(uniqid()) . ".".$file->getExtension();
+        $fileName = $file;
+       // var_dump(md5(uniqid()));
+//        if ($file) {
+//            $file->move($this->getParameter('user_image'), $fileName);
+//        }
+        $user->setImage($fileName);
     }
 }

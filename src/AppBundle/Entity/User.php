@@ -25,8 +25,8 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @Assert\NotBlank(message = "This ( Email ) should not be blank.")
+     * @Assert\Email(message = "This ( Email ) is not a valid.")
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
@@ -34,7 +34,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message = "This ( Password ) should not be blank.")
      * @Assert\Length(
      *      min = 6,
      *      minMessage = "Your password must be at least {{ limit }} characters long"
@@ -42,6 +42,22 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "This ( Full Name ) should not be blank.")
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Your Full name must be at least {{ limit }} characters long"
+     *  )
+     * @ORM\Column(name="fullName", type="string", length=255)
+     * @var string
+     */
+    private $fullName;
+    /**
+     * @ORM\Column(name="image", type="string", length=255)
+     * @var string
+     */
+    private $image;
     /**
      * @Assert\NotBlank()
      *
@@ -57,6 +73,22 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
     }
 
     /**
@@ -108,6 +140,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param mixed $fullName
+     * @return User
+     */
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+        return $this;
+    }
+
+    /**
      * Get password
      *
      * @return string
@@ -140,11 +190,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         $this->roles[] = $role;
         return $this;
     }
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array("ROLE_ADMIN", $this->getRoles());
+    }
+    /**
+     * @return bool
+     */
+    public function isSales()
+    {
+        return in_array("ROLE_SALES", $this->getRoles());
+    }
     public function isUser()
     {
         return in_array("ROLE_USER", $this->getRoles());
     }
-
     public function getSalt()
     {
         // TODO: Implement getSalt() method.
