@@ -8,7 +8,51 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ComposerSettings">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/fig/link-util" />
+    </include_path>
   </component>
   <component name="ProjectId" id="1g5sPbXrIvrvQ2Xe9XNtnq0v0xA" />
   <component name="ProjectViewState">
@@ -19,7 +63,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mytest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cosmetics" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -55,6 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1597415765496</updated>
       <workItem from="1597415922004" duration="17207000" />
+      <workItem from="1597606558392" duration="71028000" />
     </task>
     <servers />
   </component>
@@ -66,49 +111,65 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1597417056538" />
-    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1597426316761">
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1597730665826">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1597426316761" />
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1597730665826" />
     <state x="328" y="16" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597419254765">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="328" y="16" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1597419254765" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597426855404">
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597729459333">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597426855404" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1597431537486">
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597729459333" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597733496552">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597431537486" />
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1597429790516">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597733496552" />
+    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1597735055075">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597429790516" />
-    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1597429790515">
+    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1366.728@0.0.1366.728" timestamp="1597735055075" />
+    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1" timestamp="1597772910949">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
-    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1597429790515">
+    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1597772910948" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1597612640760">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
-    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1597429790515">
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597612640760" />
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1597606743663">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597429790515" />
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1597606743663" />
+    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1597606743662">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1597606743662" />
+    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1597606743662">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1597606743662" />
+    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1597606743663">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597606743663" />
     <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1597417070453">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1597417070453" />
-    <state x="440" y="67" key="NewPhpClassDialog" timestamp="1597423277939">
+    <state x="440" y="67" key="NewPhpClassDialog" timestamp="1597774150136">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="440" y="67" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1597423277939" />
+    <state x="440" y="67" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1597774150136" />
     <state x="191" y="0" key="SettingsEditor" timestamp="1597423129020">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="191" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1597423129020" />
+    <state x="402" y="127" key="refactoring.ChangeSignatureDialog" timestamp="1597817220015">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="402" y="127" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1597817220015" />
   </component>
 </project>

@@ -27,18 +27,14 @@
 {% block header %}
     <header id="header">
         <div class="container">
-            <a href="index.html" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+            <a href="{{ path('shop_index') }}" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
             <article class="right-links">
                 <ul>
                     <li><a href="#"><span class="ico-products"></span>3 products, $4 500.00</a></li>
                     {% if app.user %}
                     <li><a href="{{ path('user_office') }}">
                             <span class="imgProfile">
-                                {% if user.image == null %}
-                                <img src="{{ asset('uploads/user_image/no_image.png') }}" alt="">
-                                {% else %}
                                 <img src="{{ asset('uploads/user_image/'~ user.image) }}" alt="">
-                                {% endif %}
                             </span>My account</a>
                     </li>
                     <li><a href="{{ path('security_logout')}}"><span class="ico-signout"></span>Logout</a></li>

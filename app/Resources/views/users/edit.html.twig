@@ -5,6 +5,14 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8"><br><br>
+                {% if errors|length >0 %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <form enctype="multipart/form-data" action="{{ path('edit_profile') }}"  class="form-horizontal" name="register" method="post">
                     <div class="form-group">
                         <label for="email">Full Name</label>
@@ -14,11 +22,23 @@
                         <label for="email">Email</label>
                         <input type="text" name="user[email]" value="{{ user.email }}" class="form-control"/>
                     </div>
-                    <div id="changePass" class="btn btn-info btn-sm">Change Password</div>
-                    <div id="pass"></div>
+                    <div onclick="ShowAndHide()"  class="btn btn-info btn-sm">Change Password</div>
+                    <div id="passFormShow" style="display: none;">
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="user[password][first]" autocomplete="off"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Confirm Password:</label>
+                            <input type="password" name="user[password][second]" autocomplete="off"
+                                   class="form-control"/>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="image">Image</label>
                         <input type="file" name="user[image]" class="form-control"/>
+                        <img style="width: 150px;margin: 10px 0px;" src="{{ asset('uploads/user_image/'~ user.image) }}" class="rounded-circle" alt="Cinque Terre">
                     </div>
                      {{ form_row(form._token) }}
                     <div class="form-group">
@@ -27,20 +47,14 @@
                 </form>
             </div>
             <script>
-                $('#changePass').click(function () {
-                    $('#pass').empty();
-                    let form =
-                        ' <div class="form-group">\n' +
-                        '                        <label for="password">Password:</label>\n' +
-                        '                        <input type="password" name="user[password][first]"  autocomplete="off"  class="form-control"/>\n' +
-                        '                    </div>\n' +
-                        '                    <div class="form-group">\n' +
-                        '                        <label for="password">Confirm Password:</label>\n' +
-                        '                        <input type="password" name="user[password][second]"  autocomplete="off" class="form-control"/>\n' +
-                        '                    </div>';
-                 $('#pass').append(form);
-                 $('#pass').toggle();
-                });
+                function ShowAndHide() {
+                    var x = document.getElementById('passFormShow');
+                    if (x.style.display == 'none') {
+                        x.style.display = 'block';
+                    } else {
+                        x.style.display = 'none';
+                    }
+                }
             </script>
             <div class="col-2"></div>
         </div>

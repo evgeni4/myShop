@@ -29,6 +29,7 @@ class UserType extends AbstractType
                 ])
             ->add('image', FileType::class,
                 [
+                    'mapped' => false,
                     'data_class' => null
                 ]);
     }

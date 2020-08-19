@@ -7,7 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    user_image: '%kernel.project_dir%/web/uploads/user_image'
+    user_image: '%kernel.project_dir%/web/uploads/user_image/'
 
 framework:
     #esi: ~
