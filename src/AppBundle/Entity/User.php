@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Users
  *
@@ -69,10 +70,16 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * )
      */
     private $roles;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Address", mappedBy="author")
+     */
+    private $address;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->address = new ArrayCollection();
     }
 
     /**
@@ -166,6 +173,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $this->password;
     }
+
     /**
      * @return array(Role|string)[]
      */
@@ -190,6 +198,47 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         $this->roles[] = $role;
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAddress(): ArrayCollection
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     * @return User
+     */
+    public function addAddress(Address $address)
+    {
+        $this->address[] = $address;
+        return $this;
+    }
+
+    /**
+     * @param Address $address
+     * @return bool
+     */
+    public function isAuthor(Address $address)
+    {
+        return $address->getAuthor()->getId() == $this->getId();
+    }
+
+    /**
+     * @param Address $address
+     * @param User $currentUser
+     * @return bool
+     */
+    public function isAuthorOrAdmin(Address $address,User $currentUser)
+    {
+        if (!$currentUser->isAuthor($address) && !$currentUser->isAdmin()){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return bool
      */
@@ -197,6 +246,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return in_array("ROLE_ADMIN", $this->getRoles());
     }
+
     /**
      * @return bool
      */
@@ -204,10 +254,12 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return in_array("ROLE_SALES", $this->getRoles());
     }
+
     public function isUser()
     {
         return in_array("ROLE_USER", $this->getRoles());
     }
+
     public function getSalt()
     {
         // TODO: Implement getSalt() method.

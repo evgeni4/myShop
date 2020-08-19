@@ -63,7 +63,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cosmetics" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -99,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1597415765496</updated>
       <workItem from="1597415922004" duration="17207000" />
-      <workItem from="1597606558392" duration="71028000" />
+      <workItem from="1597606558392" duration="113124000" />
     </task>
     <servers />
   </component>
@@ -111,10 +111,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1597417056538" />
-    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1597730665826">
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1597860793158">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1597730665826" />
+    <state x="488" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1597860793158" />
     <state x="328" y="16" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597419254765">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -123,22 +123,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597729459333" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597733496552">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597860739458">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597733496552" />
-    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1597735055075">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597860739457" />
+    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1597826517392">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1366.728@0.0.1366.728" timestamp="1597735055075" />
-    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1" timestamp="1597772910949">
+    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1366.728@0.0.1366.728" timestamp="1597826517392" />
+    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1" timestamp="1597838281457">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1597772910948" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1597612640760">
+    <state x="705" y="76" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1597838281457" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1597818918151">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597612640760" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1597818918151" />
     <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1597606743663">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -155,14 +155,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1597606743663" />
-    <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1597417070453">
+    <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1597835834132">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1597417070453" />
-    <state x="440" y="67" key="NewPhpClassDialog" timestamp="1597774150136">
+    <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1597835834132" />
+    <state x="582" y="110" key="NewPhpClassDialog" timestamp="1597820718849">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="440" y="67" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1597774150136" />
+    <state x="582" y="110" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1597820718849" />
     <state x="191" y="0" key="SettingsEditor" timestamp="1597423129020">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -171,5 +171,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="127" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1597817220015" />
+    <state x="339" y="157" key="run.anything.popup" timestamp="1597826561900">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="157" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1597826561900" />
   </component>
 </project>

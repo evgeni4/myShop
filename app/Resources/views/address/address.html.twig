@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>All address</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><br><br>
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                        <b>{{ msg }}}</b>
+                    </div>
+                {% endfor %}
+                <br><br>
+                <div class="addBtn">
+                    {% if address|length < 1 %}
+                        <a href="{{ path('add_address') }}" class="btn btn-primary btn-sm">Add address</a>
+                    {% endif %}
+                </div>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Full name</th>
+                        <th>City / town</th>
+                        <th>Address</th>
+                        <th>Post code</th>
+                        <th>Phone</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if address|length > 0 %}
+                        {% for adr in address %}
+                            <tr>
+                                <td>{{ adr.fullName }}</td>
+                                <td>{{ adr.populated }}</td>
+                                <td>{{ adr.address }}</td>
+                                <td>{{ adr.postCode }}</td>
+                                <td>{{ adr.phone }}</td>
+                                <td><a href="{{ path('update_address',{'id':adr.id}) }}" class="btn btn-success btn-sm">Edit</a>
+                                </td>
+                                <td><a href="{{ path('delete_address',{'id':adr.id}) }}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <strong>You have no delivery address added!</strong>
+                        </div>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -63,10 +63,11 @@ class UserController extends Controller
             );
         }
         $form->handleRequest($request);
-        $messages = $this->errorColection($form, $messages);
-        $user->setImage('no_image.png');
+        $messages = $this->errorCollection($form, $messages);
+        $user->setImage('');
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->save($user);
+            $count= $this->userService->allUser();
+            $this->userService->save($user,$count);
             $this->addFlash('info', "You have successfully registered!");
             return $this->redirectToRoute('security_login');
         }
@@ -91,9 +92,9 @@ class UserController extends Controller
      */
     public function dashboard()
     {
-
+        $allUser = $this->userService->allUser();
         $currentUser = $this->userService->currentUser();
-        return $this->render('users/dashboard.html.twig', ['user' => $currentUser]);
+        return $this->render('users/dashboard.html.twig', ['user' => $currentUser,'allUser'=>$allUser]);
     }
 
     /**
@@ -142,8 +143,9 @@ class UserController extends Controller
         $passwordHash = $this->checkPassword($request, $currentPassword, $currentUser);
 
         $form->handleRequest($request);
+
         $currentUser->setPassword($passwordHash);
-        $messages = $this->errorColection($form, $messages);
+        $messages = $this->errorCollection($form, $messages);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->uploadFile($form, $currentUser);
             $this->userService->update($currentUser);
@@ -221,7 +223,7 @@ class UserController extends Controller
      * @param array $messages
      * @return array
      */
-    private function errorColection(FormInterface $form, array $messages): array
+    private function errorCollection(FormInterface $form, array $messages): array
     {
         foreach ($form->getErrors(true) as $err) {
             $messages[] = $err->getMessage();
