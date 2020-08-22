@@ -39,7 +39,7 @@ class Address
      * @Assert\NotBlank(message = "This ( City / town ) should not be blank.")
      * @Assert\Length(
      *      min = 3,
-     *      minMessage = "Your City / town must be at least {{ limit }} characters long"
+     *      minMessage = "Your ( City / town ) must be at least {{ limit }} characters long"
      *  )
      * @ORM\Column(name="populated", type="string", length=255)
      */
@@ -55,7 +55,6 @@ class Address
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
-
     /**
      * @var string
      * @Assert\NotBlank(message = "This ( Post code ) should not be blank.")

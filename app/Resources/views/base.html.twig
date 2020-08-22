@@ -9,6 +9,8 @@
     {# {% block stylesheets %} #}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+
     {# {% endblock %} #}
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,7 +22,7 @@
     <script>
         setTimeout(function () {
             $('#alertMsg').fadeOut();
-        },2000);
+        }, 2000);
     </script>
 </head>
 <body>
@@ -28,22 +30,33 @@
     <header id="header">
         <div class="container">
             <a href="{{ path('shop_index') }}" id="logo" title="Diana’s jewelry">Diana’s jewelry</a>
+
             <article class="right-links">
                 <ul>
+                    <li>
+                        <form action="">
+                            <input type="text" class="form-search" name="search">
+                            <button class="btn-sm btn-grey">search</button>
+                        </form>
+                    </li>
                     <li><a href="#"><span class="ico-products"></span>3 products, $4 500.00</a></li>
                     {% if app.user %}
-                    <li><a href="{{ path('user_office') }}">
+                        <li><a href="{{ path('user_office') }}">
                             <span class="imgProfile">
-                                <img src="{{ asset('uploads/user_image/'~ user.image) }}" alt="">
+                                {% if user.image =="" %}
+                                    <img src="{{ asset('uploads/user_image/no_image.png') }}" alt="">
+                                {% else %}
+                                    <img src="{{ asset('uploads/user_image/'~ user.image) }}" alt="">
+                                {% endif %}
                             </span>My account</a>
-                    </li>
-                    <li><a href="{{ path('security_logout')}}"><span class="ico-signout"></span>Logout</a></li>
+                        </li>
+                        <li><a href="{{ path('security_logout') }}"><span class="ico-signout"></span>Logout</a></li>
                     {% else %}
                         <li><a href="{{ path('security_login') }}"><span class="ico-account"></span>Login</a></li>
                         <li><a href="{{ path('user_register') }}"><span class="ico-signout"></span>registration</a></li>
                     {% endif %}
                 </ul>
-            </div>
+        </div>
         </div>
         <!-- / container -->
     </header>
@@ -54,10 +67,9 @@
             <div class="trigger"></div>
             <ul>
                 <li><a href="#">New collection</a></li>
-                <li><a href="#">necklaces</a></li>
-                <li><a href="#">earrings</a></li>
-                <li><a href="#">Rings</a></li>
-                <li><a href="#">Gift cards</a></li>
+                {% for category in categories if categories|length>0 %}
+                    <li><a href="{{ category.url }}">{{ category.title }}</a></li>
+                {% endfor %}
                 <li><a href="#">Promotions</a></li>
             </ul>
         </div>

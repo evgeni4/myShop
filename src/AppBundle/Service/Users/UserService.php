@@ -46,11 +46,7 @@ class UserService implements UserServiceInterface
 
         $passwordHash = $this->encryptionService->hash($user->getPassword());
         $user->setPassword($passwordHash);
-        if (count($this->allUser()) == 0 || count($this->allUser())===null) {
-            $role = "ROLE_ADMIN";
-        }else{
-            $role = "ROLE_USER";
-        }
+        $role = $this->checkNewUserRoles();
         $roleUser = $this
             ->roleService
             ->findOneBy($role);
@@ -92,5 +88,20 @@ class UserService implements UserServiceInterface
     public function allUser()
     {
         return $this->userRepository->findAll();
+    }
+
+    /**
+     * @return string
+     */
+    private function checkNewUserRoles(): string
+    {
+        if (count($this->allUser()) == 0 || count($this->allUser()) === null) {
+            $role = "ROLE_ADMIN";
+        } else if (count($this->allUser()) == 1) {
+            $role = "ROLE_SALES";
+        } else {
+            $role = "ROLE_USER";
+        }
+        return $role;
     }
 }

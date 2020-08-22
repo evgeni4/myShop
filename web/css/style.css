@@ -15,8 +15,15 @@
 	border-radius: 100%;
 	margin: -21px -15px;
 }
+.form-search{
+	width: 300px;
+	padding: 3px 0px;
+}
 .addBtn{
 	padding: 15px 0px;
+}
+.text-align{
+	text-align: center;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,

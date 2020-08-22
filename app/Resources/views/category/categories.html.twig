@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>Categories</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><br>
+                <div class="addBtn">
+                    <a href="{{ path('add_category') }}" class="btn btn-primary btn-sm">Add category</a>
+                </div>
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                        <b>{{ msg }}}</b>
+                    </div>
+                {% endfor %}
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID#</th>
+                        <th>Title</th>
+                        <th>Slug/Url</th>
+                        <th>Author</th>
+                        <th>Create Date</th>
+                        <th>Edit / Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if categories|length > 0 %}
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.title }}</td>
+                            <td>{{ category.url }}</td>
+                            <td>{{ category.author.fullName }}</td>
+                            <td>{{ category.dateAdded|date("m/d/Y H:m:s", "Europe/Sofia") }}</td>
+                            <td>
+                                {% if user.authorCategory(category) or user.isAdmin %}
+                                <a href="{{ path('edit_category',{'id':category.id}) }}" class="btn btn-info btn-sm">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                                </a>&nbsp;&nbsp;<a href="{{ path('delete_category',{'id':category.id}) }}" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                                </a>
+                            {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-danger alert-dismissible text-align">
+                    <strong>You have no categories added!</strong>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

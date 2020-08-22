@@ -44,7 +44,12 @@
                     <div class="form-group">
                         <label for="image">Image</label>
                         <input type="file" name="user[image]" class="form-control"/>
-                        <img style="width: 150px;margin: 10px 0px;" src="{{ asset('uploads/user_image/'~ user.image) }}" class="rounded-circle" alt="Cinque Terre">
+                        {% if user.image =="" %}
+                            <img  style="width: 150px;margin: 10px 0px;"  src="{{ asset('uploads/user_image/no_image.png') }}" class="rounded-circle"  alt="">
+                        {% else %}
+                            <img style="width: 150px;margin: 10px 0px;" src="{{ asset('uploads/user_image/'~ user.image) }}" class="rounded-circle" alt="Cinque Terre">
+
+                        {% endif %}
                     </div>
                      {{ form_row(form._token) }}
                     <div class="form-group">

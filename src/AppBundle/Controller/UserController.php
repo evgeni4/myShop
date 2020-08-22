@@ -174,7 +174,9 @@ class UserController extends Controller
         if ($file!==null) {
             $fs = new Filesystem();
             $path = $this->getParameter('user_image') . $currentUser->getImage();
-            $fs->remove($path);
+//            if ($path){
+//                $fs->remove($path);
+//            }
             $fileName = md5(uniqid()) . "." . $file->guessExtension();
             $file->move(
                 $this->getParameter('user_image'),

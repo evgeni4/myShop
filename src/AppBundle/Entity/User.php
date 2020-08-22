@@ -75,11 +75,17 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Address", mappedBy="author")
      */
     private $address;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Categories", mappedBy="author")
+     */
+    private $categories;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->address = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -218,6 +224,33 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getCategories(): ArrayCollection
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param ArrayCollection $categories
+     * @return User
+     */
+    public function setCategories(ArrayCollection $categories)
+    {
+        $this->categories[] = $categories;
+        return $this;
+    }
+
+    /**
+     * @param Categories $categories
+     * @return bool
+     */
+    public function isAuthorCategory(Categories $categories)
+    {
+        return $categories->getAuthor()->getId() == $this->getId();
+    }
+
+    /**
      * @param Address $address
      * @return bool
      */
@@ -231,9 +264,9 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @param User $currentUser
      * @return bool
      */
-    public function isAuthorOrAdmin(Address $address,User $currentUser)
+    public function isAuthorOrAdmin(Address $address, User $currentUser)
     {
-        if (!$currentUser->isAuthor($address) && !$currentUser->isAdmin()){
+        if (!$currentUser->isAuthor($address) && !$currentUser->isAdmin()) {
             return true;
         }
         return false;
