@@ -80,12 +80,17 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Categories", mappedBy="author")
      */
     private $categories;
-
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Metals", mappedBy="author")
+     */
+    private $metals;
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->address = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->metals = new ArrayCollection();
     }
 
     /**
@@ -248,6 +253,33 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     public function isAuthorCategory(Categories $categories)
     {
         return $categories->getAuthor()->getId() == $this->getId();
+    }
+
+    /**
+     * @param Metals $metal
+     * @return bool
+     */
+    public function isAuthorMetal(Metals $metal)
+    {
+        return $metal->getAuthor()->getId() == $this->getId();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMetals(): ArrayCollection
+    {
+        return $this->metals;
+    }
+
+    /**
+     * @param ArrayCollection $metals
+     * @return User
+     */
+    public function setMetals(ArrayCollection $metals)
+    {
+        $this->metals[] = $metals;
+        return $this;
     }
 
     /**

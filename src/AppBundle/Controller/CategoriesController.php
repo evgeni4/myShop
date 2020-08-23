@@ -10,7 +10,6 @@ use AppBundle\Service\Categories\CategoriesService;
 use AppBundle\Service\Users\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,14 +34,12 @@ class CategoriesController extends Controller
     public function categories()
     {
         $currentUser = $this->userService->currentUser();
-        $categories = $this->categoriesService->getAllCategory();
         if ($currentUser->isUser()) {
             return $this->redirectToRoute('shop_index');
         }
         return $this->render('category/categories.html.twig',
             [
-                'user' => $currentUser,
-                'categories' => $categories
+                'user' => $currentUser
             ]);
     }
 
@@ -74,6 +71,8 @@ class CategoriesController extends Controller
         $category = new Categories();
         $form = $this->createForm(CategoriesType::class, $category);
         $form->handleRequest($request);
+        $validator = $this->get('validator');
+        $validator->validate($category);
         $data = $request->request->get('categories');
         $messages = $this->errorCollection($form, $messages);
         if (null !== $this->categoriesService->getTitle($data['title'])) {
@@ -134,9 +133,21 @@ class CategoriesController extends Controller
         $category = $this->categoriesService->getOneCategory($id);
         $form = $this->createForm(CategoriesType::class, $category);
         $form->handleRequest($request);
+        $data = $request->request->get('categories');
         $messages = $this->errorCollection($form, $messages);
+        if ($category->getTitle()!==$data['title'] && null !== $this->categoriesService->getTitle($data['title'])) {
+            $messages[] = "This Title ( " . $data['title'] . " ) already token!";
+            return $this->templateView($currentUser, $messages);
+        }
+        if ($category->getUrl()!==$data['url'] &&null !== $this->categoriesService->getTitle($data['url'])) {
+            $messages[] = "This Url ( " . $data['url'] . " ) already token!";
+            return $this->templateView($currentUser, $messages);
+        }
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorCategory($category)){
             return $this->redirectToRoute('shop_index');
+        }
+        if (null === $category) {
+            return $this->redirectToRoute('all_categories');
         }
         if ($form->isSubmitted() && $form->isValid()){
             $this->categoriesService->update($category);

@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Service\Categories\CategoriesService;
-use AppBundle\Service\Categories\CategoriesServiceInterface;
 use AppBundle\Service\Users\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +25,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $categories = $this->categoriesService->getAllCategory();
         $currentUser = $this->userService->currentUser();
         return $this->render('default/index.html.twig', [
-            'categories' => $categories,
             'user' => $currentUser,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);

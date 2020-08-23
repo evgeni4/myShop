@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 
+use AppBundle\Service\Categories\CategoriesService;
+use AppBundle\Service\Categories\CategoriesServiceInterface;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -70,6 +72,8 @@ class Categories
      */
     private $author;
 
+    private $categoriesService;
+
     public function __construct()
     {
         $this->dateAdded = new DateTime('now');
@@ -104,7 +108,7 @@ class Categories
      * @param User|null $author
      * @return Categories
      */
-    public function setAuthor(User $author =null)
+    public function setAuthor(User $author = null)
     {
         $this->author = $author;
         return $this;
