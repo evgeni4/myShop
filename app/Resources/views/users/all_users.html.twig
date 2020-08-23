@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>All Users</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><br>
+                <div class="addBtn">
+                </div>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID#</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if allUsers|length > 0 %}
+                        {% for allUser in allUsers %}
+                            <tr>
+                                <td>{{ allUser.id }}</td>
+                                <td>{{ allUser.fullName }}</td>
+                                <td>{{ allUser.email}}</td> 
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-danger alert-dismissible text-align">
+                            <strong>You have no allUsers!</strong>
+                        </div>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

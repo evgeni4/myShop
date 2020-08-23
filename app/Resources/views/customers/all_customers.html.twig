@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>Customers</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><br>
+                <div class="addBtn">
+                </div>
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                        <b>{{ msg }}</b>
+                    </div>
+                {% endfor %}
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID#</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Town / City</th>
+                        <th>Post code</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if customers|length > 0 %}
+                        {% for customer in customers %}
+                            <tr>
+                                <td>{{ customer.id }}</td>
+                                <td>{{ customer.fullName }}</td>
+                                <td>{{ customer.email}}</td>
+                                <td>{{ customer.populated}}</td>
+                                <td>{{ customer.postCode}}</td>
+                                <td>{{ customer.address}}</td>
+                                <td>{{ customer.phone}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-danger alert-dismissible text-align">
+                            <strong>You have no customers!</strong>
+                        </div>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

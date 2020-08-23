@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-align" style="color: red;font-style: italic">
+                    <h1>Access is limited!</h1></div>
+                <div class="text-align" style="height: 300px;color: red;font-style: italic">
+                    <h2><strong> The requested page couldn't be located!!!</strong></h2>
+                    <br> <a href="{{ path('shop_index') }}" class="btn btn-outline-primary btn-sm">Return to the
+                        Home</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

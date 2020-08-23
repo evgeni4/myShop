@@ -84,19 +84,6 @@ class UserController extends Controller
     {
         throw new Exception("Logout failed");
     }
-
-    /**
-     * @Route("/dashboard", name="user_office")
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
-     * @return Response|null
-     */
-    public function dashboard()
-    {
-        $allUser = $this->userService->allUser();
-        $currentUser = $this->userService->currentUser();
-        return $this->render('users/dashboard.html.twig', ['user' => $currentUser,'allUser'=>$allUser]);
-    }
-
     /**
      * @Route("/dashboard/editProfife", name="edit_profile", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")

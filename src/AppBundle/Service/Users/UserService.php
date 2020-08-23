@@ -41,7 +41,7 @@ class UserService implements UserServiceInterface
      * @param $count
      * @return bool
      */
-    public function save(User $user,$count): bool
+    public function save(User $user, $count): bool
     {
 
         $passwordHash = $this->encryptionService->hash($user->getPassword());
@@ -103,5 +103,10 @@ class UserService implements UserServiceInterface
             $role = "ROLE_USER";
         }
         return $role;
+    }
+
+    public function getCustomer()
+    {
+        return $this->userRepository->allCustomers();
     }
 }
