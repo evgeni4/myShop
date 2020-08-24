@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     user_image: '%kernel.project_dir%/web/uploads/user_image/'
+    products_image: '%kernel.project_dir%/web/uploads/products_image/'
 
 framework:
     #esi: ~
@@ -34,11 +35,12 @@ framework:
 
 # Twig Configuration
 twig:
-    exception_controller: AppBundle:Exception:show
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
+#    exception_controller: AppBundle:Exception:show
+#    debug: '%kernel.debug%'
+#    strict_variables: '%kernel.debug%'
     globals:
         categories: '@AppBundle\Service\Categories\CategoriesService'
+        products: '@AppBundle\Service\Product\ProductService'
 
 # Doctrine Configuration
 doctrine:

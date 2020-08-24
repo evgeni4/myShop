@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>Edit product</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8"><br><br>
+                {% if errors|length >0 %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form class="form-horizontal" enctype="multipart/form-data" name="addProductProcess" method="post">
+                    <div class="form-group">
+                        <label for="">Title</label>
+                        <input type="text" name="product[title]" value="{{ product.title }}" class="form-control capt"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Category</label>{{ product.category.id }}
+                        <select name="product[category]" id="dbType">
+                            <option selected value="{{ product.category.id }}">{{ product.category.title }}</option>
+                            {% for category in categories.allCategory %}
+                                <option value="{{ category.id }}">{{ category.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Metal Type</label>
+                        <select name="product[metalId]" id="dbType">
+                            <option value="">Choose metal type</option>
+                            <option selected value="{{ product.metalId.id }}">{{ product.metalId.title }}</option>
+                            {% for metal in metals %}
+                                <option value="{{ metal.id }}">{{ metal.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div onclick="ShowAndHideSize()" class="btn btn-info btn-sm">Add Size</div>
+                        <div id="sizeShow" style="display: none;">
+                            <p>Add dimensions separated by commas</p>
+                            <p>Example: 1,2,3</p>
+                            <label for="">Size</label>
+                            <input type="text" name="product[size]" value="{{ product.size }}"
+                                   class="form-control capt"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Price</label>
+                        <input type="text" name="product[price]" value="{{ product.price }}" class="form-control capt"/>
+                    </div>
+                    <div class="form-group">
+                        <div onclick="ShowAndHide()" class="btn btn-info btn-sm">Insert Discount</div>
+                        <div id="discountShow" style="display: none;">
+                            <label for="">Discount (%)</label>
+                            <input type="text" name="product[discount]" value="{{ product.discount }}"
+                                   class="form-control capt"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <textarea name="product[description]"
+                                  class="form-control capt">{{ product.description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Gender</label>
+                        <select name="product[gender]">
+                            {% if product.gender =='male' %}
+                                <option selected value="male">Male</option>
+                                <option value="female">Female</option>
+                            {% else %}
+                                <option selected value="female">Female</option>
+                                <option value="male">Male</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Scale Weight</label>
+                        <input type="text" name="product[scaleWeight]" value="{{ product.scaleWeight }}"
+                               class="form-control capt"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">image</label>
+                        <input type="file" name="product[image][]" multiple="multiple" class="form-control"/>
+                    </div>
+                    {{ form_row(form._token) }}
+                    <div class="form-group">
+                        <button type="submit" class="btn-grey">Edit product</button>
+                        <a href="{{ path('all_categories') }}" class="btn btn-primary btn-sm">Back</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <script>
+        function ShowAndHideSize() {
+            var x = document.getElementById('sizeShow');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        function ShowAndHide() {
+            var x = document.getElementById('discountShow');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </script>
+{% endblock %}
+
+
+
+

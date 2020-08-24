@@ -6,6 +6,7 @@ namespace AppBundle\Entity;
 use AppBundle\Service\Categories\CategoriesService;
 use AppBundle\Service\Categories\CategoriesServiceInterface;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -71,12 +72,39 @@ class Categories
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
-
-    private $categoriesService;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product",mappedBy="category")
+     */
+    private $product;
 
     public function __construct()
     {
         $this->dateAdded = new DateTime('now');
+        $this->product = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return "";
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProduct(): ArrayCollection
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param ArrayCollection $product
+     * @return Categories
+     */
+    public function setProduct(ArrayCollection $product)
+    {
+        $this->product[] = $product;
+        return $this;
     }
 
     /**

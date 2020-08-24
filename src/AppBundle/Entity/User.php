@@ -85,14 +85,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Metals", mappedBy="author")
      */
     private $metals;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="author")
+     */
+    private $product;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         $this->address = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->metals = new ArrayCollection();
+        $this->product = new ArrayCollection();
     }
-
+    public function __toString()
+    {
+        return "";
+    }
     /**
      * @return string
      */
@@ -247,6 +257,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getProduct(): ArrayCollection
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param ArrayCollection $product
+     * @return User
+     */
+    public function setProduct(ArrayCollection $product)
+    {
+        $this->product[] = $product;
+        return $this;
+    }
+
+    /**
      * @param Categories $categories
      * @return bool
      */
@@ -290,6 +318,15 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return $address->getAuthor()->getId() == $this->getId();
     }
+    /**
+     * @param Product $product
+     * @return bool
+     */
+    public function isAuthorProduct(Product $product)
+    {
+        return $product->getAuthor()->getId() == $this->getId();
+    }
+
 
     /**
      * @param Address $address

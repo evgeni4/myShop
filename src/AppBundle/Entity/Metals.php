@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,12 +46,26 @@ class Metals
      * @ORM\Column(name="dateAdded", type="datetime")
      */
     private $dateAdded;
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="metals")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="metalTypeId")
+     */
+    private $product;
 
     public function __construct()
     {
         $this->dateAdded = new DateTime('now');
     }
-
+    public function __toString()
+    {
+        return "";
+    }
     /**
      * @return DateTime
      */
@@ -58,20 +73,14 @@ class Metals
     {
         return $this->dateAdded;
     }
-
-    /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="metals")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
-     */
-    private $author;
-
     /**
      * @param DateTime $dateAdded
+     * @return Metals
      */
-    public function setDateAdded(DateTime $dateAdded): void
+    public function setDateAdded(DateTime $dateAdded)
     {
         $this->dateAdded = $dateAdded;
+        return $this;
     }
 
     /**
@@ -125,5 +134,25 @@ class Metals
     {
         return $this->title;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProduct(): ArrayCollection
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param ArrayCollection $product
+     * @return Metals
+     */
+    public function setProduct(ArrayCollection $product)
+    {
+        $this->product[] = $product;
+        return $this;
+    }
+
+
 }
 
