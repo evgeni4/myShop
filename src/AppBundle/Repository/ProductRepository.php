@@ -54,11 +54,21 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
     public function collectionNew()
     {
-    return $this->createQueryBuilder('product')
-        ->andWhere('product.discount !=0')
-        ->getQuery()
-        ->execute();
+        return $this->createQueryBuilder('product')
+            ->andWhere('product.status = 1')
+            ->orderBy('product.dateAdded', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
+    public function productsByCategory($id)
+    {
+        return $this->createQueryBuilder('product')
+            ->where("product.category = $id")
+            ->orderBy('product.dateAdded', 'DESC')
+            ->getQuery()
+            ->execute();
     }
 }

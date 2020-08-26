@@ -4,31 +4,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 center">
-                    <h2>New Collection</h2>
+                    <h2>{{ titlePage}} / Collection</h2>
                 </div>
             </div>
         </div>
         <!-- / container -->
     </div>
-  
-                {% for msg in app.session.flashBag.get('info') %}
-                    <div id="alertMsg" class="alert alert-success" role="alert">
-                        <b>{{ msg }}</b>
-                    </div>
-                {% endfor %}
     <div id="body">
         <div class="container">
             <div class="">
-                <h2>Last added collections</h2>
+                <h4>{{ titlePage}}</h4>
                 <div class="container">
                     <div class="row">
+                        <div class="col-12">
+                            {% for msg in app.session.flashBag.get('info') %}
+                                <div id="alertMsg" class="alert alert-success" role="alert">
+                                    <b>{{ msg }}</b>
+                                </div>
+                            {% endfor %}
+                        </div>
                         {% if collections|length > 0 %}
                             {% for collection in collections %}
                                 <div class="col-4">
                                     <div class="last-products padding">
                                         <form>
-                                        {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
-                                            <span class="timeDisc"><span class="timer_{{ collection.id }} "></span>
+                                            {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
+                                                <span class="timeDisc"><span class="timer_{{ collection.id }} "></span>
                                          <script>
                                     var countDownDate_{{ collection.id }} = new Date("{{ collection.formatDate(collection.discountEnd) }}").getTime();
                                     var timeClear_{{ collection.id }} = setInterval(function() {
@@ -47,25 +48,26 @@
                                         }
                                     }, 1000);
                                 </script></span>
-                                        {%endif %}
-                                        {% if collection.discount >0 %}
-                                            <span class="pecents">  - {{ collection.discount}} %</span>
-                                        {% endif %}
-                                        {% set img = collection.image|split(',') %}
-                                        <div class="blk">
-                                            <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
-                                        </div>
-                                        <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                        {% if collection.discount !=0 %}
-                                            <div class="oldP">{{ collection.oldPrice }} $</div>
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% else %}
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% endif %}
-                                        <div class="btnAdd">
-                                            <button class="btn-grey">Add to cart</button>
-                                        </div>
-                                </form>
+                                            {%endif %}
+                                            {% if collection.discount >0 %}
+                                                <span class="pecents">  - {{ collection.discount}} %</span>
+                                            {% endif %}
+                                            {% set img = collection.image|split(',') %}
+                                            <div class="blk">
+                                                <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
+                                            </div>
+                                            <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
+                                            {% if collection.discount !=0 %}
+                                                <div class="oldP">{{ collection.oldPrice }} $</div>
+                                                <h4> {{ collection.price }} $</h4>
+                                            {% else %}
+                                                <h4> {{ collection.price }} $</h4>
+                                            {% endif %}
+                                            <div class="btnAdd">
+                                                <button class="btn-grey"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to cart</button>
+                                                <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn-grey">View</a>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -77,3 +79,4 @@
         <!-- / container -->
     </div>
 {% endblock %}
+

@@ -38,8 +38,10 @@
                         <div class="row">
                             {% if products|length > 0 %}
                                 {% for product in products.allProducts %}
+
                                 <div class="col-4">
                                     <div class="last-products padding">
+                                        <form>
                                         {% if product.validateDate(product.discountStart,product.discountEnd,product.discount) %}
                                             <span class="timeDisc"><span class="timer_{{ product.id }} "></span>
                                          <script>
@@ -70,14 +72,15 @@
                                         </div>
                                         <h3>{{ product.title }}</h3>
                                         {% if product.discount !=0 %}
-                                            <div class="oldP">{{ product.price }} $</div>
-                                            <h4> {{ product.newPrice }} $</h4>
+                                            <div class="oldP">{{ product.oldPrice }} $</div>
+                                            <h4> {{ product.price }} $</h4>
                                         {% else %}
                                             <h4> {{ product.price }} $</h4>
                                         {% endif %}
                                         <div class="btnAdd">
-                                            <a href="#" class="btn-add">Add to cart</a>
+                                            <button class="btn-grey">Add to cart</button>
                                         </div>
+                                    </form>
                                     </div>
                                     </div>
                             {% endfor %}

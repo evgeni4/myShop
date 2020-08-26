@@ -26,7 +26,9 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $currentUser = $this->userService->currentUser();
+        $titlePage = "Home";
         return $this->render('default/index.html.twig', [
+            'titlePage' => $titlePage,
             'user' => $currentUser,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);

@@ -157,11 +157,8 @@ class ProductController extends Controller
         $product = $this->productService->getOneById($id);
         $form = $this->createForm(ProductType::class, $product);
         $data = $request->request->get('product');
-        if($data['discountStart']===''){
-            $data['discountStart'] = $product->getDiscountStart();
-        }if($data['discountEnd']===''){
-            $data['discountStart'] = $product->getDiscountEnd();
-        }
+
+        $this->checkDiscountEmpty($data, $product);
         $form->handleRequest($request);
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorProduct($product)) {
             return $this->redirectToRoute('all_products');
@@ -254,18 +251,41 @@ class ProductController extends Controller
             if ($product->stopDiscount($product->getDiscountEnd(), $product->getDiscount())) {
                 $product = $this->productService->getOneById($product->getId());
                 $product->setDiscount('0');
-                $product->setNewPrice(intval('0'));
+                $product->setPrice($product->getOldPrice());
+                $product->setOldPrice(intval('0'));
                 $product->setDiscountStart('0');
                 $product->setDiscountEnd('0');
+                $product->setStatus('0');
+
                 $this->productService->update($product);
             }
-            if ($product->checkStartDiscount($product->getDiscountStart(), $product->getDiscount())) {
-                $price = $product->getPrice();
-                $discount = intval($product->getDiscount());
-                $priceNew = $price - ($price * ($discount / 100));
-                $product->setNewPrice($priceNew);
-                $this->productService->update($product);
+            if ($product->getStatus()==='0'){
+                if ($product->checkStartDiscount($product->getDiscountStart(), $product->getDiscount())) {
+
+                    $currentPrice = $product->getPrice();
+                    $discount = intval($product->getDiscount());
+                    $price = $currentPrice - ($currentPrice * ($discount / 100));
+
+                    $product->setPrice($price);
+                    $product->setOldPrice($currentPrice);
+                    $this->productService->updateStartDiscount($product);
+                }
             }
+        }
+    }
+
+    /**
+     * @param $data
+     * @param Product|null $product
+     */
+    private function checkDiscountEmpty($data, ?Product $product): void
+    {
+
+        if ($data['discountStart'] === '') {
+            $data['discountStart'] = $product->getDiscountStart();
+        }
+        if ($data['discountEnd'] === '') {
+            $data['discountStart'] = $product->getDiscountEnd();
         }
     }
 }

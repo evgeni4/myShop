@@ -70,9 +70,9 @@ class Product
      */
     private $price;
     /**
-     * @ORM\Column(name="newPrice", type="decimal",options={"default" : 0}, scale=2)
+     * @ORM\Column(name="oldPrice", type="decimal",options={"default" : 0}, scale=2)
      */
-    private $newPrice;
+    private $oldPrice;
     /**
      * @var int
      * @ORM\Column(name="discount", type="integer",options={"default" : 0})
@@ -133,12 +133,35 @@ class Product
      * @ORM\Column(name="discount_end", type="string",options={"default" : 0})
      */
     private $discountEnd;
+    /**
+     * @var string
+     * @ORM\Column(name="status", type="string",options={"default" : 0})
+     */
+    private $status;
     private $productService;
 
     public function __construct(ProductService $productService)
     {
         $this->dateAdded = new DateTime('now');
         $this->productService=$productService;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     * @return Product
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+        return $this;
     }
 
     /**
@@ -274,18 +297,18 @@ class Product
         return $this->price;
     }
 
-    public function getNewPrice()
+    public function getOldPrice()
     {
-        return $this->newPrice;
+        return $this->oldPrice;
     }
 
     /**
-     * @param mixed $newPrice
+     * @param mixed $oldPrice
      * @return Product
      */
-    public function setNewPrice($newPrice)
+    public function setOldPrice($oldPrice)
     {
-        $this->newPrice = $newPrice;
+        $this->oldPrice = $oldPrice;
         return $this;
     }
 
@@ -503,8 +526,12 @@ class Product
         $todayDate = $dateToday->format('Y:m:d');
         $dateStart = date('Y:m:d', strtotime($startDate));
         if ($dateStart === $todayDate && $discount > 0) {
+            if ($this->getStatus()==='1'){
+                return false;
+            }
             return true;
         }
+        return  false;
     }
 }
 

@@ -25,14 +25,22 @@ class ProductService implements ProductServiceInterface
 
     public function insert(Product $product): bool
     {
-       // $this->checkDiscount($product);
+        $this->checkDiscount($product);
         $product->setAuthor($this->author->currentUser());
         return $this->productRepository->create($product);
     }
 
     public function update(Product $product): bool
     {
-      //  $this->checkDiscount($product);
+       // $this->checkDiscount($product);
+        $product->setStatus('0');
+        return $this->productRepository->update($product);
+    }
+
+    public function updateStartDiscount(Product $product): bool
+    {
+        $this->checkDiscount($product);
+        $product->setStatus('1');
         return $this->productRepository->update($product);
     }
 
@@ -53,21 +61,31 @@ class ProductService implements ProductServiceInterface
 
     public function newCollection()
     {
-       return $this->productRepository->collectionNew();
+        return $this->productRepository->collectionNew();
     }
 
-//    /**
-//     * @param Product $product
-//     */
-//    private function checkDiscount(Product $product): void
-//    {
-//        $price = intval($product->getPrice());
-//        $discount = intval($product->getDiscount());
-//        if ($product->getDiscount() !== 0) {
-//            $priceNew = $price - ($price * ($discount / 100));
-//            $product->setNewPrice($priceNew);
-//        }
-//    }
+    public function updateDiscountData(Product $product): bool
+    {
+        return $this->productRepository->update($product);
+    }
+
+    /**
+     * @param Product $product
+     */
+    private function checkDiscount(Product $product): void
+    {
+        $price = intval($product->getPrice());
+        $discount = intval($product->getDiscount());
+        if ($product->getDiscount() === 0) {
+            $priceNew = $price - ($price * ($discount / 100));
+            $product->setPrice($priceNew);
+            $product->setOldPrice($price);
+        }
+    }
 
 
+    public function productsBy(int $id)
+    {
+        return $this->productRepository->productsByCategory($id);
+    }
 }

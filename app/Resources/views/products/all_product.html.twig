@@ -45,9 +45,9 @@
                                 <td>{{ product.metalId.title }}</td>
                                 <td>
                                     {% if product.discount !=0 %}
-                                        <b> <span>{{ product.newPrice }}</span>
-                                        </b>
-                                        <span style="text-decoration: line-through;color: red">{{ product.price }}</span>
+                                        <b> <span>{{ product.price }}</span>
+                                        </b><br>
+                                        <span style="text-decoration: line-through;color: red">{{ product.oldPrice }}</span>
                                     {% else %}
                                         <b>{{ product.price }}</b>
                                     {% endif %}

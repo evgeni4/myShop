@@ -2,7 +2,7 @@
 <html class="ie8 oldie" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Diana’s jewelry{% endblock %}</title>
+    <title>{% block title %}{{ titlePage }} | Diana’s jewelry{% endblock %}</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -71,11 +71,11 @@
             <div class="trigger"></div>
 {#            {{ render(controler('AppBundle:')) }}#}
             <ul>
-                <li><a href="{{ path('new_collection') }}">New collection</a></li>
+                <li><a href="{{ path('shop_index') }}">Home</a></li>
                 {% for category in categories.allCategory if categories.allCategory|length>0 %}
-                    <li><a href="{{ category.url }}">{{ category.title }}</a></li>
+                    <li><a href="{{ path('views_product_category',{'id':category.id}) }}">{{ category.title }}</a></li>
                 {% endfor %}
-                <li><a href="#">Promotions</a></li>
+                <li><a href="{{ path('new_promotion') }}">Promotions</a></li>
             </ul>
         </div>
         <!-- / container -->

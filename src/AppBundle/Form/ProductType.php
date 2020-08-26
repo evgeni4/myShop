@@ -20,7 +20,7 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('size')
             ->add('price')
-            ->add('newPrice')
+            ->add('oldPrice')
             ->add('discount')
             ->add('discountStart',TextType::class,['empty_data' => ''])
             ->add('discountEnd',TextType::class,['empty_data' => ''])

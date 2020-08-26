@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+    <div id="breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="{{ path('shop_index') }}">Home</a></li>
+                <li>Product - {{ product.title }}</li>
+            </ul>
+        </div>
+        <!-- / container -->
+    </div>
+    <!-- / body -->
+
+    <div id="body">
+        <div class="container">
+            <div id="content" class="full">
+                <div class="product">
+                    <div class="image">
+                        <div class="container">
+                            <div class="row">
+
+                                {% if product.discount %}
+                                    <div class="percent_view">  - {{ product.discount }} %</div>
+                                {% endif %}
+                                {% set img= product.image|split(',') %}
+                                <div class="col-md-12">
+                                    <img class=" " src="{{ asset('uploads/products_image/'~img.0) }}">
+                                        <div class="preview">
+                                            <div class="col-2">
+                                                {% for key,value in img %}
+                                                    <a class="thumbnail fancybox" rel="ligthbox"
+                                                       href="{{ asset('uploads/products_image/'~value) }}">
+                                                        <img class="thumbnail-img fit-image"
+                                                             src="{{ asset('uploads/products_image/'~value) }}">
+                                                    </a>
+                                                {% endfor %}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="details">
+                        <h1>{{ product.title }}</h1>
+                        <h5>{{ product.category.title }}</h5>
+                        {% if product.oldPrice !=0 %}
+
+                            <h5><span class="oldP">${{ product.oldPrice }}</span></h5>
+                            <h4>${{ product.price }}</h4>
+                        {% else %}
+                            <h4>${{ product.price }}</h4>
+                        {% endif %}
+                        <div class="entry">
+                            <div class="tabs">
+                                <div class="nav">
+                                    <ul>
+                                        <li class="active"><a href="#spec">Details</a></li>
+                                        <li><a href="#desc">Description</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content active" id="spec">
+                                    <div>Metal:{{ product.metalId.title }}</div>
+                                    <div>Scale Weight:{{ product.scaleWeight }}</div>
+                                    <div>Gender:{{ product.gender }}</div>
+                                </div>
+                                <div class="tab-content " id="desc">
+                                    <p>{{ product.description }}</p>
+                                </div>
+                                <div class="tab-content" id="ret">
+                                </div>
+                            </div>
+                        </div>
+                        {# {% if product.size in not null %} #}
+                        <div class="actions">
+                            {% set sizes = product.size|split(',') %}
+                            <label>Ring Size:</label>
+                            <select name="">
+                                {% for sz in sizes %}
+                                    <option value="{{ sz }}">{{ sz }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {# {% endif %} #}
+                        <div class="actions">
+                            <label>Quantity:</label>
+                            <input type="number" name="" class="form-control" value="1">
+                        </div>
+                        <div class="">
+                            <button class="btn-grey"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to
+                                cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / content -->
+        </div>
+        <!-- / container -->
+    </div>
+    <!-- / body -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            //FANCYBOX
+            //https://github.com/fancyapps/fancyBox
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+        });
+    </script>
+{% endblock %}
+
