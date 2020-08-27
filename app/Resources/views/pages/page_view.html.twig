@@ -21,10 +21,6 @@
                     <div class="image">
                         <div class="container">
                             <div class="row">
-
-                                {% if product.discount %}
-                                    <div class="percent_view">  - {{ product.discount }} %</div>
-                                {% endif %}
                                 {% set img= product.image|split(',') %}
                                 <div class="col-md-12">
                                     <img class=" " src="{{ asset('uploads/products_image/'~img.0) }}">
@@ -45,10 +41,12 @@
 
                     </div>
                     <div class="details">
+                        {% if product.discount !=0 %}
+                            <div class="percent_view">  - {{ product.discount }} %</div>
+                        {% endif %}
                         <h1>{{ product.title }}</h1>
                         <h5>{{ product.category.title }}</h5>
                         {% if product.oldPrice !=0 %}
-
                             <h5><span class="oldP">${{ product.oldPrice }}</span></h5>
                             <h4>${{ product.price }}</h4>
                         {% else %}
@@ -74,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        {# {% if product.size in not null %} #}
+                         {% if product.size in not null %}
                         <div class="actions">
                             {% set sizes = product.size|split(',') %}
                             <label>Ring Size:</label>
@@ -84,7 +82,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        {# {% endif %} #}
+                         {% endif %}
                         <div class="actions">
                             <label>Quantity:</label>
                             <input type="number" name="" class="form-control" value="1">

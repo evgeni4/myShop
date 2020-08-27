@@ -33,7 +33,8 @@ class ProductType extends AbstractType
                     'mapped' => false
                 ])
             ->add('category')
-            ->add('metalId');
+            ->add('metalId')
+        ;
     }
 
     /**

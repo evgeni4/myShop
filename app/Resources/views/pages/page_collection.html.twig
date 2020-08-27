@@ -27,8 +27,19 @@
                                 <div class="col-4">
                                     <div class="last-products padding">
                                         <form>
-                                        {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
-                                            <span class="timeDisc"><span class="timer_{{ collection.id }} "></span>
+                                        {% set img = collection.image|split(',') %}
+                                        <div class="blk">
+                                            <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
+                                        </div>
+                                        <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
+                                        {% if collection.discount !=0 %}
+                                            <div class="oldP">{{ collection.oldPrice }} $</div>
+                                            <h4> {{ collection.price }} $</h4>
+                                        {% else %}
+                                            <h4> {{ collection.price }} $</h4>
+                                        {% endif %}
+                                            {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
+                                                <div class="timerByViews"><span class="timer_{{ collection.id }} "></span>
                                          <script>
                                     var countDownDate_{{ collection.id }} = new Date("{{ collection.formatDate(collection.discountEnd) }}").getTime();
                                     var timeClear_{{ collection.id }} = setInterval(function() {
@@ -46,24 +57,14 @@
                                             document.querySelector(".timer_{{ collection.id }}").innerHTML = "{{ collection.title }} Finished";
                                         }
                                     }, 1000);
-                                </script></span>
-                                        {%endif %}
-                                        {% if collection.discount >0 %}
-                                            <span class="pecents">  - {{ collection.discount}} %</span>
-                                        {% endif %}
-                                        {% set img = collection.image|split(',') %}
-                                        <div class="blk">
-                                            <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
-                                        </div>
-                                        <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                        {% if collection.discount !=0 %}
-                                            <div class="oldP">{{ collection.oldPrice }} $</div>
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% else %}
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% endif %}
+                                </script></div>
+                                            {%endif %}
+                                            {% if collection.discount >0 %}
+                                                <span class="pecents">  - {{ collection.discount}} %</span>
+                                            {% endif %}
                                         <div class="btnAdd">
                                             <button class="btn-grey">Add to cart</button>
+                                            <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn-grey">View</a>
                                         </div>
                                 </form>
                                     </div>

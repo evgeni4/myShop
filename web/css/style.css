@@ -1,3 +1,6 @@
+.cartImg img{
+    width: 100px;
+}
 .gallery
 {
     display: inline-block;
@@ -98,7 +101,12 @@
     font-weight: bold;
     color: chocolate;
 }
-
+.timerByViews{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
 .blk .img-thumbnail {
     border: none;
 }

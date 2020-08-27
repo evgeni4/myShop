@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
+    <div id="breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="{{ path('shop_index') }}">Home</a></li>
+                <li>Cart</li>
+            </ul>
+        </div>
+        <!-- / container -->
+    </div>
+    <!-- / body -->
+
+    <div id="body">
+        <div class="container">
+            <div id="content" class="full">
+                <div class="cart-table">
+                    <table>
+                        <tr>
+                            <th class="items">Items</th>
+                            <th class="price">Price</th>
+                            <th class="qnt">Quantity</th>
+                            <th class="update"></th>
+                            <th class="total">Total</th>
+                            <th class="delete"></th>
+                        </tr>
+                        {%for cart in carts %}
+                        <tr>
+                            <td class="items">
+                                <div class="image cartImg" >
+                                    {% set img = cart.productId.image|split(',') %}
+                                    <img  src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
+
+                                </div>
+                                <h3><a href="#">{{ cart.productId.title }}</a></h3>
+                                <p>{{ cart.productId.description }}</p>
+                            </td>
+                            <td class="price">${{ cart.productId.price }}</td>
+                            <td class="qnt">
+                                <input type="number" value="{{ cart.quantity }}" class="form-control">
+                            </td>
+                            <td class="update"><a href="" class="btn btn-outline-success btn-sm">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </a></td>
+                            <td class="total">${{ cart.totalSum }}</td>
+                            <td class="delete">
+                                <a href="" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+                <div class="total-count">
+{#                    <h4>Subtotal: $4 500.00</h4>#}
+{#                    <p>+shippment: $30.00</p>#}
+                    <h3>Total to pay: <strong>$4 530.00</strong></h3>
+                    <a href="#" class="btn-grey">Finalize and pay</a>
+                </div>
+
+            </div>
+            <!-- / content -->
+        </div>
+        <!-- / container -->
+    </div>
+    <!-- / body -->
+    <script src="{{ asset('js/plugins.js') }}"></script>
+{% endblock %}
+

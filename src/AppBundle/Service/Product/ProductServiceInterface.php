@@ -14,6 +14,8 @@ interface ProductServiceInterface
 
     public function updateStartDiscount(Product $product): bool;
 
+    public function updateStopDiscount(Product $product): bool;
+
     public function delete(Product $product): bool;
 
     public function getOneById(int $id): ?Product;

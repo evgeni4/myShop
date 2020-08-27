@@ -7,6 +7,7 @@ use AppBundle\Form\ProductType;
 use AppBundle\Service\Metals\MetalsService;
 use AppBundle\Service\Product\ProductService;
 use AppBundle\Service\Users\UserService;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -46,7 +47,8 @@ class ProductController extends Controller
     {
         $currentUser = $this->userService->currentUser();
         $products = $this->productService->allProducts();
-        $this->productValidDiscountProcess($products);
+        $this->validStartDiscount($products);
+        $this->productValidDiscount($products);
         if ($currentUser->isUser()) {
             return $this->redirectToRoute('shop_index');
         }
@@ -157,9 +159,11 @@ class ProductController extends Controller
         $product = $this->productService->getOneById($id);
         $form = $this->createForm(ProductType::class, $product);
         $data = $request->request->get('product');
-
         $this->checkDiscountEmpty($data, $product);
+        $this->checkPriceAndDiscount($data, $product);
         $form->handleRequest($request);
+        var_dump($product);
+        //exit;
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorProduct($product)) {
             return $this->redirectToRoute('all_products');
         }
@@ -245,31 +249,39 @@ class ProductController extends Controller
     /**
      * @param array $products
      */
-    private function productValidDiscountProcess(array $products): void
+    private function productValidDiscount(array $products): void
     {
         foreach ($products as $product) {
-            if ($product->stopDiscount($product->getDiscountEnd(), $product->getDiscount())) {
-                $product = $this->productService->getOneById($product->getId());
-                $product->setDiscount('0');
+            $dateToday = new DateTime(); // Today
+            $todayDate = $dateToday->format('Y:m:d');
+            $dateEnd = date('Y:m:d', strtotime($product->getDiscountEnd()));
+            if ($todayDate === $dateEnd || $todayDate > $dateEnd) {
                 $product->setPrice($product->getOldPrice());
-                $product->setOldPrice(intval('0'));
+                $product->setOldPrice(0);
                 $product->setDiscountStart('0');
                 $product->setDiscountEnd('0');
                 $product->setStatus('0');
-
-                $this->productService->update($product);
+                $this->productService->updateStopDiscount($product);
             }
-            if ($product->getStatus()==='0'){
-                if ($product->checkStartDiscount($product->getDiscountStart(), $product->getDiscount())) {
+        }
+    }
 
-                    $currentPrice = $product->getPrice();
-                    $discount = intval($product->getDiscount());
-                    $price = $currentPrice - ($currentPrice * ($discount / 100));
-
-                    $product->setPrice($price);
-                    $product->setOldPrice($currentPrice);
-                    $this->productService->updateStartDiscount($product);
-                }
+    /**
+     * @param array $products
+     */
+    private function validStartDiscount(array $products): void
+    {
+        foreach ($products as $product) {
+            $dateToday = new DateTime(); // Today
+            $todayDate = $dateToday->format('Y:m:d');
+            $dateStart = date('Y:m:d', strtotime($product->getDiscountStart()));
+            if ($todayDate === $dateStart || $todayDate > $dateStart && $product->getStatus() === '0') {
+                $price = floatval($product->getPrice());
+                $discount = intval($product->getDiscount());
+                $product->setPrice($price - ($price * ($discount / 100)));
+                $product->setOldPrice($price);
+                $product->setStatus('1');
+                $this->productService->updateStartDiscount($product);
             }
         }
     }
@@ -288,4 +300,28 @@ class ProductController extends Controller
             $data['discountStart'] = $product->getDiscountEnd();
         }
     }
+
+    /**
+     * @param $data
+     * @param Product|null $product
+     */
+    private function checkPriceAndDiscount($data, ?Product $product): void
+    {
+        if (floatval($data['price']) !== floatval($product->getOldPrice())
+            || intval($data['discount']) !== intval($product->getDiscount())) {
+            $price = 0;
+            if (floatval($data['price']) !== floatval($product->getOldPrice())) {
+                $price = $data['price'];
+            }
+            if (intval($data) !== intval($product->getDiscount())) {
+                $product->setDiscount($data['discount']);
+            }
+            $discount = intval($product->getDiscount());
+            $product->setPrice($price - ($price * ($discount / 100)));
+            $product->setOldPrice($price);
+            $product->setStatus($product->getStatus());
+        }
+    }
+
+
 }

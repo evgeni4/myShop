@@ -3,7 +3,7 @@
 
 namespace AppBundle\Service\Product;
 
-
+use DateTime;
 use AppBundle\Entity\Product;
 use AppBundle\Repository\ProductRepository;
 use AppBundle\Service\Users\UserServiceInterface;
@@ -25,22 +25,27 @@ class ProductService implements ProductServiceInterface
 
     public function insert(Product $product): bool
     {
-        $this->checkDiscount($product);
         $product->setAuthor($this->author->currentUser());
+        $product->setStatus(0);
+        $this->checkDiscount($product);
         return $this->productRepository->create($product);
     }
 
     public function update(Product $product): bool
     {
-       // $this->checkDiscount($product);
-        $product->setStatus('0');
+      //  $product->setStatus('0');
         return $this->productRepository->update($product);
     }
 
     public function updateStartDiscount(Product $product): bool
     {
-        $this->checkDiscount($product);
-        $product->setStatus('1');
+        // $this->checkDiscountUpdate($product);
+
+       return $this->productRepository->update($product);
+    }
+
+    public function updateStopDiscount(Product $product): bool
+    {
         return $this->productRepository->update($product);
     }
 
@@ -69,23 +74,33 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->update($product);
     }
 
+    public function productsBy(int $id)
+    {
+        return $this->productRepository->productsByCategory($id);
+    }
+
     /**
      * @param Product $product
      */
     private function checkDiscount(Product $product): void
     {
-        $price = intval($product->getPrice());
+        $dateToday = new DateTime(); // Today
+        $todayDate = $dateToday->format('Y:m:d');
+        $dateStart = date('Y:m:d', strtotime($product->getDiscountStart()));
         $discount = intval($product->getDiscount());
-        if ($product->getDiscount() === 0) {
-            $priceNew = $price - ($price * ($discount / 100));
-            $product->setPrice($priceNew);
-            $product->setOldPrice($price);
+        if ($product->getDiscount() !== null || $todayDate === $dateStart) {
+            $price = floatval($product->getPrice());
+            if ($todayDate === $dateStart) {
+                if ($product->getDiscount() !== null) {
+                    $product->setPrice($price - ($price * ($discount / 100)));
+                    $product->setOldPrice($price);
+                    $product->setStatus('1');
+                } else {
+                    $product->setOldPrice(0);
+                }
+            } else {
+                $product->setOldPrice(0);
+            }
         }
-    }
-
-
-    public function productsBy(int $id)
-    {
-        return $this->productRepository->productsByCategory($id);
     }
 }

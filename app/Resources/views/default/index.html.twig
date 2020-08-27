@@ -41,9 +41,25 @@
 
                                 <div class="col-4">
                                     <div class="last-products padding">
-                                        <form>
-                                        {% if product.validateDate(product.discountStart,product.discountEnd,product.discount) %}
-                                            <span class="timeDisc"><span class="timer_{{ product.id }} "></span>
+                                        <form action="{{ path('add_cart', {'id': product.id}) }}" method="post">
+                                            <input type="hidden" name="cart[productId]" value="{{ product.id }}">
+                                            <input type="hidden" name="cart[quantity]" value="1">
+                                        {% if product.discount >0 %}
+                                            <span class="pecents">  - {{ product.discount}} %</span>
+                                        {% endif %}
+                                        {% set img = product.image|split(',') %}
+                                        <div class="blk">
+                                            <img src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
+                                        </div>
+                                        <h3>{{ product.title }}</h3>
+                                        {% if product.discount !=0 %}
+                                            <div class="oldP">{{ product.oldPrice }} $</div>
+                                            <h4> {{ product.price }} $</h4>
+                                        {% else %}
+                                            <h4> {{ product.price }} $</h4>
+                                        {% endif %}
+                                            {% if product.validateDate(product.discountStart,product.discountEnd,product.discount) %}
+                                                <div class="timerByViews"><span class="timer_{{ product.id }} "></span>
                                          <script>
                                     var countDownDate_{{ product.id }} = new Date("{{ product.formatDate(product.discountEnd) }}").getTime();
                                     var timeClear_{{ product.id }} = setInterval(function() {
@@ -61,24 +77,11 @@
                                             document.querySelector(".timer_{{ product.id }}").innerHTML = "{{ product.title }} Finished";
                                         }
                                     }, 1000);
-                                </script></span>
-                                        {%endif %}
-                                        {% if product.discount >0 %}
-                                            <span class="pecents">  - {{ product.discount}} %</span>
-                                        {% endif %}
-                                        {% set img = product.image|split(',') %}
-                                        <div class="blk">
-                                            <img src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
-                                        </div>
-                                        <h3>{{ product.title }}</h3>
-                                        {% if product.discount !=0 %}
-                                            <div class="oldP">{{ product.oldPrice }} $</div>
-                                            <h4> {{ product.price }} $</h4>
-                                        {% else %}
-                                            <h4> {{ product.price }} $</h4>
-                                        {% endif %}
+                                </script></div>
+                                            {%endif %}
                                         <div class="btnAdd">
                                             <button class="btn-grey">Add to cart</button>
+                                            <a href="{{ path('view_product',{'id':product.id}) }}" class="btn-grey">View</a>
                                         </div>
                                     </form>
                                     </div>

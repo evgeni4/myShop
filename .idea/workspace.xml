@@ -80,7 +80,10 @@
       <recent name="D:\xampp\htdocs\myShop\app" />
     </key>
   </component>
-  <component name="RunManager" selected="PHP Script.Product.php">
+  <component name="RunManager" selected="JavaScript Debug.ProductController.php">
+    <configuration name="ProductController.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/myShop/src/AppBundle/Controller/ProductController.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="Product.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
       <method v="2" />
     </configuration>
@@ -94,6 +97,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.ProductController.php" />
         <item itemvalue="PHP Script.Product.php" />
       </list>
     </recent_temporary>
@@ -108,7 +112,11 @@
       <updated>1597415765496</updated>
       <workItem from="1597415922004" duration="17207000" />
       <workItem from="1597606558392" duration="113124000" />
-      <workItem from="1597863916707" duration="262033000" />
+      <workItem from="1597863916707" duration="287220000" />
+      <workItem from="1595849825246" duration="125000" />
+      <workItem from="1596800478243" duration="94000" />
+      <workItem from="1598529090825" duration="50000" />
+      <workItem from="1598529221807" duration="4970000" />
     </task>
     <servers />
   </component>
@@ -120,10 +128,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1597417056538" />
-    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1598459064810">
+    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1598563997087">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1598459064810" />
+    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1598563997087" />
+    <state x="572" y="195" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1598548030552">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="572" y="195" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.728@0.0.1366.728" timestamp="1598548030552" />
     <state x="328" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598092546382">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -132,18 +144,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597729459333" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598462005686">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598559177880">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1598462005686" />
-    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1598446134208">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1598559177880" />
+    <state x="703" y="181" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1598540549891">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="489" y="129" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1366.728@0.0.1366.728" timestamp="1598446134208" />
-    <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1" timestamp="1598462982523">
+    <state x="703" y="181" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0/0.0.1366.728@0.0.1366.728" timestamp="1598540549891" />
+    <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1" timestamp="1598513626817">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1598462982523" />
+    <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1598513626817" />
     <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598425215217">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -164,14 +176,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598425788204" />
-    <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1598101829174">
+    <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1598544262508">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1598101829174" />
-    <state x="582" y="110" key="NewPhpClassDialog" timestamp="1598276596662">
+    <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1598544262508" />
+    <state x="582" y="110" key="NewPhpClassDialog" timestamp="1598548032091">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="582" y="110" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1598276596662" />
+    <state x="582" y="110" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1598548032091" />
     <state x="501" y="282" key="NewPhpFileDialog" timestamp="1598195905160">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

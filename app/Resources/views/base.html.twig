@@ -43,7 +43,7 @@
                             <button class="btn-sm btn-grey">search</button>
                         </form>
                     </li>
-                    <li><a href="#"><span class="ico-products"></span>3 products, $4 500.00</a></li>
+                    <li><a href="{{ path('my_cart') }}"><span class="ico-products"></span>3 products, $4 500.00</a></li>
                     {% if app.user %}
                         <li><a href="{{ path('user_office') }}">
                             <span class="imgProfile">

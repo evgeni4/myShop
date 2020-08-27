@@ -44,7 +44,7 @@
                                 <td>{{ product.category.title }}</td>
                                 <td>{{ product.metalId.title }}</td>
                                 <td>
-                                    {% if product.discount !=0 %}
+                                    {% if product.discount !='0' %}
                                         <b> <span>{{ product.price }}</span>
                                         </b><br>
                                         <span style="text-decoration: line-through;color: red">{{ product.oldPrice }}</span>

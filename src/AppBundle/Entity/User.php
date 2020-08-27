@@ -90,6 +90,11 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="author")
      */
     private $product;
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="userId")
+     */
+    private $cartProductId;
 
     public function __construct()
     {
@@ -103,6 +108,24 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     {
         return "";
     }
+    /**
+     * @return ArrayCollection
+     */
+    public function getCartProductId():ArrayCollection
+    {
+        return $this->cartProductId;
+    }
+
+    /**
+     * @param ArrayCollection $cartProductId
+     * @return User
+     */
+    public function setCartProductId(ArrayCollection $cartProductId)
+    {
+        $this->cartProductId[] = $cartProductId;
+        return $this;
+    }
+
     /**
      * @return string
      */

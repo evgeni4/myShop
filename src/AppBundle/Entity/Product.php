@@ -5,8 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Service\Product\ProductService;
 use ClassesWithParents\D;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\AclBundle\Entity\Car;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -61,7 +63,7 @@ class Product
     /**
      * @var float
      * @ORM\Column(name="price", type="decimal", scale=2)
-     * @Assert\NotBlank(message = "This ( Metal Type ) should not be blank.")
+     * @Assert\NotBlank(message = "This ( Price ) should not be blank.")
      * @Assert\Regex(
      *     pattern="/\d{1,3}(?:[.,]\d{3})*(?:[.,]\d{2})?/",
      *     match=true,
@@ -122,7 +124,11 @@ class Product
      * @ORM\JoinColumn(name="authorId",referencedColumnName="id")
      */
     private $author;
-
+    /**
+     * @var Car
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="productId")
+     */
+    private $cartProductId;
     /**
      * @var string|null
      * @ORM\Column(name="discount_start", type="string",options={"default" : 0})
@@ -138,13 +144,35 @@ class Product
      * @ORM\Column(name="status", type="string",options={"default" : 0})
      */
     private $status;
-    private $productService;
 
-    public function __construct(ProductService $productService)
+    public function __construct()
     {
         $this->dateAdded = new DateTime('now');
-        $this->productService=$productService;
     }
+    public function __toString()
+    {
+        return "";
+    }
+
+    /**
+     * @return Car
+     */
+    public function getCartProductId()
+    {
+        return $this->cartProductId;
+    }
+
+    /**
+     * @param Car $cartProductId
+     * @return Product
+     */
+    public function setCartProductId(Car $cartProductId)
+    {
+        $this->cartProductId = $cartProductId;
+        return $this;
+    }
+
+
 
     /**
      * @return string
@@ -514,10 +542,10 @@ class Product
         $dateToday = new DateTime(); // Today
         $todayDate = $dateToday->format('Y:m:d');
         $dateEnd = date('Y:m:d', strtotime($endDate));
-        if ($dateEnd < $todayDate || $discountCheck === 0) {
-            return true;
+        if ( $todayDate === $dateEnd || $todayDate > $dateEnd && $this->getStatus() === '1') {
+            return false;
         }
-        return false;
+        return true;
     }
 
     function checkStartDiscount($startDate, $discount)
@@ -525,7 +553,7 @@ class Product
         $dateToday = new DateTime(); // Today
         $todayDate = $dateToday->format('Y:m:d');
         $dateStart = date('Y:m:d', strtotime($startDate));
-        if ($dateStart === $todayDate && $discount > 0) {
+        if ($todayDate >=$dateStart  && $discount > 0) {
             if ($this->getStatus()==='1'){
                 return false;
             }
