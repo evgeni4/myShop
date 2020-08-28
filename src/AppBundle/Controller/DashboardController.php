@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,9 +16,14 @@ class DashboardController extends Controller
      * @var UserServiceInterface
      */
     private $userService;
-    public function __construct(UserServiceInterface $userService)
+    /**
+     * @var CartService
+     */
+    private $cartService;
+    public function __construct(CartService $cartService,UserServiceInterface $userService)
     {
         $this->userService = $userService;
+        $this->cartService = $cartService;
     }
     /**
      * @Route("/dashboard", name="user_office", methods={"GET"})
@@ -27,7 +33,8 @@ class DashboardController extends Controller
     public function userOffice()
     {
         $currentUser = $this->userService->currentUser();
-        return $this->render('users/dashboard.html.twig', ['user' => $currentUser]);
+        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+        return $this->render('users/dashboard.html.twig', ['user' => $currentUser,'cartStatus' => $cartStatus,]);
     }
     /**
      * @Route("/dashboard/customers", name="all_customers")
@@ -63,6 +70,50 @@ class DashboardController extends Controller
             [
                 'user' => $currentUser,
                 'allUsers'=>$allUsers
+            ]);
+    }
+
+    /**
+     * @Route("/dashboard/orders", name="all_orders", methods={"GET"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     */
+    public function userOrder()
+    {
+        $currentUser = $this->userService->currentUser();
+        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+        if (!$currentUser->isUser()){
+            return $this->redirectToRoute('shop_index');
+        }
+        $orders = $this->cartService->findByUser($currentUser->getId());
+        $ordersPending = $this->cartService->findByCartStatus($currentUser->getId());
+        return $this->render('users/orders_users.html.twig',
+            [
+                'cartStatus' => $cartStatus,
+                'user' => $currentUser,
+                'orders'=>$orders,
+                'ordersPending'=>$ordersPending
+            ]);
+    }
+    /**
+     * @Route("/dashboard/Allorders", name="user_orders", methods={"GET"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     */
+    public function userOrders()
+    {
+          $currentUser = $this->userService->currentUser();
+        if ($currentUser->isAdmin() ===true){
+            $orders = $this->cartService->userOrdersCompletes();
+            $cartStatus = $this->cartService->userOrdersPending();
+        }else{
+            $orders = $this->cartService->findByUser($currentUser->getId());
+            $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+        }
+
+        return $this->render('users/orders_users.html.twig',
+            [
+                'cartStatus' => $cartStatus,
+                'user' => $currentUser,
+                'orders'=>$orders
             ]);
     }
 }

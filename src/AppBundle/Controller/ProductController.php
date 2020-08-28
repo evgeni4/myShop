@@ -37,7 +37,6 @@ class ProductController extends Controller
         $this->userService = $userService;
         $this->metalService = $metalService;
     }
-
     /**
      * @Route("/dashboard/products", name="all_products", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
@@ -162,8 +161,6 @@ class ProductController extends Controller
         $this->checkDiscountEmpty($data, $product);
         $this->checkPriceAndDiscount($data, $product);
         $form->handleRequest($request);
-        var_dump($product);
-        //exit;
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorProduct($product)) {
             return $this->redirectToRoute('all_products');
         }
@@ -255,13 +252,13 @@ class ProductController extends Controller
             $dateToday = new DateTime(); // Today
             $todayDate = $dateToday->format('Y:m:d');
             $dateEnd = date('Y:m:d', strtotime($product->getDiscountEnd()));
-            if ($todayDate === $dateEnd || $todayDate > $dateEnd) {
+            if ($todayDate > $dateEnd && $product->getStatus() == '1') {
                 $product->setPrice($product->getOldPrice());
                 $product->setOldPrice(0);
                 $product->setDiscountStart('0');
                 $product->setDiscountEnd('0');
                 $product->setStatus('0');
-                $this->productService->updateStopDiscount($product);
+               $this->productService->updateStopDiscount($product);
             }
         }
     }
@@ -275,13 +272,13 @@ class ProductController extends Controller
             $dateToday = new DateTime(); // Today
             $todayDate = $dateToday->format('Y:m:d');
             $dateStart = date('Y:m:d', strtotime($product->getDiscountStart()));
-            if ($todayDate === $dateStart || $todayDate > $dateStart && $product->getStatus() === '0') {
+            if ($todayDate >= $dateStart && $product->getStatus() == '0') {
                 $price = floatval($product->getPrice());
                 $discount = intval($product->getDiscount());
                 $product->setPrice($price - ($price * ($discount / 100)));
                 $product->setOldPrice($price);
                 $product->setStatus('1');
-                $this->productService->updateStartDiscount($product);
+               $this->productService->updateStartDiscount($product);
             }
         }
     }

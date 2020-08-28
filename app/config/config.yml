@@ -41,6 +41,7 @@ twig:
     globals:
         categories: '@AppBundle\Service\Categories\CategoriesService'
         products: '@AppBundle\Service\Product\ProductService'
+#        carts: '@AppBundle\Service\Cart\CartService'
 
 # Doctrine Configuration
 doctrine:

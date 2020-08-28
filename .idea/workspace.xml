@@ -63,7 +63,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LESSON" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cosmetics" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -116,7 +116,7 @@
       <workItem from="1595849825246" duration="125000" />
       <workItem from="1596800478243" duration="94000" />
       <workItem from="1598529090825" duration="50000" />
-      <workItem from="1598529221807" duration="4970000" />
+      <workItem from="1598529221807" duration="98850000" />
     </task>
     <servers />
   </component>
@@ -128,10 +128,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1597417056538" />
-    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1598563997087">
+    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser" timestamp="1598636397126">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1598563997087" />
+    <state x="564" y="63" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1598636397126" />
     <state x="572" y="195" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1598548030552">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -144,10 +144,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597729459333" />
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598559177880">
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1598646189245">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1598559177880" />
+    <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1598646189245" />
     <state x="703" y="181" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method0" timestamp="1598540549891">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -156,10 +156,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1598513626817" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598425215217">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598638282728">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598425215217" />
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598638282728" />
     <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1598425788204">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -180,10 +180,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="218" height="539" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1598544262508" />
-    <state x="582" y="110" key="NewPhpClassDialog" timestamp="1598548032091">
+    <state x="582" y="110" key="NewPhpClassDialog" timestamp="1598642379827">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="582" y="110" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1598548032091" />
+    <state x="582" y="110" key="NewPhpClassDialog/0.0.1366.728@0.0.1366.728" timestamp="1598642379827" />
     <state x="501" y="282" key="NewPhpFileDialog" timestamp="1598195905160">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -192,14 +192,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="191" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598249387525" />
-    <state x="402" y="127" key="refactoring.ChangeSignatureDialog" timestamp="1598162602002">
+    <state x="402" y="127" key="refactoring.ChangeSignatureDialog" timestamp="1598642720459">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="402" y="127" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1598162602002" />
-    <state x="339" y="157" width="672" height="677" key="run.anything.popup" timestamp="1598335661298">
+    <state x="402" y="127" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1598642720459" />
+    <state x="339" y="157" width="672" height="677" key="run.anything.popup" timestamp="1598649425383">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="157" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1598335661298" />
+    <state x="339" y="157" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1598649425383" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1598699753680">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

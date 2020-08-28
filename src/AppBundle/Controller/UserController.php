@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Encryption\ArgonEncryption;
 use AppBundle\Service\Users\UserServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -25,11 +26,12 @@ class UserController extends Controller
      */
     private $userService;
     private $encryptionService;
-
-    public function __construct(UserServiceInterface $userService, ArgonEncryption $encryptionService)
+    private $cartService;
+    public function __construct(CartService $cartService,UserServiceInterface $userService, ArgonEncryption $encryptionService)
     {
         $this->userService = $userService;
         $this->encryptionService = $encryptionService;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -92,10 +94,12 @@ class UserController extends Controller
     public function edit()
     {
         $currentUser = $this->userService->currentUser();
+        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
 
         $messages = [];
         return $this->render('users/edit.html.twig',
             [
+                'cartStatus' => $cartStatus,
                 'user' => $currentUser,
                 'form' => $this->createForm(UserType::class)->createView(),
                 'errors' => $messages

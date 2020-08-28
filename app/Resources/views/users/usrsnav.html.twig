@@ -40,8 +40,7 @@
                                 Sales
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Orders</a>
-                                <a class="dropdown-item" href="#">Gift Vouchers</a>
+                                <a class="dropdown-item" href="{{ path('user_orders') }}">Orders</a>
                             </div>
                         </li>
                         <!-- Dropdown -->
@@ -80,7 +79,7 @@
                                 My Orders
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">View order history</a>
+                                <a class="dropdown-item" href="{{ path('all_orders') }}">View order</a>
                             </div>
                         </li>
                     {% endif %}

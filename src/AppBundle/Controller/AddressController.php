@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Address;
 use AppBundle\Form\AddressType;
 use AppBundle\Service\Address\AddressService;
+use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Users\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,9 +20,10 @@ class AddressController extends Controller
 {
     private $addressService;
     private $userService;
-
-    public function __construct(AddressService $addressService, UserService $userService)
+    private $cartService;
+    public function __construct(CartService $cartService,AddressService $addressService, UserService $userService)
     {
+        $this->cartService = $cartService;
         $this->addressService = $addressService;
         $this->userService = $userService;
     }
@@ -36,10 +38,12 @@ class AddressController extends Controller
 
         $address = $this->addressService->findByAuthor($this->getUser());
         $currentUser = $this->userService->currentUser();
+        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
         if (!$currentUser->isUser()){
             return $this->redirectToRoute('shop_index');
         }
         return $this->render('address/address.html.twig', [
+            'cartStatus' => $cartStatus,
             'user' => $currentUser,
             'address' => $address
         ]);
@@ -55,6 +59,7 @@ class AddressController extends Controller
         $messages = [];
         $currentUser = $this->userService->currentUser();
         $address = $this->addressService->findByAuthor($this->getUser());
+        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
         if (count($address)==1){
             return $this->redirectToRoute('address');
         }
@@ -62,6 +67,7 @@ class AddressController extends Controller
             return $this->redirectToRoute('shop_index');
         }
         return $this->render('address/address_add.html.twig', [
+            'cartStatus' => $cartStatus,
             'user' => $currentUser,
             'errors' => $messages,
             'form' => $this->createForm(AddressType::class)->createView()

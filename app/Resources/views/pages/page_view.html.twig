@@ -18,22 +18,24 @@
         <div class="container">
             <div id="content" class="full">
                 <div class="product">
+                    <form action="{{ path('add_cart', {'id': product.id}) }}" method="post">
+                        <input type="hidden" name="cart[productId]" value="{{ product.id }}">
                     <div class="image">
                         <div class="container">
                             <div class="row">
                                 {% set img= product.image|split(',') %}
                                 <div class="col-md-12">
                                     <img class=" " src="{{ asset('uploads/products_image/'~img.0) }}">
-                                        <div class="preview">
-                                            <div class="col-2">
-                                                {% for key,value in img %}
-                                                    <a class="thumbnail fancybox" rel="ligthbox"
-                                                       href="{{ asset('uploads/products_image/'~value) }}">
-                                                        <img class="thumbnail-img fit-image"
-                                                             src="{{ asset('uploads/products_image/'~value) }}">
-                                                    </a>
-                                                {% endfor %}
-                                            </div>
+                                    <div class="preview">
+                                        <div class="col-2">
+                                            {% for key,value in img %}
+                                                <a class="thumbnail fancybox" rel="ligthbox"
+                                                   href="{{ asset('uploads/products_image/'~value) }}">
+                                                    <img class="thumbnail-img fit-image"
+                                                         src="{{ asset('uploads/products_image/'~value) }}">
+                                                </a>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="details">
                         {% if product.discount !=0 %}
-                            <div class="percent_view">  - {{ product.discount }} %</div>
+                            <div class="percent_view"> - {{ product.discount }} %</div>
                         {% endif %}
                         <h1>{{ product.title }}</h1>
                         <h5>{{ product.category.title }}</h5>
@@ -72,27 +74,29 @@
                                 </div>
                             </div>
                         </div>
-                         {% if product.size in not null %}
-                        <div class="actions">
-                            {% set sizes = product.size|split(',') %}
-                            <label>Ring Size:</label>
-                            <select name="">
-                                {% for sz in sizes %}
-                                    <option value="{{ sz }}">{{ sz }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                         {% endif %}
+                        {% if product.size in not null %}
+                            <div class="actions">
+                                {% set sizes = product.size|split(',') %}
+                                <label>Ring Size:</label>
+                                <select name="">
+                                    {% for sz in sizes %}
+                                        <option value="{{ sz }}">{{ sz }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
                         <div class="actions">
                             <label>Quantity:</label>
-                            <input type="number" name="" class="form-control" value="1">
+                            <input type="number" name="cart[quantity]" class="form-control" value="1">
                         </div>
+                        {{ form_row(form._token) }}
                         <div class="">
                             <button class="btn-grey"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to
                                 cart
                             </button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
             <!-- / content -->

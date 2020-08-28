@@ -32,64 +32,78 @@
     </div>
     <div id="body">
         <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for msg in app.session.flashBag.get('info') %}
+                        <div id="alertMsg" class="alert alert-danger" role="alert">
+                            <b>{{ msg }}</b>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <div class="">
                 <h2>Last added products</h2>
-                    <div class="container">
-                        <div class="row">
-                            {% if products|length > 0 %}
-                                {% for product in products.allProducts %}
-
+                <div class="container">
+                    <div class="row">
+                        {% if newProduct|length > 0 %}
+                            {% for product in newProduct %}
                                 <div class="col-4">
                                     <div class="last-products padding">
                                         <form action="{{ path('add_cart', {'id': product.id}) }}" method="post">
                                             <input type="hidden" name="cart[productId]" value="{{ product.id }}">
-                                            <input type="hidden" name="cart[quantity]" value="1">
-                                        {% if product.discount >0 %}
-                                            <span class="pecents">  - {{ product.discount}} %</span>
-                                        {% endif %}
-                                        {% set img = product.image|split(',') %}
-                                        <div class="blk">
-                                            <img src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
-                                        </div>
-                                        <h3>{{ product.title }}</h3>
-                                        {% if product.discount !=0 %}
-                                            <div class="oldP">{{ product.oldPrice }} $</div>
-                                            <h4> {{ product.price }} $</h4>
-                                        {% else %}
-                                            <h4> {{ product.price }} $</h4>
-                                        {% endif %}
+
+                                            {% if product.discount >0 %}
+                                                <span class="pecents">  - {{ product.discount }} %</span>
+                                            {% endif %}
+                                            {% set img = product.image|split(',') %}
+                                            <div class="blk">
+                                                <img src="{{ asset('uploads/products_image/'~img.1) }}" alt=""
+                                                     class="img-thumbnail">
+                                            </div>
+                                            <h3>{{ product.title }}</h3>
+                                            {% if product.discount !=0 %}
+                                                <div class="oldP">{{ product.oldPrice }} $</div>
+                                                <h4> {{ product.price }} $</h4>
+                                            {% else %}
+                                                <h4> {{ product.price }} $</h4>
+                                            {% endif %}
                                             {% if product.validateDate(product.discountStart,product.discountEnd,product.discount) %}
                                                 <div class="timerByViews"><span class="timer_{{ product.id }} "></span>
-                                         <script>
-                                    var countDownDate_{{ product.id }} = new Date("{{ product.formatDate(product.discountEnd) }}").getTime();
-                                    var timeClear_{{ product.id }} = setInterval(function() {
-                                        var now_{{ product.id }} = new Date().getTime();
-                                        var timeLeft_{{ product.id }} = countDownDate_{{ product.id }} - now_{{ product.id }};
-                                        var days_{{ product.id }} = Math.floor(timeLeft_{{ product.id }} / (1000 * 60 * 60 * 24));
-                                        var hours_{{ product.id }} = Math.floor(
-                                            (timeLeft_{{ product.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                                        );
-                                        var minutes_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60 * 60)) / (1000 * 60));
-                                        var seconds_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60)) / 1000);
-                                        document.querySelector(".timer_{{ product.id }}").innerHTML = days_{{ product.id }} + "d " + hours_{{ product.id }} + "h " + minutes_{{ product.id }} + "m " + seconds_{{ product.id }} + "s ";
-                                        if (timeLeft_{{ product.id }} < 0) {
-                                            clearInterval(timeClear_{{ product.id }});
-                                            document.querySelector(".timer_{{ product.id }}").innerHTML = "{{ product.title }} Finished";
-                                        }
-                                    }, 1000);
-                                </script></div>
-                                            {%endif %}
-                                        <div class="btnAdd">
-                                            <button class="btn-grey">Add to cart</button>
-                                            <a href="{{ path('view_product',{'id':product.id}) }}" class="btn-grey">View</a>
-                                        </div>
-                                    </form>
+                                                    <script>
+                                                        var countDownDate_{{ product.id }} = new Date("{{ product.formatDate(product.discountEnd) }}").getTime();
+                                                        var timeClear_{{ product.id }} = setInterval(function () {
+                                                            var now_{{ product.id }} = new Date().getTime();
+                                                            var timeLeft_{{ product.id }} = countDownDate_{{ product.id }} - now_{{ product.id }};
+                                                            var days_{{ product.id }} = Math.floor(timeLeft_{{ product.id }} / (1000 * 60 * 60 * 24));
+                                                            var hours_{{ product.id }} = Math.floor(
+                                                                (timeLeft_{{ product.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                                                            );
+                                                            var minutes_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60 * 60)) / (1000 * 60));
+                                                            var seconds_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60)) / 1000);
+                                                            document.querySelector(".timer_{{ product.id }}").innerHTML = days_{{ product.id }} + "d " + hours_{{ product.id }} + "h " + minutes_{{ product.id }} + "m " + seconds_{{ product.id }} + "s ";
+                                                            if (timeLeft_{{ product.id }} < 0) {
+                                                                clearInterval(timeClear_{{ product.id }});
+                                                                document.querySelector(".timer_{{ product.id }}").innerHTML = "{{ product.title }} Finished";
+                                                            }
+                                                        }, 1000);
+                                                    </script>
+                                                </div>
+                                            {% endif %}
+                                            <div class="col-12"><input type="number" name="cart[quantity]" value="1"></div>
+                                            <div class="btnAdd">
+                                                <button class="btn-grey">Add to cart</button>
+                                                <a href="{{ path('view_product',{'id':product.id}) }}" class="btn-grey">View</a>
+
+                                            </div>
+                                        </form>
                                     </div>
-                                    </div>
+                                </div>
                             {% endfor %}
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
+                </div>
             </div>
         </div>
         <!-- / container -->

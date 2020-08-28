@@ -18,6 +18,12 @@
         <div class="container">
             <div id="content" class="full">
                 <div class="cart-table">
+                    {% for msg in app.session.flashBag.get('info') %}
+                        <div id="alertMsg" class="alert alert-success" role="alert">
+                            <b>{{ msg }}</b>
+                        </div>
+                    {% endfor %}
+                    {% if carts|length >0 %}
                     <table>
                         <tr>
                             <th class="items">Items</th>
@@ -28,39 +34,55 @@
                             <th class="delete"></th>
                         </tr>
                         {%for cart in carts %}
+                            <form id="" action="{{ path('edit_quantity') }}" method="post">
                         <tr>
+                            <input type="hidden" name="cart[id]" value="{{ cart.id }}">
+                            <input type="hidden" name="cart[userId]" value="{{ cart.userId.id }}">
+                            <input type="hidden" name="cart[productId]" value="{{ cart.productId.id }}">
                             <td class="items">
                                 <div class="image cartImg" >
                                     {% set img = cart.productId.image|split(',') %}
                                     <img  src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
 
                                 </div>
-                                <h3><a href="#">{{ cart.productId.title }}</a></h3>
+                                <h3><a href="{{ path('view_product',{'id':cart.productId.id}) }}">{{ cart.productId.title }}</a></h3>
                                 <p>{{ cart.productId.description }}</p>
                             </td>
                             <td class="price">${{ cart.productId.price }}</td>
                             <td class="qnt">
-                                <input type="number" value="{{ cart.quantity }}" class="form-control">
+                                <input type="number" name="cart[quantity]" value="{{ cart.quantity }}" class="form-control">
                             </td>
-                            <td class="update"><a href="" class="btn btn-outline-success btn-sm">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                                </a></td>
+                            <td class="update">
+                                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                            </td>
                             <td class="total">${{ cart.totalSum }}</td>
                             <td class="delete">
-                                <a href="" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a href="{{ path('delete_cart',{'id':cart.id}) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
+                                {{ form_row(form._token) }}
+                            </form>
                         {% endfor %}
                     </table>
                 </div>
-
                 <div class="total-count">
-{#                    <h4>Subtotal: $4 500.00</h4>#}
-{#                    <p>+shippment: $30.00</p>#}
-                    <h3>Total to pay: <strong>$4 530.00</strong></h3>
-                    <a href="#" class="btn-grey">Finalize and pay</a>
+                    <form action="{{ path('confirm_cart') }}">
+                        <h3>Total to pay: <strong>
+                                {% set totalSum = 0 %}
+                                {% for total in carts %}
+                                    {% set  totalSum = totalSum+total.totalSum %}
+                                {% endfor %}
+                                {{ totalSum|number_format(2, '.', ',') }}
+                            </strong></h3>
+                        <button type="submit" class="btn btn-success">Confirm the order</button>
+                    </form>
                 </div>
+                {% else %}
+                    <div class="col-12 total-count" style="height: 250px;text-align: center">
+                        <h2><strong>Your basket is empty!!!</strong></h2>
+                    </div>
 
+                {% endif %}
             </div>
             <!-- / content -->
         </div>

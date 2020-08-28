@@ -64,10 +64,12 @@ class Cart
     {
         $this->dateAdded = new DateTime('now');
     }
+
     public function __toString()
     {
         return "";
     }
+
     /**
      * Get id
      *
@@ -77,9 +79,6 @@ class Cart
     {
         return $this->id;
     }
-
-
-
 
 
     /**
@@ -190,7 +189,7 @@ class Cart
      *
      * @return Cart
      */
-    public function setStatus($status=0)
+    public function setStatus($status = 0)
     {
         $this->status = $status;
 
@@ -206,5 +205,7 @@ class Cart
     {
         return $this->status;
     }
+
+
 }
 

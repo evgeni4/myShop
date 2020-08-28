@@ -63,6 +63,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->execute();
     }
+
     public function productsByCategory($id)
     {
         return $this->createQueryBuilder('product')
@@ -70,5 +71,28 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('product.dateAdded', 'DESC')
             ->getQuery()
             ->execute();
+    }
+
+    public function newProducts()
+    {
+        return $this->createQueryBuilder('product')
+            ->orderBy('product.dateAdded', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function searchProcess(string $data)
+    {
+        return $this->createQueryBuilder('product')
+            ->where( 'product.title LIKE :word')
+            ->orWhere('product.price LIKE :word')
+            ->orWhere('product.oldPrice LIKE :word')
+            ->orWhere('product.discount LIKE :word')
+            ->orWhere('product.gender LIKE :word')
+            ->setParameter('word', '%'.$data.'%')
+            ->orderBy('product.dateAdded', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

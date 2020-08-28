@@ -95,7 +95,7 @@ class CategoriesController extends Controller
     }
 
     /**
-     * @Route("/dashboard/categories/edit/{id}", name="edit_category", methods={"GET"})
+     * @Route("/dashboard/categories/edit/{id}", name="edit_category", methods={"POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @param Request $request
      * @param int $id

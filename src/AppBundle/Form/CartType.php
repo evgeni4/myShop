@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Product;
+use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

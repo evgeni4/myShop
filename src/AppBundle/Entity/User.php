@@ -103,6 +103,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         $this->categories = new ArrayCollection();
         $this->metals = new ArrayCollection();
         $this->product = new ArrayCollection();
+        $this->cartProductId = new ArrayCollection();
     }
     public function __toString()
     {

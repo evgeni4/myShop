@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    {% include 'users/usrsnav.html.twig' %}
+    <div id="breadcrumbs">
+        <div class="container">
+            <h2>Customers</h2>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12"><br>
+                <div class="addBtn">
+                </div>
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                        <b>{{ msg }}</b>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="tabs">
+                <div class="tab-button-outer">
+                    <ul id="tab-button">
+                        <li><a href="#tab01">Completes</a></li>
+                        <li><a href="#tab02">Pending</a></li>
+                    </ul>
+                </div>
+                <div class="tab-select-outer">
+                    <select id="tab-select">
+                        <option value="#tab01">Completes</option>
+                        <option value="#tab02">Pending</option>
+                    </select>
+                </div>
+                <div id="tab01" class="tab-contents">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>№</th>
+                            <th>Title</th>
+                            <th>Scale Weight</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if orders|length > 0 %}
+                            {% for order in orders %}
+                                {% set img =order.productId.image|split(',') %}
+                                <tr>
+                                    <td><img class="imgSmTd" src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
+                                    </td>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.productId.title }}</td>
+                                    <td>{{ order.productId.scaleWeight }}</td>
+                                    <td>{{ order.productId.price }}</td>
+                                    <td>{{ order.quantity }}</td>
+                                    <td>{{ order.productId.price * order.quantity|number_format }}</td>
+                                    <td>Completed</td>
+                                    <td><a href="{{ path('view_product',{'id':order.productId.id}) }}" class="btn btn-success btn-sm">View</a></td>
+                                    <td>
+                                        {% if app.user.isUser or (app.user.isAdmin) %}
+                                        <a href="{{ path('delete_cart',{'id':order.id}) }}" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"  aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-danger alert-dismissible text-align">
+                                <strong>You have no orders!</strong>
+                            </div>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="tab02" class="tab-contents">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>№</th>
+                            <th>Title</th>
+                            <th>Scale Weight</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if ordersPending|length > 0 %}
+                            {% for orderP in ordersPending %}
+                                {% set img =orderP.productId.image|split(',') %}
+                                <tr>
+                                    <td><img class="imgSmTd" src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
+                                    </td>
+                                    <td>{{ orderP.id }}</td>
+                                    <td>{{ orderP.productId.title }}</td>
+                                    <td>{{ orderP.productId.scaleWeight }}</td>
+                                    <td>{{ orderP.productId.price }}</td>
+                                    <td>{{ orderP.quantity }}</td>
+                                    <td>{{ orderP.productId.price * orderP.quantity|number_format }}</td>
+                                    <td>Pending</td>
+                                    <td><a href="{{ path('view_product',{'id':orderP.productId.id}) }}" class="btn btn-success btn-sm">View</a></td>
+                                    <td><a href="{{ path('delete_cart',{'id':orderP.id}) }}" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"
+                                               aria-hidden="true"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-danger alert-dismissible text-align">
+                                <strong>You have no orders!</strong>
+                            </div>
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var $tabButtonItem = $('#tab-button li'),
+                $tabSelect = $('#tab-select'),
+                $tabContents = $('.tab-contents'),
+                activeClass = 'is-active';
+
+            $tabButtonItem.first().addClass(activeClass);
+            $tabContents.not(':first').hide();
+
+            $tabButtonItem.find('a').on('click', function (e) {
+                var target = $(this).attr('href');
+
+                $tabButtonItem.removeClass(activeClass);
+                $(this).parent().addClass(activeClass);
+                $tabSelect.val(target);
+                $tabContents.hide();
+                $(target).show();
+                e.preventDefault();
+            });
+
+            $tabSelect.on('change', function () {
+                var target = $(this).val(),
+                    targetSelectNum = $(this).prop('selectedIndex');
+
+                $tabButtonItem.removeClass(activeClass);
+                $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+                $tabContents.hide();
+                $(target).show();
+            });
+        });
+    </script>
+{% endblock %}

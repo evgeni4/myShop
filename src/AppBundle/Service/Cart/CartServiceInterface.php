@@ -15,4 +15,12 @@ interface CartServiceInterface
 
     public function delete(Cart $cart): bool;
 
+    public function getOneCart(int $id): ?Cart;
+
+    public function userOrdersCompletes();
+    public function userOrdersPending();
+
+    public function updateCartStatus(Cart $cart): bool;
+
+
 }

@@ -26,7 +26,7 @@
     <script>
         setTimeout(function () {
             $('#alertMsg').fadeOut();
-        }, 2000);
+        }, 3000);
     </script>
 </head>
 <body>
@@ -38,14 +38,24 @@
             <article class="right-links">
                 <ul>
                     <li>
-                        <form action="">
-                            <input type="text" class="form-search" name="search">
+                        <form action="{{ path('search_product') }}" method="post">
+                            <input type="text" class="form-search" name="product[title]">
                             <button class="btn-sm btn-grey">search</button>
                         </form>
                     </li>
-                    <li><a href="{{ path('my_cart') }}"><span class="ico-products"></span>3 products, $4 500.00</a></li>
+                    {% if user.isUser%}
+                    <li>
+                        <a href="{{ path('edit_cart') }}">
+                            <span class="ico-products">
+                                {% set totalSum = 0 %}
+                                {% for total in cartStatus %}
+                                    {% set  totalSum = totalSum+total.totalSum %}
+                                {% endfor %}
+                            </span>{{ cartStatus|length}} products, ${{ totalSum|number_format(2, '.', ',') }}</a>
+                    </li>
+                    {% endif %}
                     {% if app.user %}
-                        <li><a href="{{ path('user_office') }}">
+                        <li><a href="{{ path('edit_profile') }}">
                             <span class="imgProfile">
                                 {% if user.image =="" %}
                                     <img src="{{ asset('uploads/user_image/no_image.png') }}" alt="">

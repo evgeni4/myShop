@@ -20,6 +20,8 @@ interface ProductServiceInterface
 
     public function getOneById(int $id): ?Product;
 
+    public function newProducts();
+
     public function productsBy(int $id);
 
     public function updateDiscountData(Product $product): bool;

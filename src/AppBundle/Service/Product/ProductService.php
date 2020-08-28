@@ -33,7 +33,7 @@ class ProductService implements ProductServiceInterface
 
     public function update(Product $product): bool
     {
-      //  $product->setStatus('0');
+        //  $product->setStatus('0');
         return $this->productRepository->update($product);
     }
 
@@ -41,7 +41,7 @@ class ProductService implements ProductServiceInterface
     {
         // $this->checkDiscountUpdate($product);
 
-       return $this->productRepository->update($product);
+        return $this->productRepository->update($product);
     }
 
     public function updateStopDiscount(Product $product): bool
@@ -59,6 +59,11 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->findAll();
     }
 
+    public function searchForm(string $data)
+    {
+        return $this->productRepository->searchProcess($data);
+    }
+
     public function getOneById(int $id): ?Product
     {
         return $this->productRepository->find($id);
@@ -68,7 +73,10 @@ class ProductService implements ProductServiceInterface
     {
         return $this->productRepository->collectionNew();
     }
-
+    public function newProducts()
+    {
+        return $this->productRepository->newProducts();
+    }
     public function updateDiscountData(Product $product): bool
     {
         return $this->productRepository->update($product);
@@ -103,4 +111,6 @@ class ProductService implements ProductServiceInterface
             }
         }
     }
+
+
 }
