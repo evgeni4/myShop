@@ -52,8 +52,6 @@ class PagesController extends Controller
         $collections = $this->productService->searchForm($data['title']);
         $catId=$this->categoriesService->getAllCategory();
        $titlePage = "Search Result";
-//        $this->validStartDiscount($collections);
-//        $this->productValidDiscount($collections);
         return $this->render('pages/search_views.html.twig',
             [
                 'collections' => $collections,

@@ -58,13 +58,15 @@ class CartController extends Controller
     {
         $cart = new Cart();
         $form = $this->createForm(CartType::class, $cart);
+        $currentUser=$this->userService->currentUser();
         $data = $request->request->get('cart');
-        $cartCheck = $this->cartService->getOneCart(intval($data['productId']));
-
-        if ($cartCheck!==null && $cartCheck->getStatus()!=0){
+        $cartCheck = $this->cartService->checkOneCart(intval($data['productId']),$currentUser->getId());
+        if ($cartCheck){ 
             $this->addFlash('info', 'This product has already been added!');
             return $this->redirectToRoute('shop_index');
         }
+        var_dump('ups');
+        exit;
         $form->handleRequest($request);
         $this->cartService->addToCart($cart);
         return $this->redirectToRoute('edit_cart');

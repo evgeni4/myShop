@@ -51,7 +51,10 @@ class CartService implements CartServiceInterface
     {
         return $this->cartRepository->find($id);
     }
-
+    public function checkOneCart(int $id,int $userId)
+    {
+        return $this->cartRepository->findBy(['productId'=>$id,'userId'=>$userId,'status'=>0]);
+    }
     public function updateCartStatus(Cart $cart): bool
     {
         return $this->cartRepository->update($cart);

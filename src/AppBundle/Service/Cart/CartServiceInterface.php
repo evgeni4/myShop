@@ -17,6 +17,7 @@ interface CartServiceInterface
 
     public function getOneCart(int $id): ?Cart;
 
+    public function checkOneCart(int $id,int $userId);
     public function userOrdersCompletes();
     public function userOrdersPending();
 
