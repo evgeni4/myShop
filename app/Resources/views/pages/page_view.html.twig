@@ -43,12 +43,12 @@
 
                     </div>
                     <div class="details">
-                        {% if product.discount !=0 %}
+                        {% if product.status ==1 %}
                             <div class="percent_view"> - {{ product.discount }} %</div>
                         {% endif %}
                         <h1>{{ product.title }}</h1>
                         <h5>{{ product.category.title }}</h5>
-                        {% if product.oldPrice !=0 %}
+                        {% if product.status==1 %}
                             <h5><span class="oldP">${{ product.oldPrice }}</span></h5>
                             <h4>${{ product.price }}</h4>
                         {% else %}

@@ -61,12 +61,10 @@ class CartController extends Controller
         $currentUser=$this->userService->currentUser();
         $data = $request->request->get('cart');
         $cartCheck = $this->cartService->checkOneCart(intval($data['productId']),$currentUser->getId());
-        if ($cartCheck){ 
+        if ($cartCheck){
             $this->addFlash('info', 'This product has already been added!');
             return $this->redirectToRoute('shop_index');
         }
-        var_dump('ups');
-        exit;
         $form->handleRequest($request);
         $this->cartService->addToCart($cart);
         return $this->redirectToRoute('edit_cart');
@@ -124,6 +122,6 @@ class CartController extends Controller
             $this->cartService->updateCartStatus($cart);
         }
         $this->addFlash('info', 'Thank you! Your order has been successfully confirmed.!');
-        return $this->redirectToRoute('user_office');
+        return $this->redirectToRoute('all_orders');
     }
 }

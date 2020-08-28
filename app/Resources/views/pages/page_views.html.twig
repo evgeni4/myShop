@@ -28,7 +28,7 @@
                                 <div class="col-4">
                                     <div class="last-products padding">
                                         <form>
-                                            {% if collection.discount >0 %}
+                                            {% if collection.status ==1 %}
                                                 <span class="pecents">  - {{ collection.discount}} %</span>
                                             {% endif %}
                                             {% set img = collection.image|split(',') %}
@@ -36,7 +36,7 @@
                                                 <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
                                             </div>
                                             <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                            {% if collection.discount !=0 %}
+                                            {% if collection.status ==1 %}
                                                 <div class="oldP">{{ collection.oldPrice }} $</div>
                                                 <h4> {{ collection.price }} $</h4>
                                             {% else %}

@@ -84,8 +84,13 @@ class DashboardController extends Controller
         if (!$currentUser->isUser()){
             return $this->redirectToRoute('shop_index');
         }
-        $orders = $this->cartService->findByUser($currentUser->getId());
-        $ordersPending = $this->cartService->findByCartStatus($currentUser->getId());
+        if ($currentUser->isAdmin()){
+            $orders = $this->cartService->userOrdersCompletes();
+            $ordersPending = $this->cartService->userOrdersPending();
+        }else{
+            $orders = $this->cartService->findByUser($currentUser->getId());
+            $ordersPending = $this->cartService->findByCartStatus($currentUser->getId());
+        }
         return $this->render('users/orders_users.html.twig',
             [
                 'cartStatus' => $cartStatus,
@@ -98,20 +103,20 @@ class DashboardController extends Controller
      * @Route("/dashboard/Allorders", name="user_orders", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
-    public function userOrders()
+    public function userOneOrder()
     {
           $currentUser = $this->userService->currentUser();
-        if ($currentUser->isAdmin() ===true){
+        if ($currentUser->isAdmin()){
             $orders = $this->cartService->userOrdersCompletes();
-            $cartStatus = $this->cartService->userOrdersPending();
+            $ordersPending = $this->cartService->userOrdersPending();
         }else{
             $orders = $this->cartService->findByUser($currentUser->getId());
-            $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+            $ordersPending = $this->cartService->findByCartStatus($currentUser->getId());
         }
 
         return $this->render('users/orders_users.html.twig',
             [
-                'cartStatus' => $cartStatus,
+                'ordersPending' => $ordersPending,
                 'user' => $currentUser,
                 'orders'=>$orders
             ]);

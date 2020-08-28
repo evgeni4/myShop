@@ -43,6 +43,7 @@
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Status</th>
+                            <th>Contacts/Customer</th>
                             <th>View</th>
                             <th>Delete</th>
                         </tr>
@@ -61,6 +62,41 @@
                                     <td>{{ order.quantity }}</td>
                                     <td>{{ order.productId.price * order.quantity|number_format }}</td>
                                     <td>Completed</td>
+                                    <td>
+                                        <!-- Trigger the modal with a button -->
+                                        <button type="button" class="btn btn-grey btn-sm" data-toggle="modal" data-target="#cart_{{ order.id }}">Check details</button>
+
+                                        <!-- Modal -->
+                                        <div id="cart_{{ order.id }}" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Contacts</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td><strong>Full Name:</strong></td>
+                                                                <td><strong>{{ order.userId.fullName }}</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><strong>Email:</strong></td>
+                                                                <td><strong>{{ order.userId.email }}</strong></td></tr>  
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+
                                     <td><a href="{{ path('view_product',{'id':order.productId.id}) }}" class="btn btn-success btn-sm">View</a></td>
                                     <td>
                                         {% if app.user.isUser or (app.user.isAdmin) %}
