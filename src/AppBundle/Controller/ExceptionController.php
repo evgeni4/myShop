@@ -17,6 +17,7 @@ class ExceptionController extends Controller
     public function showAction()
     {
         $currentUser = $this->userService->currentUser();
-        return $this->render('error/template.html.twig', ['user' => $currentUser]);
+        $title = "Error Page";
+        return $this->render('error/template.html.twig', ['titlePage'=>$title,'user' => $currentUser]);
     }
 }

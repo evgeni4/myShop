@@ -35,9 +35,9 @@ framework:
 
 # Twig Configuration
 twig:
-#    exception_controller: AppBundle:Exception:show
-#    debug: '%kernel.debug%'
-#    strict_variables: '%kernel.debug%'
+    exception_controller: AppBundle:Exception:show
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
     globals:
         categories: '@AppBundle\Service\Categories\CategoriesService'
         products: '@AppBundle\Service\Product\ProductService'

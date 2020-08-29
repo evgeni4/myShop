@@ -13,45 +13,45 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
-      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
-      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
-      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
       <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
-      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
-      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
-      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
       <path value="$PROJECT_DIR$/vendor/psr/link" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/fig/link-util" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
     </include_path>
   </component>
   <component name="ProjectId" id="1g5sPbXrIvrvQ2Xe9XNtnq0v0xA" />
@@ -80,8 +80,8 @@
       <recent name="D:\xampp\htdocs\myShop\app" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.ProductController.php">
-    <configuration name="ProductController.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/myShop/src/AppBundle/Controller/ProductController.php" useBuiltInWebServerPort="true">
+  <component name="RunManager" selected="PHP Script.server">
+    <configuration name="ProductController.php" type="JavascriptDebugType" nameIsGenerated="true" uri="http://localhost:63342/myShop/src/AppBundle/Controller/ProductController.php" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="Product.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/src/AppBundle/Entity/Product.php">
@@ -97,7 +97,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.ProductController.php" />
         <item itemvalue="PHP Script.Product.php" />
       </list>
     </recent_temporary>
@@ -116,7 +115,10 @@
       <workItem from="1595849825246" duration="125000" />
       <workItem from="1596800478243" duration="94000" />
       <workItem from="1598529090825" duration="50000" />
-      <workItem from="1598529221807" duration="106854000" />
+      <workItem from="1598529221807" duration="107074000" />
+      <workItem from="1598679544079" duration="541000" />
+      <workItem from="1598680153669" duration="299000" />
+      <workItem from="1598680617614" duration="955000" />
     </task>
     <servers />
   </component>
@@ -156,26 +158,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="705" y="67" key="#com.jetbrains.php.refactoring.extractMethod.PhpExtractMethodDialog#method1/0.0.1366.728@0.0.1366.728" timestamp="1598513626817" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598638282728">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598680063394">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598638282728" />
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1598425788204">
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598680063394" />
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1598680086050">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598425788204" />
-    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1598425788203">
+    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598680086050" />
+    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1598680086049">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598425788203" />
-    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1598425788203">
+    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598680086049" />
+    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1598680086049">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598425788203" />
-    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1598425788204">
+    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598680086049" />
+    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1598680086049">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598425788204" />
+    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598680086049" />
     <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1598544262508">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
