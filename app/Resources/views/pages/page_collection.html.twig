@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block main %}
+    <div class="pagesMy">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 center">
+                    <h2>New Collection</h2>
+                </div>
+            </div>
+        </div>
+        <!-- / container -->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {% for msg in app.session.flashBag.get('info') %}
+                    <div id="alertMsg" class="alert alert-success" role="alert">
+                        <b>{{ msg }}</b>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if collections|length > 0 %}
+                {% for collection in collections %}
+                    <div class="col-4">
+                        <div class="last-collections padding">
+                            {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
+                                <span class="timeDisc"><span class="timer_{{ collection.id }} "></span>
+                                         <script>
+                                    var countDownDate_{{ collection.id }} = new Date("{{ collection.formatDate(collection.discountEnd) }}").getTime();
+                                    var timeClear_{{ collection.id }} = setInterval(function() {
+                                        var now_{{ collection.id }} = new Date().getTime();
+                                        var timeLeft_{{ collection.id }} = countDownDate_{{ collection.id }} - now_{{ collection.id }};
+                                        var days_{{ collection.id }} = Math.floor(timeLeft_{{ collection.id }} / (1000 * 60 * 60 * 24));
+                                        var hours_{{ collection.id }} = Math.floor(
+                                            (timeLeft_{{ collection.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                                        );
+                                        var minutes_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60)) / 1000);
+                                        document.querySelector(".timer_{{ collection.id }}").innerHTML = days_{{ collection.id }} + "d " + hours_{{ collection.id }} + "h " + minutes_{{ collection.id }} + "m " + seconds_{{ collection.id }} + "s ";
+                                        if (timeLeft_{{ collection.id }} < 0) {
+                                            clearInterval(timeClear_{{ collection.id }});
+                                            document.querySelector(".timer_{{ collection.id }}").innerHTML = "{{ collection.title }} Finished";
+                                        }
+                                    }, 1000);
+                                </script></span>
+                            {%endif %}
+                            {% if collection.discount >0 %}
+                                <span class="pecents">  - {{ collection.discount}} %</span>
+                            {% endif %}
+                            {% set img = collection.image|split(',') %}
+                            <div class="blk">
+                                <img src="{{ asset('uploads/collections_image/'~img.1)}}" alt="" class="img-thumbnail">
+                            </div>
+                            <h3>{{ collection.title }}</h3>
+                            {% if collection.discount !=0 %}
+                                <div class="oldP">{{ collection.price }} $</div>
+                                <h4> {{ collection.newPrice }} $</h4>
+                            {% else %}
+                                <h4> {{ collection.price }} $</h4>
+                            {% endif %}
+                            <div class="btnAdd">
+                                <a href="#" class="btn-add">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

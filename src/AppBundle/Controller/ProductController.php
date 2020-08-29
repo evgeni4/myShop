@@ -45,6 +45,8 @@ class ProductController extends Controller
     public function products()
     {
         $currentUser = $this->userService->currentUser();
+        $products = $this->productService->allProducts();
+        $this->productValidDiscountProcess($products);
         if ($currentUser->isUser()) {
             return $this->redirectToRoute('shop_index');
         }
@@ -154,6 +156,12 @@ class ProductController extends Controller
         $currentUser = $this->userService->currentUser();
         $product = $this->productService->getOneById($id);
         $form = $this->createForm(ProductType::class, $product);
+        $data = $request->request->get('product');
+        if($data['discountStart']===''){
+            $data['discountStart'] = $product->getDiscountStart();
+        }if($data['discountEnd']===''){
+            $data['discountStart'] = $product->getDiscountEnd();
+        }
         $form->handleRequest($request);
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorProduct($product)) {
             return $this->redirectToRoute('all_products');
@@ -169,7 +177,7 @@ class ProductController extends Controller
             $this->addFlash('info', "Edit product successfully!");
             return $this->redirectToRoute('all_products');
         }
-        return $this->render('products/add_product.html.twig',
+        return $this->render('products/edit_product.html.twig',
             [
                 'user' => $currentUser,
                 'errors' => $messages,
@@ -234,6 +242,30 @@ class ProductController extends Controller
             }
 
             $product->setImage(implode(',', $fileUp));
+        }
+    }
+
+    /**
+     * @param array $products
+     */
+    private function productValidDiscountProcess(array $products): void
+    {
+        foreach ($products as $product) {
+            if ($product->stopDiscount($product->getDiscountEnd(), $product->getDiscount())) {
+                $product = $this->productService->getOneById($product->getId());
+                $product->setDiscount('0');
+                $product->setNewPrice(intval('0'));
+                $product->setDiscountStart('0');
+                $product->setDiscountEnd('0');
+                $this->productService->update($product);
+            }
+            if ($product->checkStartDiscount($product->getDiscountStart(), $product->getDiscount())) {
+                $price = $product->getPrice();
+                $discount = intval($product->getDiscount());
+                $priceNew = $price - ($price * ($discount / 100));
+                $product->setNewPrice($priceNew);
+                $this->productService->update($product);
+            }
         }
     }
 }

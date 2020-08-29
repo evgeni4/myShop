@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Category</label>
-                        <select name="product[category]" id="dbType">
+                        <select name="product[category]" >
                             <option value="">Choose category</option>
                             {% for category in categories.allCategory %}
                                 <option value="{{ category.id }}">{{ category.title }}</option>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Metal Type</label>
-                        <select name="product[metalId]" id="dbType">
+                        <select name="product[metalId]"  >
                             <option value="">Choose metal type</option>
                             {% for metal in metals %}
                                 <option value="{{ metal.id }}">{{ metal.title }}</option>
@@ -60,6 +60,16 @@
                         <div id="discountShow" style="display: none;">
                             <label for="">Discount (%)</label>
                             <input type="text" name="product[discount]" class="form-control capt"/>
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <label for="">Start Date</label>{{ product.discountStart }}
+                                    <input type='text' id="discountStart" name="product[discountStart]" value="{{ product.discountStart }}" class="form-control"  />
+                                </div>
+                                <div class='col-sm-6'>
+                                    <label for="">End Date</label>
+                                    <input type='text' id="discountEnd" name="product[discountEnd]" value="{{ product.discountEnd }}" class="form-control"  />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -85,13 +95,14 @@
                     {{ form_row(form._token) }}
                     <div class="form-group">
                         <button type="submit" class="btn-grey">Add product</button>
-                        <a href="{{ path('all_categories') }}" class="btn btn-primary btn-sm">Back</a>
+                        <a href="{{ path('all_products') }}" class="btn btn-primary btn-sm">Back</a>
                     </div>
                 </form>
             </div>
             <div class="col-2"></div>
         </div>
     </div>
+    <script src="{{ asset('js/plugins.js') }}"></script>
     <script>
         function ShowAndHideSize() {
             var x = document.getElementById('sizeShow');
@@ -111,6 +122,19 @@
                 x.style.display = 'none';
             }
         }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#discountStart').datetimepicker({
+                format : 'DD-MM-YYYY HH:mm:ss'
+            });});
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#discountEnd').datetimepicker({
+                format : 'DD-MM-YYYY HH:mm:ss'
+            });
+        });
     </script>
 {% endblock %}
 

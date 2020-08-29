@@ -2,12 +2,10 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Categories;
-use AppBundle\Entity\Metals;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +20,10 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('size')
             ->add('price')
+            ->add('newPrice')
             ->add('discount')
+            ->add('discountStart',TextType::class,['empty_data' => ''])
+            ->add('discountEnd',TextType::class,['empty_data' => ''])
             ->add('description')
             ->add('gender')
             ->add('scaleWeight')

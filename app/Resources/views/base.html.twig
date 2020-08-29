@@ -16,9 +16,13 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="{{ asset('js/plugins.js') }}"></script>
+{#    <script src="{{ asset('js/plugins.js') }}"></script>#}
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/datepicker/bootstrap-datetimepicker.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/datepicker/bootstrap-datetimepicker.css') }}">
     <script>
         setTimeout(function () {
             $('#alertMsg').fadeOut();
@@ -67,7 +71,7 @@
             <div class="trigger"></div>
 {#            {{ render(controler('AppBundle:')) }}#}
             <ul>
-                <li><a href="#">New collection</a></li>
+                <li><a href="{{ path('new_collection') }}">New collection</a></li>
                 {% for category in categories.allCategory if categories.allCategory|length>0 %}
                     <li><a href="{{ category.url }}">{{ category.title }}</a></li>
                 {% endfor %}

@@ -2,8 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\Product\ProductService;
+use ClassesWithParents\D;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -67,11 +70,14 @@ class Product
      */
     private $price;
     /**
-     * @var string
-     * @ORM\Column(name="discount", type="string", nullable=true)
+     * @ORM\Column(name="newPrice", type="decimal",options={"default" : 0}, scale=2)
+     */
+    private $newPrice;
+    /**
+     * @var int
+     * @ORM\Column(name="discount", type="integer",options={"default" : 0})
      */
     private $discount;
-
     /**
      * @var string
      *
@@ -110,7 +116,6 @@ class Product
      * @var DateTime
      */
     private $dateAdded;
-
     /**
      * @var User
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="products")
@@ -118,15 +123,65 @@ class Product
      */
     private $author;
 
-    public function __construct()
+    /**
+     * @var string|null
+     * @ORM\Column(name="discount_start", type="string",options={"default" : 0})
+     */
+    private $discountStart;
+    /**
+     * @var string|null
+     * @ORM\Column(name="discount_end", type="string",options={"default" : 0})
+     */
+    private $discountEnd;
+    private $productService;
+
+    public function __construct(ProductService $productService)
     {
         $this->dateAdded = new DateTime('now');
+        $this->productService=$productService;
     }
+
+    /**
+     * @return string
+     */
+    public function getDiscountStart()
+    {
+        return $this->discountStart;
+    }
+
+    /**
+     * @param string $discountStart
+     * @return Product
+     */
+    public function setDiscountStart(string $discountStart)
+    {
+        $this->discountStart = $discountStart;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDiscountEnd()
+    {
+        return $this->discountEnd;
+    }
+
+    /**
+     * @param string $discountEnd |null
+     * @return $this
+     */
+    public function setDiscountEnd(string $discountEnd)
+    {
+        $this->discountEnd = $discountEnd;
+        return $this;
+    }
+
 
     /**
      * @return DateTime
      */
-    public function getDateAdded(): DateTime
+    public function getDateAdded()
     {
         return $this->dateAdded;
     }
@@ -182,7 +237,7 @@ class Product
      */
     public function setSize($size)
     {
-            $this->size = $size;
+        $this->size = $size;
 
         return $this;
     }
@@ -218,6 +273,22 @@ class Product
     {
         return $this->price;
     }
+
+    public function getNewPrice()
+    {
+        return $this->newPrice;
+    }
+
+    /**
+     * @param mixed $newPrice
+     * @return Product
+     */
+    public function setNewPrice($newPrice)
+    {
+        $this->newPrice = $newPrice;
+        return $this;
+    }
+
 
     /**
      * @param $discount
@@ -381,6 +452,59 @@ class Product
         return $this;
     }
 
+    /**
+     * @param $string
+     * @return false|string
+     */
+    public function formatDate($string)
+    {
+        $time = strtotime($string);
+        return date('Y-m-d H:i:s', $time);
+    }
 
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @param $productDiscount
+     * @return bool
+     */
+    function validateDate($startDate, $endDate, $productDiscount)
+    {
+        $dateToday = new DateTime(); // Today
+        $todayDate = $dateToday->format('Y:m:d');
+        $dateStart = date('Y:m:d', strtotime($startDate));
+        $dateEnd = date('Y:m:d', strtotime($endDate));
+        if ($dateStart <= $todayDate && $dateEnd >= $todayDate
+            && $productDiscount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $endDate
+     * @param $discountCheck
+     * @return bool
+     */
+    function stopDiscount($endDate, $discountCheck)
+    {
+        $dateToday = new DateTime(); // Today
+        $todayDate = $dateToday->format('Y:m:d');
+        $dateEnd = date('Y:m:d', strtotime($endDate));
+        if ($dateEnd < $todayDate || $discountCheck === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function checkStartDiscount($startDate, $discount)
+    {
+        $dateToday = new DateTime(); // Today
+        $todayDate = $dateToday->format('Y:m:d');
+        $dateStart = date('Y:m:d', strtotime($startDate));
+        if ($dateStart === $todayDate && $discount > 0) {
+            return true;
+        }
+    }
 }
 

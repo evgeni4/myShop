@@ -54,4 +54,11 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+    public function collectionNew()
+    {
+    return $this->createQueryBuilder('product')
+        ->andWhere('product.discount !=0')
+        ->getQuery()
+        ->execute();
+    }
 }
