@@ -119,7 +119,7 @@ class PagesController extends Controller
        // $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
         return $this->render('pages/page_view.html.twig',
             [
-                'cartStatus' => $cartStatus,
+//                 'cartStatus' => $cartStatus,
                 'product' => $product,
                 'user'=>$currentUser,
                 'titlePage'=>$titlePage,
