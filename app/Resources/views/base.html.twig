@@ -42,18 +42,24 @@
                             <input type="text" class="form-search" name="product[title]">
                             <button class="btn-sm btn-grey">search</button>
                         </form>
-                    </li>
-                    {% if user.isUser%}
+                    </li> 
                     <li>
-                        <a href="{{ path('edit_cart') }}">
-                            <span class="ico-products">
-                                {% set totalSum = 0 %}
-                                {% for total in cartStatus %}
-                                    {% set  totalSum = totalSum+total.totalSum %}
-                                {% endfor %}
-                            </span>{{ cartStatus|length}} products, ${{ totalSum|number_format(2, '.', ',') }}</a>
-                    </li>
-                    {% endif %}
+                    <a href="{{ path('edit_cart') }}">My Cart
+{#                            <span class="ico-products">#}
+{#                                {% if app.user %}#}
+{#                                {% set totalSum = 0 %}#}
+{#                                {% for total in  cartStatus %}#}
+{#                                    {{  total }}#}
+{#                                {% endfor %}#}
+{#                            </span>#}
+{#                            {{ cartsTotal.findByCartStatus()|length}} products, ${{ totalSum|number_format(2, '.', ',') }}#}
+{#                        {% else %}#}
+{#                            <span class="ico-products">#}
+{#                          $0.00#}
+{#                            </span>#}
+{#                        {% endif %}#}
+                        </a>
+                    </li> 
                     {% if app.user %}
                         <li><a href="{{ path('edit_profile') }}">
                             <span class="imgProfile">
