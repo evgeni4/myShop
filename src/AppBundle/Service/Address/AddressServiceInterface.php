@@ -12,6 +12,7 @@ interface AddressServiceInterface
     public function update(Address $address): bool;
     public function delete(Address $address): bool;
     public function getOne(int $id): ?Address;
-    public function findByAuthor($author);
+    public function findByAuthor(int $author);
+    public function addressByUser();
 
 }

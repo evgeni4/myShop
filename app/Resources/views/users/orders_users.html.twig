@@ -3,7 +3,7 @@
     {% include 'users/usrsnav.html.twig' %}
     <div id="breadcrumbs">
         <div class="container">
-            <h2>Customers</h2>
+            <h2>Orders</h2>
         </div>
         <!-- / container -->
     </div>
@@ -31,78 +31,112 @@
                         <option value="#tab02">Pending</option>
                     </select>
                 </div>
-                <div id="tab01" class="tab-contents">
+                <div id="tab01" class="tab-contents table-responsive">
                     <table class="table">
+                        {% if orders|length > 0 %}
                         <thead class="thead-dark">
                         <tr>
                             <th>Image</th>
-                            <th>№</th>
+                            <th>№.Order</th>
                             <th>Title</th>
                             <th>Scale Weight</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Total</th>
                             <th>Status</th>
-                            <th>Contacts/Customer</th>
+                            {% if user.admin %}
+                                <th>Contacts/Customer</th>
+                            {% endif %}
                             <th>View</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% if orders|length > 0 %}
                             {% for order in orders %}
                                 {% set img =order.productId.image|split(',') %}
                                 <tr>
                                     <td><img class="imgSmTd" src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
                                     </td>
-                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.orderNumber }}</td>
                                     <td>{{ order.productId.title }}</td>
                                     <td>{{ order.productId.scaleWeight }}</td>
                                     <td>{{ order.productId.price }}</td>
                                     <td>{{ order.quantity }}</td>
                                     <td>{{ order.productId.price * order.quantity|number_format }}</td>
                                     <td>Completed</td>
-                                    <td>
-                                        <!-- Trigger the modal with a button -->
-                                        <button type="button" class="btn btn-grey btn-sm" data-toggle="modal" data-target="#cart_{{ order.id }}">Check details</button>
+                                    {% if user.admin %}
+                                        <td>
+                                            <!-- Trigger the modal with a button -->
+                                            <button type="button" class="btn btn-grey btn-sm" data-toggle="modal"
+                                                    data-target="#cart_{{ order.id }}">Check details
+                                            </button>
 
-                                        <!-- Modal -->
-                                        <div id="cart_{{ order.id }}" class="modal fade" role="dialog">
-                                            <div class="modal-dialog">
+                                            <!-- Modal -->
+                                            <div id="cart_{{ order.id }}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
 
-                                                <!-- Modal content-->
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Contacts</h4>
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Contacts</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td><strong>Full Name:</strong></td>
+                                                                    <td><strong>{{ order.userId.fullName }}</strong>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Email:</strong></td>
+                                                                    <td><strong>{{ order.userId.email }}</strong></td>
+                                                                    <td><strong>{{ order.productId }}</strong></td>
+                                                                </tr>
+                                                                {% for adr in addressUser %}
+                                                                    {% if order.userId.id == adr.author.id %}
+                                                                        <tr>
+
+                                                                                <td><strong>Town / City</strong></td>
+                                                                                <td><strong>{{ adr.populated }}</strong></td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><strong>Post code</strong></td>
+                                                                            <td><strong>{{ adr.postCode }}</strong></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><strong>Address</strong></td>
+                                                                            <td><strong>{{ adr.address }}</strong></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><strong>Phone:</strong></td>
+                                                                            <td>
+                                                                                <strong>{{ adr.phone }}</strong>
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td><strong>Full Name:</strong></td>
-                                                                <td><strong>{{ order.userId.fullName }}</strong></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><strong>Email:</strong></td>
-                                                                <td><strong>{{ order.userId.email }}</strong></td></tr>
-                                                        </table>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    </div>
+
                                                 </div>
-
                                             </div>
-                                        </div>
-                                    </td>
-
-
-
-                                    <td><a href="{{ path('view_product',{'id':order.productId.id}) }}" class="btn btn-success btn-sm">View</a></td>
+                                        </td>
+                                    {% endif %}
+                                    <td><a href="{{ path('view_product',{'id':order.productId.id}) }}"
+                                           class="btn btn-success btn-sm">View</a></td>
                                     <td>
                                         {% if app.user.isUser or (app.user.isAdmin) %}
-                                        <a href="{{ path('delete_cart',{'id':order.id}) }}" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"  aria-hidden="true"></i>
-                                        </a>
+                                            <a href="{{ path('delete_cart',{'id':order.id}) }}"
+                                               class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -117,10 +151,11 @@
                 </div>
                 <div id="tab02" class="tab-contents">
                     <table class="table">
+                        {% if ordersPending|length > 0 %}
                         <thead class="thead-dark">
                         <tr>
                             <th>Image</th>
-                            <th>№</th>
+                            <th>№.Order</th>
                             <th>Title</th>
                             <th>Scale Weight</th>
                             <th>Price</th>
@@ -132,21 +167,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% if ordersPending|length > 0 %}
                             {% for orderP in ordersPending %}
                                 {% set img =orderP.productId.image|split(',') %}
                                 <tr>
                                     <td><img class="imgSmTd" src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
                                     </td>
-                                    <td>{{ orderP.id }}</td>
+                                    <td>{{ orderP.orderNumber }}</td>
                                     <td>{{ orderP.productId.title }}</td>
                                     <td>{{ orderP.productId.scaleWeight }}</td>
                                     <td>{{ orderP.productId.price }}</td>
                                     <td>{{ orderP.quantity }}</td>
                                     <td>{{ orderP.productId.price * orderP.quantity|number_format }}</td>
                                     <td>Pending</td>
-                                    <td><a href="{{ path('view_product',{'id':orderP.productId.id}) }}" class="btn btn-success btn-sm">View</a></td>
-                                    <td><a href="{{ path('delete_cart',{'id':orderP.id}) }}" class="btn btn-danger btn-sm">
+                                    <td><a href="{{ path('view_product',{'id':orderP.productId.id}) }}"
+                                           class="btn btn-success btn-sm">View</a></td>
+                                    <td><a href="{{ path('delete_cart',{'id':orderP.id}) }}"
+                                           class="btn btn-danger btn-sm">
                                             <i class="fa fa-trash"
                                                aria-hidden="true"></i></a></td>
                                 </tr>

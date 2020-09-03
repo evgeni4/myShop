@@ -39,7 +39,7 @@ class AddressService implements AddressServiceInterface
        return $this->addressRepository->remove($address);
     }
 
-    public function getOne($id): ?Address
+    public function getOne(int $id): ?Address
     {
     return $this->addressRepository->find($id);
     }
@@ -47,5 +47,9 @@ class AddressService implements AddressServiceInterface
     public function findByAuthor($author)
     {
         return $this->addressRepository->findBy(['author'=>$author]);
+    }
+    public function addressByUser()
+    {
+        return $this->addressRepository->findAll();
     }
 }

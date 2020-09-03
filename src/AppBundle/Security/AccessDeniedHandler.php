@@ -8,7 +8,6 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
     {
-        // ...
         return new Response('ops', 403);
     }
 }

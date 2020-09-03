@@ -25,10 +25,11 @@
                         </div>
                         {% if collections|length > 0 %}
                             {% for collection in collections %}
-                                <div class="col-4">
+                                <div class="col-md-4 col-sm-6 col-xs-12 row-flex">
                                     <div class="last-products padding">
-                                        <form>
-                                            {% if collection.status ==1 %}
+                                        <form action="{{ path('add_cart', {'id': collection.id}) }}" method="post">
+                                            <input type="hidden" name="cart[productId]" value="{{ collection.id }}">
+                                            {% if collection.status == 1 and(collection.discount >0) %}
                                                 <span class="pecents">  - {{ collection.discount}} %</span>
                                             {% endif %}
                                             {% set img = collection.image|split(',') %}
@@ -36,7 +37,7 @@
                                                 <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
                                             </div>
                                             <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                            {% if collection.status ==1 %}
+                                            {% if collection.status ==1 and(collection.discount >0) %}
                                                 <div class="oldP">{{ collection.oldPrice }} $</div>
                                                 <h4> {{ collection.price }} $</h4>
                                             {% else %}
@@ -64,9 +65,12 @@
                                 </script></div>
                                             {%endif %}
                                             <div class="btnAdd">
-                                                <button class="btn-grey"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to cart</button>
-                                                <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn-grey">View</a>
+                                                <button class="btn btn-success btn-sm"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to cart</button>
+                                                <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn btn-outline-dark btn-sm">View</a>
                                             </div>
+                                            <div class="col-12"><input style="text-align: center;font-weight: bold"
+                                                                       type="number" class="form-control"
+                                                                       name="cart[quantity]" value="1"></div>
                                         </form>
                                     </div>
                                 </div>
@@ -76,6 +80,11 @@
                                 <div id="alertMsg" class="alert alert-success">There are no products in this category</div>
                             </div>
                         {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 pagination">
+                            {{ knp_pagination_render(collections) }}
+                        </div>
                     </div>
                 </div>
             </div>

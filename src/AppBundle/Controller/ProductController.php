@@ -238,7 +238,6 @@ class ProductController extends Controller
                     $fileName);
                 $fileUp[] = $fileName;
             }
-
             $product->setImage(implode(',', $fileUp));
         }
     }

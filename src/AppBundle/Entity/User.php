@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\Address\AddressService;
+use AppBundle\Service\Address\AddressServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -95,6 +97,10 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="userId")
      */
     private $cartProductId;
+    /**
+     * @var AddressService
+     */
+    private $addressService;
 
     public function __construct()
     {
@@ -245,7 +251,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|null
      */
     public function getAddress(): ArrayCollection
     {
@@ -386,6 +392,13 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return in_array("ROLE_USER", $this->getRoles());
     }
 
+    /**
+     * @return Address[]|array
+     */
+    public function userAddress()
+    {
+        return $this->addressService->addressByUser();
+    }
     public function getSalt()
     {
         // TODO: Implement getSalt() method.

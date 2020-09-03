@@ -10,34 +10,30 @@
         </div>
         <!-- / container -->
     </div>
-  
-                {% for msg in app.session.flashBag.get('info') %}
-                    <div id="alertMsg" class="alert alert-success" role="alert">
-                        <b>{{ msg }}</b>
-                    </div>
-                {% endfor %}
     <div id="body">
-        <div class="container">
-            <div class="">
-                <h2>Last added collections</h2>
                 <div class="container">
                     <div class="row">
+                        <div class="col-12"><h2>Promotion</h2></div>
                         {% if collections|length > 0 %}
                             {% for collection in collections %}
-                                <div class="col-4">
+                                <div class="col-md-4 col-sm-6 col-xs-12 row-flex">
                                     <div class="last-products padding">
-                                        <form>
-                                        {% set img = collection.image|split(',') %}
+                                        <form action="{{ path('add_cart', {'id': collection.id}) }}" method="post">
+                                            <input type="hidden" name="cart[productId]" value="{{ collection.id }}">
+                                            {% if collection.status == 1 and(collection.discount >0) %}
+                                                <span class="pecents">  - {{ collection.discount}} %</span>
+                                            {% endif %}
+                                            {% set img = collection.image|split(',') %}
                                         <div class="blk">
                                             <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
                                         </div>
                                         <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                        {% if collection.discount !=0 %}
-                                            <div class="oldP">{{ collection.oldPrice }} $</div>
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% else %}
-                                            <h4> {{ collection.price }} $</h4>
-                                        {% endif %}
+                                            {% if collection.status ==1 and(collection.discount >0) %}
+                                                <div class="oldP">{{ collection.oldPrice }} $</div>
+                                                <h4> {{ collection.price }} $</h4>
+                                            {% else %}
+                                                <h4> {{ collection.price }} $</h4>
+                                            {% endif %}
                                             {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
                                                 <div class="timerByViews"><span class="timer_{{ collection.id }} "></span>
                                          <script>
@@ -63,18 +59,24 @@
                                                 <span class="pecents">  - {{ collection.discount}} %</span>
                                             {% endif %}
                                         <div class="btnAdd">
-                                            <button class="btn-grey">Add to cart</button>
-                                            <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn-grey">View</a>
+                                            <button class="btn btn-success btn-sm">Add to cart</button>
+                                            <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn btn-outline-dark btn-sm">View</a>
                                         </div>
+                                            <div class="col-12 row-flex"><input style="text-align: center;font-weight: bold"
+                                                                       type="number" class="form-control"
+                                                                       name="cart[quantity]" value="1"></div>
                                 </form>
                                     </div>
                                 </div>
                             {% endfor %}
                         {% endif %}
                     </div>
+                    <div class="row">
+                        <div class="col-12 pagination">
+                            {{ knp_pagination_render(collections) }}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
         <!-- / container -->
     </div>
 {% endblock %}

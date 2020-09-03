@@ -1,6 +1,116 @@
 
 
 
+.form-search-top{
+    position: relative;
+}
+.form-search-top .searches-f{
+    min-width: 300px;
+    max-width: 500px;
+    padding: 5px 10px 5px 30px;
+    border: 1px solid #cccccc;
+}
+.btn-form-search{
+    position: absolute;
+    background-color: transparent;
+    border: 0px;
+    top: 0;
+    left: 0;
+    font-size: 22px;
+    color: #cccccc;
+    padding: 5px;
+}
+.imagePr{
+    position: relative;
+}
+.imagePr img{
+    margin: 0 auto;
+    padding: 0;
+    position: absolute;
+    max-width: 500px;
+}
+.row-flex {
+    display: flex;
+    flex-flow: row wrap;
+}
+.modal-confirm {
+    color: #434e65;
+    width: 525px;
+}
+.modal-confirm .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+.modal-confirm .modal-header {
+    background: #e85e6c;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: -20px -20px 0;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 36px;
+    margin: 10px 0;
+}
+.modal-confirm .form-control, .modal-confirm .btn {
+    min-height: 40px;
+    border-radius: 3px;
+}
+.modal-confirm .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    text-shadow: none;
+    opacity: 0.5;
+}
+.modal-confirm .close:hover {
+    opacity: 0.8;
+}
+.modal-confirm .icon-box {
+    color: #fff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+}
+.modal-confirm .icon-box i {
+    font-size: 58px;
+    margin: -2px 0 0 -2px;
+}
+.modal-confirm.modal-dialog {
+    margin-top: 80px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #eeb711 !important;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 6px 20px;
+    min-width: 150px;
+    border: none;
+}
+.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+    background: #eda645 !important;
+    outline: none;
+}
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
 .tabs {
     max-width: 100%;
     margin: 0 auto;
@@ -119,7 +229,7 @@
 .imgProfile img {
     width: 40px;
     border-radius: 100%;
-    margin: -21px -15px;
+    margin: -21px 0px;
 }
 
 .form-search {
@@ -436,22 +546,35 @@ a:hover {
     font-family: "Novecentowide";
 }
 
-#header .right-links span {
-    float: left;
-    width: 20px;
-    height: 20px;
-    margin: 5px 12px 0 0;
-    background: url(../images/ico_header.png) no-repeat;
-}
+/*#header .right-links span {*/
+/*    float: left;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    margin: 5px 12px 0 0;*/
+/*    background: url(../images/ico_header.png) no-repeat;*/
+/*}*/
 
-#header .right-links span.ico-account {
-    background-position: -20px 0;
-}
+/*#header .right-links span.ico-account {*/
+/*    background-position: -20px 0;*/
+/*}*/
 
-#header .right-links span.ico-signout {
-    background-position: -40px 0;
+/*#header .right-links span.ico-signout {*/
+/*    background-position: -40px 0;*/
+/*}*/
+.cd-cart-trigger{
+    position: relative;
 }
-
+.qk{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    margin : -11px 15px;
+    line-height: 18px;
+    border-radius: 100%;
+    background-color: #333333;
+    color: #fff3cd;
+}
 #header .right-links li {
     float: left;
     color: #656567;
@@ -1248,18 +1371,15 @@ h1 {
     margin: 30px 0 0;
 }
 
-.pagination span {
-    display: inline-block;
-    background: url(../images/ico_pagination.png) no-repeat;
-    width: 30px;
-    height: 30px;
-    margin: 1px;
+.pagination{
+    margin: auto auto;
 }
 
 .pagination a:hover,
 .pagination .active a {
     text-decoration: none;
-    background-color: #cecece;
+    color: #fff;
+    background-color: #333336;
 }
 
 .pagination span.ico-next {
@@ -1273,15 +1393,14 @@ h1 {
 }
 
 .pagination li a {
-    width: 33px;
+    width: 40px;
     vertical-align: top;
     text-align: center;
     color: #656567;
-    font-family: "Novecentowide";
     font-size: 12px;
     font-weight: 500;
-    line-height: 29px;
-    height: 33px;
+    line-height: 40px;
+    height: 40px;
     border: 1px solid #cdcdcd;
     background-color: #fff;
     display: inline-block;

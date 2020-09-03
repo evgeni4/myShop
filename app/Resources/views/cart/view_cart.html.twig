@@ -18,12 +18,13 @@
         <div class="container">
             <div id="content" class="full">
                 <div class="cart-table">
-                    {% for msg in app.session.flashBag.get('info') %}
-                        <div id="alertMsg" class="alert alert-success" role="alert">
-                            <b>{{ msg }}</b>
+                    {% if addressUser==null %}
+                        <div id="alertMsg" style="text-align: center" class="alert alert-danger" role="alert">
+                            <strong>In order to place a purchase, you need a delivery address, fill in the delivery
+                                address!</strong>
                         </div>
-                    {% endfor %}
-                    {% if carts|length >0 %}
+                    {% endif %}
+                    {% if cartsTotal.findByCartStatus|length >0 %}
                     <table>
                         <tr>
                             <th class="items">Items</th>
@@ -33,34 +34,47 @@
                             <th class="total">Total</th>
                             <th class="delete"></th>
                         </tr>
-                        {%for cart in carts %}
-                            <form id="" action="{{ path('edit_quantity') }}" method="post">
-                        <tr>
-                            <input type="hidden" name="cart[id]" value="{{ cart.id }}">
-                            <input type="hidden" name="cart[userId]" value="{{ cart.userId.id }}">
-                            <input type="hidden" name="cart[productId]" value="{{ cart.productId.id }}">
-                            <td class="items">
-                                <div class="image cartImg" >
-                                    {% set img = cart.productId.image|split(',') %}
-                                    <img  src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
+                        {% for cart in cartsTotal.findByCartStatus %}
+                            <tr>
+                                <td class="items">
+                                    <div class="image cartImg">
+                                        {% set img = cart.productId.image|split(',') %}
+                                        <img src="{{ asset('uploads/products_image/'~img.0) }}" alt="">
 
-                                </div>
-                                <h3><a href="{{ path('view_product',{'id':cart.productId.id}) }}">{{ cart.productId.title }}</a></h3>
-                                <p>{{ cart.productId.description }}</p>
-                            </td>
-                            <td class="price">${{ cart.productId.price }}</td>
-                            <td class="qnt">
-                                <input type="number" name="cart[quantity]" value="{{ cart.quantity }}" class="form-control">
-                            </td>
-                            <td class="update">
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-                            </td>
-                            <td class="total">${{ cart.totalSum }}</td>
-                            <td class="delete">
-                                <a href="{{ path('delete_cart',{'id':cart.id}) }}" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            </td>
-                        </tr>
-                                {{ form_row(form._token) }}
+                                    </div>
+                                    <h3>
+                                        <a href="{{ path('view_product',{'id':cart.productId.id}) }}">{{ cart.productId.title }}</a>
+                                    </h3>
+                                    <p>{{ cart.productId.description }}</p>
+                                </td>
+                                <td class="price">${{ cart.productId.price }}</td>
+                                <form action="{{ path('edit_quantity') }}" method="post">
+                                    <input type="hidden" name="cart[id]" value="{{ cart.id }}">
+                                    <input type="hidden" name="cart[userId]" value="{{ cart.userId.id }}">
+                                    <input type="hidden" name="cart[productId]" value="{{ cart.productId.id }}">
+                                    <td class="qnt">
+                                        <input type="number" name="cart[quantity]" value="{{ cart.quantity }}"
+                                               class="form-control">
+                                    </td>
+                                    <td class="update">
+                                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-refresh"
+                                                                                                aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </form>
+                                <td class="total">${{ cart.totalSum }}</td>
+                                <form action="{{ path('delete_cart') }}" method="post">
+                                    <input type="hidden" name="cart[id]" value="{{ cart.id }}">
+                                    <input type="hidden" name="cart[userId]" value="{{ cart.userId.id }}">
+                                    <input type="hidden" name="cart[productId]" value="{{ cart.productId.id }}">
+                                    <td class="delete">
+                                        <button class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"
+                                                                                         aria-hidden="true"></i>
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                            {{ form_row(form._token) }}
                             </form>
                         {% endfor %}
                     </table>
@@ -69,7 +83,7 @@
                     <form action="{{ path('confirm_cart') }}">
                         <h3>Total to pay: <strong>
                                 {% set totalSum = 0 %}
-                                {% for total in carts %}
+                                {% for total in cartsTotal.findByCartStatus %}
                                     {% set  totalSum = totalSum+total.totalSum %}
                                 {% endfor %}
                                 {{ totalSum|number_format(2, '.', ',') }}

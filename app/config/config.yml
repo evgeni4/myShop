@@ -10,9 +10,12 @@ parameters:
     user_image: '%kernel.project_dir%/web/uploads/user_image/'
     products_image: '%kernel.project_dir%/web/uploads/products_image/'
 
+knp_paginator:
+    template:
+        pagination: 'pagination.html.twig'
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -36,11 +39,12 @@ framework:
 # Twig Configuration
 twig:
     exception_controller: AppBundle:Exception:show
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
+#    debug: '%kernel.debug%'
+#    strict_variables: '%kernel.debug%'
     globals:
         categories: '@AppBundle\Service\Categories\CategoriesService'
         products: '@AppBundle\Service\Product\ProductService'
+        cartsTotal: '@AppBundle\Service\Cart\CartService'
 #        carts: '@AppBundle\Service\Cart\CartService'
 
 # Doctrine Configuration

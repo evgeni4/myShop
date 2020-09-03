@@ -59,7 +59,7 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->findAll();
     }
 
-    public function searchForm(string $data)
+    public function searchForm( $data)
     {
         return $this->productRepository->searchProcess($data);
     }

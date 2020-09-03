@@ -32,29 +32,18 @@
     </div>
     <div id="body">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    {% for msg in app.session.flashBag.get('info') %}
-                        <div id="alertMsg" class="alert alert-danger" role="alert">
-                            <b>{{ msg }}</b>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="container">
             <div class="">
                 <h2>Last added products</h2>
                 <div class="container">
                     <div class="row">
                         {% if newProduct|length > 0 %}
                             {% for product in newProduct %}
-                                <div class="col-4">
+                                <div class="col-md-4 col-sm-6 col-xs-12 row-flex">
                                     <div class="last-products padding">
                                         <form action="{{ path('add_cart', {'id': product.id}) }}" method="post">
                                             <input type="hidden" name="cart[productId]" value="{{ product.id }}">
 
-                                            {% if product.discount >0 %}
+                                            {% if product.status ==1 %}
                                                 <span class="pecents">  - {{ product.discount }} %</span>
                                             {% endif %}
                                             {% set img = product.image|split(',') %}
@@ -92,11 +81,12 @@
                                                 </div>
                                             {% endif %}
                                             <div class="btnAdd">
-                                                <button class="btn-grey">Add to cart</button>
-                                                <a href="{{ path('view_product',{'id':product.id}) }}" class="btn-grey">View</a>
+                                                <button class="btn btn-success btn-sm">Add to cart</button>
+                                                <a href="{{ path('view_product',{'id':product.id}) }}" class="btn btn-outline-dark btn-sm">View</a>
                                             </div>
-                                            <div class="col-12"><input style="text-align: center;font-weight: bold" type="number" class="form-control" name="cart[quantity]" value="1"></div>
-
+                                                <div class="col-12">
+                                                    <input style="text-align: center;font-weight: bold" type="number" class="form-control" name="cart[quantity]" value="1">
+                                                </div>
                                         </form>
                                     </div>
                                 </div>

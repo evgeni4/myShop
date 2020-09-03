@@ -88,7 +88,7 @@ class CategoriesController extends Controller
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categoriesService->insert($category);
-            $this->addFlash("info", "Create category successfully!");
+            $this->addFlash("successfully", "Create category successfully!");
             return $this->redirectToRoute('all_categories');
         }
         return $this->templateView($currentUser, $messages);
@@ -151,7 +151,7 @@ class CategoriesController extends Controller
         }
         if ($form->isSubmitted() && $form->isValid()){
             $this->categoriesService->update($category);
-            $this->addFlash("info", "Update category successfully!");
+            $this->addFlash("successfully", "Update category successfully!");
             return $this->redirectToRoute('all_categories');
         }
         return $this->render('category/edit_category.html.twig',
@@ -184,7 +184,7 @@ class CategoriesController extends Controller
             return $this->redirectToRoute('shop_index');
         }
             $this->categoriesService->delete($category);
-            $this->addFlash("info", "Delete category successfully!");
+            $this->addFlash("successfully", "Delete category successfully!");
             return $this->redirectToRoute('all_categories');
     }
 

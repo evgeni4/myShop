@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cart;
 use AppBundle\Form\CartType;
+use AppBundle\Service\Address\AddressService;
 use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Users\UserService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,9 +18,11 @@ class CartController extends Controller
 {
     private $cartService;
     private $userService;
+    private $addressService;
 
-    public function __construct(CartService $cartService, UserService $userService)
+    public function __construct(AddressService $addressService,CartService $cartService, UserService $userService)
     {
+        $this->addressService = $addressService;
         $this->cartService = $cartService;
         $this->userService = $userService;
     }
@@ -33,13 +36,10 @@ class CartController extends Controller
     {
         $title = "My Cart";
         $currentUser = $this->userService->currentUser();
-        $carts = $this->cartService->findByCartStatus($currentUser->getId());
-        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
-
+        $addressUser = $this->addressService->findByAuthor($currentUser->getId());
         return $this->render('cart/view_cart.html.twig',
             [
-                'cartStatus' => $cartStatus,
-                'carts' => $carts,
+                'addressUser' => $addressUser,
                 'user' => $currentUser,
                 'titlePage' => $title,
                 'form' => $this->createForm(CartType::class)->createView()
@@ -58,25 +58,32 @@ class CartController extends Controller
     {
         $cart = new Cart();
         $form = $this->createForm(CartType::class, $cart);
-        $currentUser=$this->userService->currentUser();
+        $currentUser = $this->userService->currentUser();
+
         $data = $request->request->get('cart');
-        $cartCheck = $this->cartService->checkOneCart(intval($data['productId']),$currentUser->getId());
-        if ($cartCheck){
+
+        $cartCheck = $this->cartService->checkOneCart(intval($data['productId']), $currentUser->getId());
+        if ($currentUser->isSales() || $currentUser->isAdmin()) {
+            $this->addFlash('info', 'You cannot shop here!');
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+        if ($cartCheck) {
             $this->addFlash('info', 'This product has already been added!');
-            return $this->redirectToRoute('shop_index');
+            return $this->redirect($_SERVER['HTTP_REFERER']);
         }
         $form->handleRequest($request);
         $this->cartService->addToCart($cart);
-        return $this->redirectToRoute('edit_cart');
+        $this->addFlash('successfully', 'Product added to cart successfully!');
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
-     * @Route("/cart/quentity/edit",name="edit_quantity")
+     * @Route("/cart/quantity/edit",name="edit_quantity", methods={"POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @param Request $request
      * @return RedirectResponse
      */
-    public function editCartProcess(Request $request)
+    public function editCartQuantityProcess(Request $request)
     {
         $data = $request->request->get('cart');
         $id = intval($data['id']);
@@ -84,28 +91,31 @@ class CartController extends Controller
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
         $this->cartService->updateCart($cart);
-        $this->addFlash('info', 'Quantity changed successfully!');
-        return $this->redirectToRoute('edit_cart');
+        $this->addFlash('successfully', 'Quantity changed successfully!');
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
-     * @Route("/cart/delete/{id}", name="delete_cart")
+     * @Route("/cart/delete", name="delete_cart", methods={"POST"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @param Request $request
-     * @param int $id
      * @return Response|null
      */
-    public function deleteCartProcess(Request $request, int $id)
+    public function deleteCartProcess(Request $request)
     {
+        $data = $request->request->get('cart');
+        $id = intval($data['id']);
         $cart = $this->cartService->getOneCart($id);
         $form = $this->createForm(CartType::class, $cart);
         $form->handleRequest($request);
         if (null === $cart) {
-            return $this->redirectToRoute('edit_cart');
+           return $this->redirectToRoute('shop_index');
         }
-        $this->cartService->delete($cart);
-        $this->addFlash('info', 'Delete product successfully!');
-        return $this->redirectToRoute('edit_cart');
+        if ($form->isSubmitted()){
+            $this->cartService->delete($cart);
+            $this->addFlash('successfully', 'Delete product successfully!');
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
     }
 
     /**
@@ -117,6 +127,10 @@ class CartController extends Controller
     {
         $currentUser = $this->userService->currentUser();
         $carts = $this->cartService->findByCartStatus($currentUser->getId());
+        $addressUser = $this->addressService->findByAuthor($currentUser->getId());
+        if (!$addressUser){
+            return  $this->redirectToRoute('add_address');
+        }
         foreach ($carts as $cart) {
             $cart->setStatus(1);
             $this->cartService->updateCartStatus($cart);

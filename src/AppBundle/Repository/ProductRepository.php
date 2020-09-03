@@ -60,6 +60,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('product')
             ->andWhere('product.status = 1')
             ->orderBy('product.dateAdded', 'DESC')
+            ->orderBy('product.discount','DESC')
             ->getQuery()
             ->execute();
     }
@@ -82,7 +83,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->execute();
     }
 
-    public function searchProcess(string $data)
+    public function searchProcess( $data)
     {
         return $this->createQueryBuilder('product')
             ->where( 'product.title LIKE :word')

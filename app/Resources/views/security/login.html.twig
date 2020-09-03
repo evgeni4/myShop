@@ -10,16 +10,26 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8"><br><br>
-                {% for msg in app.session.flashBag.get('info') %}
-                    <div id="alertMsg" class="alert alert-success" role="alert">
-                        <b>{{ msg }}}</b>
-                    </div>
-                {% endfor %}
                 <form name="authenticate" action="{{ path('security_login') }}" method="post">
+                    <!-- Modal HTML -->
                     {% if error %}
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong>
+                        <div id="error-message" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content">
+                                    <div class="modal-header justify-content-center">
+                                        <div class="icon-box">
+                                            <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            &times;
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <h4>Ooops!</h4>
+                                        <strong>{{ error.messageKey|trans(error.messageData, 'security') }}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
                     <div class="form-group">

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+
 class PagesController extends Controller
 {
     private $productService;
@@ -30,7 +31,7 @@ class PagesController extends Controller
      * @param UserService $userService
      * @param CategoriesService $categoriesService
      */
-    public function __construct(CartService $cartService,ProductService $productService, UserService $userService,CategoriesService $categoriesService
+    public function __construct(CartService $cartService, ProductService $productService, UserService $userService, CategoriesService $categoriesService
     )
     {
         $this->cartService = $cartService;
@@ -41,65 +42,83 @@ class PagesController extends Controller
     }
 
     /**
-     * @Route("/views/result", name="search_product", methods={"POST"})
+     * @Route("/search/result", name="search_product")
      * @param Request $request
      * @return Response|null
      */
     public function search(Request $request)
     {
         $currentUser = $this->userService->currentUser();
-        $data=$request->request->get("product");
+        $data = $request->request->get("product");
         $collections = $this->productService->searchForm($data['title']);
-        $catId=$this->categoriesService->getAllCategory();
-       $titlePage = "Search Result";
+        $catId = $this->categoriesService->getAllCategory();
+        $paginator  = $this->get('knp_paginator');
+        $titlePage = "Search Result";
+        $pagination = $paginator->paginate(
+            $collections,
+            $request->query->getInt('page', 1),
+            3 /*images per page*/
+        );
         return $this->render('pages/search_views.html.twig',
             [
-                'collections' => $collections,
-                'user'=>$currentUser,
-                'titlePage'=>$titlePage,
+                'collections' => $pagination,
+                'user' => $currentUser,
+                'titlePage' => $titlePage,
             ]);
     }
 
 
-
     /**
      * @Route("/promotion", name="new_promotion", methods={"GET"})
+     * @param Request $request
      * @return Response|null
      */
-    public function promotion()
+    public function promotion(Request $request)
     {
         $currentUser = $this->userService->currentUser();
         $collections = $this->productService->newCollection();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $collections,
+            $request->query->getInt('page', 1) /*current page number*/,
+            3 /*images per page*/
+        );
         $this->validStartDiscount($collections);
         $this->productValidDiscount($collections);
-        $titlePage="Promotion";
+        $titlePage = "Promotion";
         return $this->render('pages/page_collection.html.twig',
             [
-                'collections' => $collections,
-                'user'=>$currentUser,
-                'titlePage'=>$titlePage
+                'collections' => $pagination,
+                'user' => $currentUser,
+                'titlePage' => $titlePage
             ]);
     }
 
     /**
      * @Route("/views/{id}", name="views_product_category", methods={"GET"})
+     * @param Request $request
      * @param int $id
      * @return Response|null
      */
-    public function views(int $id)
+    public function views(Request $request,int $id)
     {
         $currentUser = $this->userService->currentUser();
-        $collections = $this->productService->productsBy($id);
-
-        $catId=$this->categoriesService->getAllCategory();
+        $collections = $this->productService->productsBy(intval($id));
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $collections,
+            $request->query->getInt('page', 1) /*current page number*/,
+            3 /*images per page*/
+        );
+        $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
         $this->validStartDiscount($collections);
         $this->productValidDiscount($collections);
         return $this->render('pages/page_views.html.twig',
             [
-                'collections' => $collections,
-                'user'=>$currentUser,
-                'titlePage'=>$titlePage,
+                'collections' => $pagination,
+                'user' => $currentUser,
+                'titlePage' => $titlePage,
             ]);
     }
 
@@ -113,19 +132,20 @@ class PagesController extends Controller
         $currentUser = $this->userService->currentUser();
         $collections = $this->productService->productsBy($id);
         $product = $this->productService->getOneById($id);
-        $catId=$this->categoriesService->getAllCategory();
+        $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
 //        $this->productValidDiscountProcess((array)$collections);
-        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+//        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
         return $this->render('pages/page_view.html.twig',
             [
-                'cartStatus' => $cartStatus,
+//                'cartStatus' => $cartStatus,
                 'product' => $product,
-                'user'=>$currentUser,
-                'titlePage'=>$titlePage,
-                'form'=>$this->createForm(CartType::class)->createView()
+                'user' => $currentUser,
+                'titlePage' => $titlePage,
+                'form' => $this->createForm(CartType::class)->createView()
             ]);
     }
+
     /**
      * @param array $products
      */
@@ -145,6 +165,7 @@ class PagesController extends Controller
             }
         }
     }
+
     /**
      * @param array $products
      */
@@ -164,6 +185,7 @@ class PagesController extends Controller
             }
         }
     }
+
     /**
      * @param array $catId
      * @param int $id

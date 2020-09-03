@@ -59,7 +59,12 @@ class Cart
      * @var DateTime
      */
     private $dateAdded;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="orderNumber", type="string")
+     */
+    private $orderNumber;
     public function __construct()
     {
         $this->dateAdded = new DateTime('now');
@@ -68,6 +73,24 @@ class Cart
     public function __toString()
     {
         return "";
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber(): string
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param string $orderNumber
+     * @return Cart
+     */
+    public function setOrderNumber(string $orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+        return $this;
     }
 
     /**

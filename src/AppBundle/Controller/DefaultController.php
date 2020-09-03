@@ -6,6 +6,7 @@ use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Categories\CategoriesService;
 use AppBundle\Service\Product\ProductService;
 use AppBundle\Service\Users\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,15 +32,15 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $currentUser = $this->userService->currentUser();
+       $currentUser = $this->userService->currentUser();
         $titlePage = "Home";
-        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+
+
         $newProduct=$this->productService->newProducts();
         return $this->render('default/index.html.twig', [
-            'newProduct' => $newProduct,
-            'cartStatus' => $cartStatus,
-            'titlePage' => $titlePage,
             'user' => $currentUser,
+            'newProduct' => $newProduct,
+            'titlePage' => $titlePage,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }

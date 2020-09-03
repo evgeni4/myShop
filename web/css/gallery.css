@@ -51,11 +51,15 @@ fieldset {
     opacity: 1
 }
 
-.thumbnail-img {
+.thumbnail-img{
     width: 60px;
-    height: 60px
+    display:inline-block;
+    position: relative;
+    top: 100px;
 }
-
+.previewRow a img{
+    width: 60px!important;
+}
 @media screen and (max-width: 768px) {
     .pic0 {
         width: 250px;

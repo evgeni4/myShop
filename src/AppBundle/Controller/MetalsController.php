@@ -99,7 +99,7 @@ class MetalsController extends Controller
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->metalsService->insert($metal);
-            $this->addFlash('info', 'Create metal successfully!');
+            $this->addFlash('successfully', 'Create metal successfully!');
             return $this->redirectToRoute('all_metals');
         }
         return $this->render('metals/add_metals.html.twig',
@@ -168,7 +168,7 @@ class MetalsController extends Controller
         }
         if ($form->isSubmitted() && $form->isValid()) {
             $this->metalsService->update($metal);
-            $this->addFlash('info', 'Create metal successfully!');
+            $this->addFlash('successfully', 'Create metal successfully!');
             return $this->redirectToRoute('all_metals');
         }
         return $this->render('metals/edi_metals.html.twig',
@@ -200,7 +200,7 @@ class MetalsController extends Controller
             return $this->redirectToRoute('shop_index');
         }
         $this->metalsService->delete($metal);
-        $this->addFlash("info", "Delete metal successfully!");
+        $this->addFlash("successfully", "Delete metal successfully!");
         return $this->redirectToRoute('all_metals');
     }
     /**

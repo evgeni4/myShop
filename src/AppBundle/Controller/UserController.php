@@ -65,12 +65,14 @@ class UserController extends Controller
             );
         }
         $form->handleRequest($request);
+        $name = $form['fullName']->getData();
         $messages = $this->errorCollection($form, $messages);
         $user->setImage('');
         if ($form->isSubmitted() && $form->isValid()) {
             $count= $this->userService->allUser();
-            $this->userService->save($user,$count);
-            $this->addFlash('info', "You have successfully registered!");
+           $this->userService->save($user,$count);
+            $this->addFlash('successfully',  "$name successfully registered!");
+
             return $this->redirectToRoute('security_login');
         }
         return $this->render('users/register.html.twig',
@@ -84,6 +86,7 @@ class UserController extends Controller
      */
     public function logout()
     {
+        //$this->addFlash('successfully', "We are waiting for you again!");
         throw new Exception("Logout failed");
     }
     /**
@@ -140,8 +143,8 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->uploadFile($form, $currentUser);
             $this->userService->update($currentUser);
-            $this->addFlash('info', 'Update Profile successfully!');
-            return $this->redirectToRoute("user_office");
+            $this->addFlash('successfully', 'Update Profile successfully!');
+            return $this->redirectToRoute("all_products");
         }
         return $this->render('users/edit.html.twig',
             [
