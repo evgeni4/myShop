@@ -135,10 +135,17 @@ class PagesController extends Controller
         $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
 //        $this->productValidDiscountProcess((array)$collections);
+<<<<<<< HEAD
 //        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
         return $this->render('pages/page_view.html.twig',
             [
 //                'cartStatus' => $cartStatus,
+=======
+       // $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+        return $this->render('pages/page_view.html.twig',
+            [
+//                 'cartStatus' => $cartStatus,
+>>>>>>> cfab24af2ab09376294528bcc181d5b0dc3c4984
                 'product' => $product,
                 'user' => $currentUser,
                 'titlePage' => $titlePage,

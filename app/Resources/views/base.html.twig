@@ -98,6 +98,7 @@
                                 </button>
                             </div>
                         </form>
+<<<<<<< HEAD
                     </li>
                     <li>
                         <div id="cd-cart-trigger">
@@ -113,6 +114,26 @@
                         </div>
                     </li>
 
+=======
+                    </li> 
+                    <li>
+                    <a href="{{ path('edit_cart') }}">My Cart
+{#                            <span class="ico-products">#}
+{#                                {% if app.user %}#}
+{#                                {% set totalSum = 0 %}#}
+{#                                {% for total in  cartStatus %}#}
+{#                                    {{  total }}#}
+{#                                {% endfor %}#}
+{#                            </span>#}
+{#                            {{ cartsTotal.findByCartStatus()|length}} products, ${{ totalSum|number_format(2, '.', ',') }}#}
+{#                        {% else %}#}
+{#                            <span class="ico-products">#}
+{#                          $0.00#}
+{#                            </span>#}
+{#                        {% endif %}#}
+                        </a>
+                    </li> 
+>>>>>>> cfab24af2ab09376294528bcc181d5b0dc3c4984
                     {% if app.user %}
                         <li><a href="{{ path('edit_profile') }}">
                             <span class="imgProfile">
