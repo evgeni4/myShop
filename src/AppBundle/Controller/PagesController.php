@@ -144,17 +144,10 @@ class PagesController extends Controller
         $product = $this->productService->getOneById($id);
         $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
-<<<<<<< HEAD
         $this->productService->dateDiscount($this->productService->allProducts());
 
         return $this->render('pages/page_view.html.twig',
             [
-=======
-       // $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
-        return $this->render('pages/page_view.html.twig',
-            [
-//               'cartStatus' => $cartStatus,
->>>>>>> 01882a8c1a3c576ed16c6b03e47ba8a3faa17012
                 'product' => $product,
                 'user' => $currentUser,
                 'titlePage' => $titlePage,
@@ -184,7 +177,7 @@ class PagesController extends Controller
      * @param Request $request
      * @return array
      */
-    public function filterProduct($minPrice, $minMaxDiscount, Request $request): array
+    private function filterProduct($minPrice, $minMaxDiscount, Request $request): array
     {
         $minP = intval(min($minPrice));
         $maxP = intval(max($minPrice));
