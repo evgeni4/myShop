@@ -97,7 +97,11 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </div>
+<<<<<<< HEAD
                         </form>
+=======
+                        </form> 
+>>>>>>> 01882a8c1a3c576ed16c6b03e47ba8a3faa17012
                     </li>
                     {% if app.user.isAdmin() == false %}
                         <li id="cd-cart-trigger">
@@ -108,10 +112,35 @@
                                 0
                             {% endif %}
                             </span>
+<<<<<<< HEAD
                             <a class="cd-img-replace" href="#0">
                                 <i class="fa fa-shopping-cart" style="font-weight: bold;font-size: 22px"></i></a>
                         </li>
                     {% endif %}
+=======
+                        <a class="cd-img-replace" href="#0">
+                        <i class="fa fa-shopping-cart" style="font-weight: bold;font-size: 22px"></i></a>
+                        </div>
+                    </li> 
+                    </li> 
+                    <li>
+                    <a href="{{ path('edit_cart') }}">My Cart
+{#                            <span class="ico-products">#}
+{#                                {% if app.user %}#}
+{#                                {% set totalSum = 0 %}#}
+{#                                {% for total in  cartStatus %}#}
+{#                                    {{  total }}#}
+{#                                {% endfor %}#}
+{#                            </span>#}
+{#                            {{ cartsTotal.findByCartStatus()|length}} products, ${{ totalSum|number_format(2, '.', ',') }}#}
+{#                        {% else %}#}
+{#                            <span class="ico-products">#}
+{#                          $0.00#}
+{#                            </span>#}
+{#                        {% endif %}#}
+                        </a>
+                    </li>  
+>>>>>>> 01882a8c1a3c576ed16c6b03e47ba8a3faa17012
                     {% if app.user %}
                         <li><a href="{{ path('edit_profile') }}">
                             <span class="imgProfile">
