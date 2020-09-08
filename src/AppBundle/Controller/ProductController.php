@@ -37,6 +37,7 @@ class ProductController extends Controller
         $this->userService = $userService;
         $this->metalService = $metalService;
     }
+
     /**
      * @Route("/dashboard/products", name="all_products", methods={"GET"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
@@ -46,13 +47,13 @@ class ProductController extends Controller
     {
         $currentUser = $this->userService->currentUser();
         $products = $this->productService->allProducts();
-        $this->validStartDiscount($products);
-        $this->productValidDiscount($products);
+        $this->productService->dateDiscount($products);
         if ($currentUser->isUser()) {
             return $this->redirectToRoute('shop_index');
         }
         return $this->render('products/all_product.html.twig',
             [
+                'productsAll' => $products,
                 'user' => $currentUser
             ]
         );
@@ -102,7 +103,7 @@ class ProductController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $this->uploadImages($files, $product);
             $this->productService->insert($product);
-            $this->addFlash('info', "Added product successfully!");
+            $this->addFlash('successfully', "Added product successfully!");
             return $this->redirectToRoute('all_products');
         }
         return $this->render('products/add_product.html.twig',
@@ -158,8 +159,7 @@ class ProductController extends Controller
         $product = $this->productService->getOneById($id);
         $form = $this->createForm(ProductType::class, $product);
         $data = $request->request->get('product');
-        $this->checkDiscountEmpty($data, $product);
-        $this->checkPriceAndDiscount($data, $product);
+
         $form->handleRequest($request);
         if (!$currentUser->isAdmin() && !$currentUser->isAuthorProduct($product)) {
             return $this->redirectToRoute('all_products');
@@ -172,7 +172,7 @@ class ProductController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $this->uploadImages($files, $product);
             $this->productService->update($product);
-            $this->addFlash('info', "Edit product successfully!");
+            $this->addFlash('successfully', "Edit product successfully!");
             return $this->redirectToRoute('all_products');
         }
         return $this->render('products/edit_product.html.twig',
@@ -205,7 +205,7 @@ class ProductController extends Controller
             return $this->redirectToRoute('all_categories');
         }
         $this->productService->delete($product);
-        $this->addFlash('info', "Edit product successfully!");
+        $this->addFlash('successfully', "Edit product successfully!");
         return $this->redirectToRoute('all_products');
 
     }
@@ -239,83 +239,6 @@ class ProductController extends Controller
                 $fileUp[] = $fileName;
             }
             $product->setImage(implode(',', $fileUp));
-        }
-    }
-
-    /**
-     * @param array $products
-     */
-    private function productValidDiscount(array $products): void
-    {
-        foreach ($products as $product) {
-            $dateToday = new DateTime(); // Today
-            $todayDate = $dateToday->format('Y:m:d');
-            $dateEnd = date('Y:m:d', strtotime($product->getDiscountEnd()));
-            if ($todayDate > $dateEnd && $product->getStatus() == '1') {
-                $product->setPrice($product->getOldPrice());
-                $product->setOldPrice(0);
-                $product->setDiscountStart('0');
-                $product->setDiscountEnd('0');
-                $product->setStatus('0');
-               $this->productService->updateStopDiscount($product);
-            }
-        }
-    }
-
-    /**
-     * @param array $products
-     */
-    private function validStartDiscount(array $products): void
-    {
-        foreach ($products as $product) {
-            $dateToday = new DateTime(); // Today
-            $todayDate = $dateToday->format('Y:m:d');
-            $dateStart = date('Y:m:d', strtotime($product->getDiscountStart()));
-            if ($todayDate >= $dateStart && $product->getStatus() == '0') {
-                $price = floatval($product->getPrice());
-                $discount = intval($product->getDiscount());
-                $product->setPrice($price - ($price * ($discount / 100)));
-                $product->setOldPrice($price);
-                $product->setStatus('1');
-               $this->productService->updateStartDiscount($product);
-            }
-        }
-    }
-
-    /**
-     * @param $data
-     * @param Product|null $product
-     */
-    private function checkDiscountEmpty($data, ?Product $product): void
-    {
-
-        if ($data['discountStart'] === '') {
-            $data['discountStart'] = $product->getDiscountStart();
-        }
-        if ($data['discountEnd'] === '') {
-            $data['discountStart'] = $product->getDiscountEnd();
-        }
-    }
-
-    /**
-     * @param $data
-     * @param Product|null $product
-     */
-    private function checkPriceAndDiscount($data, ?Product $product): void
-    {
-        if (floatval($data['price']) !== floatval($product->getOldPrice())
-            || intval($data['discount']) !== intval($product->getDiscount())) {
-            $price = 0;
-            if (floatval($data['price']) !== floatval($product->getOldPrice())) {
-                $price = $data['price'];
-            }
-            if (intval($data) !== intval($product->getDiscount())) {
-                $product->setDiscount($data['discount']);
-            }
-            $discount = intval($product->getDiscount());
-            $product->setPrice($price - ($price * ($discount / 100)));
-            $product->setOldPrice($price);
-            $product->setStatus($product->getStatus());
         }
     }
 

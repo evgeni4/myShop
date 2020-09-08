@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
 use AppBundle\Service\Cart\CartService;
 use AppBundle\Service\Categories\CategoriesService;
 use AppBundle\Service\Product\ProductService;
@@ -34,14 +35,14 @@ class DefaultController extends Controller
     {
        $currentUser = $this->userService->currentUser();
         $titlePage = "Home";
-
-
-        $newProduct=$this->productService->newProducts();
+        $product=$this->productService->newProducts();
+        $this->productService->dateDiscount($product);
         return $this->render('default/index.html.twig', [
             'user' => $currentUser,
-            'newProduct' => $newProduct,
+            'newProduct' => $product,
             'titlePage' => $titlePage,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+
 }

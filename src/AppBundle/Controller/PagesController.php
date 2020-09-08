@@ -51,13 +51,12 @@ class PagesController extends Controller
         $currentUser = $this->userService->currentUser();
         $data = $request->request->get("product");
         $collections = $this->productService->searchForm($data['title']);
-        $catId = $this->categoriesService->getAllCategory();
-        $paginator  = $this->get('knp_paginator');
+        $this->productService->dateDiscount($collections);
+        $paginator = $this->get('knp_paginator');
         $titlePage = "Search Result";
         $pagination = $paginator->paginate(
             $collections,
             $request->query->getInt('page', 1),
-            3 /*images per page*/
         );
         return $this->render('pages/search_views.html.twig',
             [
@@ -69,25 +68,30 @@ class PagesController extends Controller
 
 
     /**
-     * @Route("/promotion", name="new_promotion", methods={"GET"})
+     * @Route("/promotion", name="new_promotion")
      * @param Request $request
      * @return Response|null
      */
     public function promotion(Request $request)
     {
         $currentUser = $this->userService->currentUser();
-        $collections = $this->productService->newCollection();
-        $paginator  = $this->get('knp_paginator');
+        $minPrice = $this->productService->minPricePromotion();
+        $minMaxDiscount = $this->productService->minMaxDiscount();
+
+       list($minP, $maxP, $minDiscount, $maxDiscount) = $this->filterProduct($minPrice, $minMaxDiscount, $request);
+        $collections = $this->productService->newCollection($minP,$maxP,$minDiscount,$maxDiscount);
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $collections,
-            $request->query->getInt('page', 1) /*current page number*/,
-            3 /*images per page*/
+            $request->query->getInt('page', 1),
+            3
         );
-        $this->validStartDiscount($collections);
-        $this->productValidDiscount($collections);
+        $this->productService->dateDiscount($collections);
         $titlePage = "Promotion";
         return $this->render('pages/page_collection.html.twig',
             [
+                'minDiscount' => $minMaxDiscount,
+                'minPrice' => $minPrice,
                 'collections' => $pagination,
                 'user' => $currentUser,
                 'titlePage' => $titlePage
@@ -95,27 +99,34 @@ class PagesController extends Controller
     }
 
     /**
-     * @Route("/views/{id}", name="views_product_category", methods={"GET"})
+     * @Route("/views/{id}", name="views_product_category")
      * @param Request $request
      * @param int $id
      * @return Response|null
      */
-    public function views(Request $request,int $id)
+    public function views(Request $request, int $id)
     {
         $currentUser = $this->userService->currentUser();
-        $collections = $this->productService->productsBy(intval($id));
-        $paginator  = $this->get('knp_paginator');
+
+        $minPrice = $this->productService->minPrice(intval($id));
+        $minMaxDiscount = $this->productService->minDiscount(intval($id));
+
+        list($minP, $maxP, $minDiscount, $maxDiscount) = $this->filterProduct($minPrice, $minMaxDiscount, $request);
+        $collections = $this->productService->productsBy(intval($id),$minP,$maxP,$minDiscount,$maxDiscount);
+
+
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $collections,
-            $request->query->getInt('page', 1) /*current page number*/,
-            3 /*images per page*/
-        );
+            $request->query->getInt('page', 1), 3);
         $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
-        $this->validStartDiscount($collections);
-        $this->productValidDiscount($collections);
+        $this->productService->dateDiscount($collections);
+
         return $this->render('pages/page_views.html.twig',
             [
+                'minDiscount' => $minMaxDiscount,
+                'minPrice' => $minPrice,
                 'collections' => $pagination,
                 'user' => $currentUser,
                 'titlePage' => $titlePage,
@@ -130,67 +141,18 @@ class PagesController extends Controller
     public function viewsProduct(int $id)
     {
         $currentUser = $this->userService->currentUser();
-        $collections = $this->productService->productsBy($id);
         $product = $this->productService->getOneById($id);
         $catId = $this->categoriesService->getAllCategory();
         $titlePage = $this->titlePage($catId, $id);
-//        $this->productValidDiscountProcess((array)$collections);
-<<<<<<< HEAD
-//        $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
+        $this->productService->dateDiscount($this->productService->allProducts());
+
         return $this->render('pages/page_view.html.twig',
             [
-//                'cartStatus' => $cartStatus,
-=======
-       // $cartStatus = $this->cartService->findByCartStatus($currentUser->getId());
-        return $this->render('pages/page_view.html.twig',
-            [
-//                 'cartStatus' => $cartStatus,
->>>>>>> cfab24af2ab09376294528bcc181d5b0dc3c4984
                 'product' => $product,
                 'user' => $currentUser,
                 'titlePage' => $titlePage,
                 'form' => $this->createForm(CartType::class)->createView()
             ]);
-    }
-
-    /**
-     * @param array $products
-     */
-    private function productValidDiscount(array $products): void
-    {
-        foreach ($products as $product) {
-            $dateToday = new DateTime(); // Today
-            $todayDate = $dateToday->format('Y:m:d');
-            $dateEnd = date('Y:m:d', strtotime($product->getDiscountEnd()));
-            if ($todayDate === $dateEnd || $todayDate > $dateEnd) {
-                $product->setPrice($product->getOldPrice());
-                $product->setOldPrice(0);
-                $product->setDiscountStart('0');
-                $product->setDiscountEnd('0');
-                $product->setStatus('0');
-                $this->productService->updateStopDiscount($product);
-            }
-        }
-    }
-
-    /**
-     * @param array $products
-     */
-    private function validStartDiscount(array $products): void
-    {
-        foreach ($products as $product) {
-            $dateToday = new DateTime(); // Today
-            $todayDate = $dateToday->format('Y:m:d');
-            $dateStart = date('Y:m:d', strtotime($product->getDiscountStart()));
-            if ($todayDate == $dateStart || $todayDate > $dateStart && $product->getStatus() == '0') {
-                $price = floatval($product->getPrice());
-                $discount = intval($product->getDiscount());
-                $product->setPrice($price - ($price * ($discount / 100)));
-                $product->setOldPrice($price);
-                $product->setStatus('1');
-                $this->productService->updateStartDiscount($product);
-            }
-        }
     }
 
     /**
@@ -207,5 +169,30 @@ class PagesController extends Controller
             }
         }
         return $title;
+    }
+
+    /**
+     * @param $minPrice
+     * @param $minMaxDiscount
+     * @param Request $request
+     * @return array
+     */
+    public function filterProduct($minPrice, $minMaxDiscount, Request $request): array
+    {
+        $minP = intval(min($minPrice));
+        $maxP = intval(max($minPrice));
+        $minDiscount = intval(min($minMaxDiscount));
+        $maxDiscount = intval(max($minMaxDiscount));
+        if ($request->isMethod('POST')) {
+            $data = $request->request->get('sort');
+            $dataPrice = explode("-", (str_replace(['$', ' '], '', $data['price'])));
+            $dataDiscount = explode("-", (str_replace(['%', ' '], '', $data['discount'])));
+
+            $minP = intval($dataPrice[0]);
+            $maxP = intval($dataPrice[1]);
+            $minDiscount = intval($dataDiscount[0]);
+            $maxDiscount = intval($dataDiscount[1]);
+        }
+        return array($minP, $maxP, $minDiscount, $maxDiscount);
     }
 }

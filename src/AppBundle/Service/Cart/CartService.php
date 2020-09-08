@@ -35,6 +35,7 @@ class CartService implements CartServiceInterface
         $cart->setStatus(0);
         return $this->cartRepository->create($cart);
     }
+
     public function updateCart(Cart $cart): bool
     {
         $sum = $cart->getQuantity() * $cart->getProductId()->getPrice();
@@ -69,8 +70,8 @@ class CartService implements CartServiceInterface
 
     public function findByCartStatus()
     {
-        $userId = is_object($this->customer->currentUser()?$this->customer->currentUser()->getId():"");
-        if ($userId!==null){
+        $userId = is_object($this->customer->currentUser() ? $this->customer->currentUser()->getId() : "");
+        if ($userId !== null) {
             $userId = $this->customer->currentUser()->getId();
             return $this->cartRepository->findBy(['userId' => $userId, 'status' => '0']);
         }
@@ -80,7 +81,7 @@ class CartService implements CartServiceInterface
     public function userOrdersCompletes()
     {
 
-        return $this->cartRepository->findBy(['status' => '1'],['userId'=>'asc']);
+        return $this->cartRepository->findBy(['status' => '1'], ['userId' => 'asc']);
     }
 
     public function userOrdersPending()
@@ -94,8 +95,9 @@ class CartService implements CartServiceInterface
     private function orderGenerate()
     {
         $lastId = $this->cartRepository->findAll();
-        $lastId = $lastId[count($lastId) - 1];
-        $newOrderNumber = $lastId->getId()+1;
+
+        $newOrderNumber = empty($lastId[count($lastId)])? $lastId = 1 : $lastId[count($lastId) + 1];
+
         switch (strlen($newOrderNumber)) {
             case 1:
                 $newOrderNumber = "0000" . $newOrderNumber;

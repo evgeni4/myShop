@@ -47,6 +47,13 @@
                     <div class="details">
                         {% if product.status ==1 %}
                             <div class="percent_view"> - {{ product.discount }} %</div>
+                            <div class="">
+                                <strong>
+                                    {% if  product.discount != null and product.status ==1 %}
+                                        {{ product.timerProduct(product.id,product.discountEnd) }}
+                                    {% endif %}
+                                </strong>
+                            </div>
                         {% endif %}
                         <h1>{{ product.title }}</h1>
                         <h5>{{ product.category.title }}</h5>
@@ -56,7 +63,6 @@
                         {% else %}
                             <h4>${{ product.price }}</h4>
                         {% endif %}
-                        <span class="" style="font-style: italic;color: green">in stock</span>
                         <div class="entry ">
                             <div class="tabs ">
                                 <div class="nav">
@@ -94,7 +100,7 @@
                         </div>
                         {{ form_row(form._token) }}
                         <div class="">
-                            <button class="btn-grey"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to
+                            <button class="btn btn-success btn-sm"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to
                                 cart
                             </button>
                         </div>

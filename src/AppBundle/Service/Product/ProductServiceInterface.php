@@ -12,17 +12,12 @@ interface ProductServiceInterface
 
     public function update(Product $product): bool;
 
-    public function updateStartDiscount(Product $product): bool;
-
-    public function updateStopDiscount(Product $product): bool;
-
     public function delete(Product $product): bool;
 
-    public function getOneById(int $id): ?Product;
+    public function getOneById(int $id);
 
     public function newProducts();
 
-    public function productsBy(int $id);
+    public function productsBy(int $id,$minP,$maxP,$minDiscount,$maxDiscount);
 
-    public function updateDiscountData(Product $product): bool;
 }

@@ -21,88 +21,66 @@
                     </div>
                 {% endfor %}
                 <div class="table-responsive">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>ID#</th>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Metal Type</th>
-                        <th>Price</th>
-                        <th>Discount</th>
-                        <th>Start/End Discount</th>
-                        <th>Create Author</th>
-                        <th>Create Date</th>
-                        <th>Edit / Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% if products|length > 0 %}
-                        {% for product in products.allProducts %}
-                            <tr>
-                                <td>{{ product.id }}</td>
-                                <td>{{ product.title }}</td>
-                                <td>{{ product.category.title }}</td>
-                                <td>{{ product.metalId.title }}</td>
-                                <td>
-                                    {% if product.discount !='0' %}
-                                        <b> <span>{{ product.price }}</span>
-                                        </b><br>
-                                        <span style="text-decoration: line-through;color: red">{{ product.oldPrice }}</span>
-                                    {% else %}
-                                        <b>{{ product.price }}</b>
-                                    {% endif %}
-                                </td>
-                                <td>{{ product.discount }}%</td>
-                                <td>
-                                    {% if product.validateDate(product.discountStart, product.discountEnd,product.discount) %}
-                                        <span class="timer_{{ product.id }} "></span>
-                                        <script>
-                                            var countDownDate_{{ product.id }} = new Date("{{ product.formatDate(product.discountEnd) }}").getTime();
-                                            var timeClear_{{ product.id }} = setInterval(function () {
-                                                var now_{{ product.id }} = new Date().getTime();
-                                                var timeLeft_{{ product.id }} = countDownDate_{{ product.id }} - now_{{ product.id }};
-                                                var days_{{ product.id }} = Math.floor(timeLeft_{{ product.id }} / (1000 * 60 * 60 * 24));
-                                                var hours_{{ product.id }} = Math.floor(
-                                                    (timeLeft_{{ product.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                                                );
-                                                var minutes_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60 * 60)) / (1000 * 60));
-                                                var seconds_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60)) / 1000);
-                                                document.querySelector(".timer_{{ product.id }}").innerHTML = days_{{ product.id }} + "d " + hours_{{ product.id }} + "h " + minutes_{{ product.id }} + "m " + seconds_{{ product.id }} + "s ";
-                                                if (timeLeft_{{ product.id }} < 0) {
-                                                    clearInterval(timeClear_{{ product.id }});
-                                                    document.querySelector(".timer_{{ product.id }}").innerHTML = "{{ product.title }} Finished";
-                                                }
-                                            }, 1000);
-                                        </script>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>ID#</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Metal</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Start/End Discount</th>
+                            <th>Create Author</th>
+                            <th>Create Date</th>
+                            <th>Edit / Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if productsAll|length > 0 %}
+                            {% for product in productsAll %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td>{{ product.title }}</td>
+                                    <td>{{ product.category.title }}</td>
+                                    <td>{{ product.metalId.title }}</td>
+                                    <td>
+                                        {% if product.discount != null and product.status ==1 %}
+                                            <b> <span>{{ product.price }}</span> </b>
+                                            <span style="text-decoration: line-through;color: red">{{ product.oldPrice }}</span>
                                         {% else %}
-                                        <stan>Start date</stan><br>
-                                        {{ product.discountStart }}
-                                    {% endif %}
-                                </td>
-                                <td>{{ product.author.fullName }}</td>
-                                <td>{{ product.dateAdded|date("d/m/Y H:m:s", "Europe/Sofia") }}</td>
-                                <td>
-                                    {% if user.authorProduct(product) or user.isAdmin %}
-                                        <a href="{{ path('edit_product',{'id':product.id}) }}"
-                                           class="btn btn-info btn-sm">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                        </a>&nbsp;&nbsp;<a href="{{ path('delete_product',{'id':product.id}) }}"
-                                                           class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                                    </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        <div class="alert alert-danger alert-dismissible text-align">
-                            <strong>You have no products added!</strong>
-                        </div>
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
+                                            <b>{{ product.price }}</b>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ product.discount }}%</td>
+                                    <td>
+                                        {% if  product.discount != null and product.status ==1 %}
+                                            {{ product.timerProduct(product.id,product.discountEnd) }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ product.author.fullName }}</td>
+                                    <td>{{ product.dateAdded|date("d/m/Y H:m:s", "Europe/Sofia") }}</td>
+                                    <td>
+                                        {% if user.authorProduct(product) or user.isAdmin %}
+                                            <a href="{{ path('edit_product',{'id':product.id}) }}"
+                                               class="btn btn-info btn-sm">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>&nbsp;&nbsp;<a href="{{ path('delete_product',{'id':product.id}) }}"
+                                                               class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <div class="alert alert-danger alert-dismissible text-align">
+                                <strong>You have no products added!</strong>
+                            </div>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

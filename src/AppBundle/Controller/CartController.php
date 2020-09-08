@@ -135,7 +135,7 @@ class CartController extends Controller
             $cart->setStatus(1);
             $this->cartService->updateCartStatus($cart);
         }
-        $this->addFlash('info', 'Thank you! Your order has been successfully confirmed.!');
+        $this->addFlash('successfully', 'Thank you! Your order has been successfully confirmed!');
         return $this->redirectToRoute('all_orders');
     }
 }

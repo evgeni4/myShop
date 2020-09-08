@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Repository\ProductRepository;
 use AppBundle\Service\Product\ProductService;
+use AppBundle\Service\Product\ProductServiceInterface;
 use ClassesWithParents\D;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -72,12 +74,12 @@ class Product
      */
     private $price;
     /**
-     * @ORM\Column(name="oldPrice", type="decimal",options={"default" : 0}, scale=2)
+     * @ORM\Column(name="oldPrice", type="decimal", nullable=true, scale=2)
      */
     private $oldPrice;
     /**
      * @var int
-     * @ORM\Column(name="discount", type="integer",options={"default" : 0})
+     * @ORM\Column(name="discount", type="integer",nullable=true)
      */
     private $discount;
     /**
@@ -110,7 +112,7 @@ class Product
     private $scaleWeight;
     /**
      * @var string
-     * @ORM\Column(name="image", type="text")
+     * @ORM\Column(name="image", type="text", nullable=true)
      */
     private $image;
     /**
@@ -131,17 +133,17 @@ class Product
     private $cartProductId;
     /**
      * @var string|null
-     * @ORM\Column(name="discount_start", type="string",options={"default" : 0})
+     * @ORM\Column(name="discount_start", type="string", nullable=true)
      */
     private $discountStart;
     /**
      * @var string|null
-     * @ORM\Column(name="discount_end", type="string",options={"default" : 0})
+     * @ORM\Column(name="discount_end", type="string",nullable=true)
      */
     private $discountEnd;
     /**
      * @var string
-     * @ORM\Column(name="status", type="string",options={"default" : 0})
+     * @ORM\Column(name="status", type="string",nullable=true)
      */
     private $status;
 
@@ -149,6 +151,7 @@ class Product
     {
         $this->dateAdded = new DateTime('now');
     }
+
     public function __toString()
     {
         return "";
@@ -171,7 +174,6 @@ class Product
         $this->cartProductId = $cartProductId;
         return $this;
     }
-
 
 
     /**
@@ -504,62 +506,39 @@ class Product
     }
 
     /**
-     * @param $string
-     * @return false|string
+     * @param $oldPrice
+     * @param $price
+     * @return mixed
      */
-    public function formatDate($string)
+    public function priceCheck($oldPrice, $price)
     {
-        $time = strtotime($string);
-        return date('Y-m-d H:i:s', $time);
+        return $oldPrice == 0 || $oldPrice == null ? $price : $oldPrice;
     }
-
     /**
-     * @param $startDate
-     * @param $endDate
-     * @param $productDiscount
-     * @return bool
+     * @param $productId
+     * @param $dateEnd
      */
-    function validateDate($startDate, $endDate, $productDiscount)
+    public function timerProduct($productId, $dateEnd): void
     {
-        $dateToday = new DateTime(); // Today
-        $todayDate = $dateToday->format('Y:m:d');
-        $dateStart = date('Y:m:d', strtotime($startDate));
-        $dateEnd = date('Y:m:d', strtotime($endDate));
-        if ($dateStart <= $todayDate && $dateEnd >= $todayDate
-            && $productDiscount > 0) {
-            return true;
+        $dateEnd = date('Y-m-d', strtotime($dateEnd));
+        echo "
+<div id='timer_$productId'></div>
+        <script> 
+    var tomorrow_$productId = new Date('$dateEnd'); 
+    var x_$productId = setInterval(function() {
+    var dateNow_$productId = new Date().getTime();
+   var distance_$productId = tomorrow_$productId - dateNow_$productId; 
+   var days_$productId = Math.floor(distance_$productId / (1000 * 60 * 60 * 24));
+   var hours_$productId = Math.floor((distance_$productId % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+   var minutes_$productId = Math.floor((distance_$productId % (1000 * 60 * 60)) / (1000 * 60));
+   var seconds_$productId = Math.floor((distance_$productId % (1000 * 60)) / 1000);
+   document.getElementById('timer_$productId').innerHTML = days_$productId + 'd ' + hours_$productId + 'h '+ minutes_$productId + 'm ' + seconds_$productId + 's ';
+  if (distance < 0) {
+            clearInterval(x);
+            document.getElementById('timer_$productId').innerHTML = 'EXPIRED';
         }
-        return false;
-    }
-
-    /**
-     * @param $endDate
-     * @param $discountCheck
-     * @return bool
-     */
-    function stopDiscount($endDate, $discountCheck)
-    {
-        $dateToday = new DateTime(); // Today
-        $todayDate = $dateToday->format('Y:m:d');
-        $dateEnd = date('Y:m:d', strtotime($endDate));
-        if ( $todayDate === $dateEnd || $todayDate > $dateEnd && $this->getStatus() === '1') {
-            return false;
-        }
-        return true;
-    }
-
-    function checkStartDiscount($startDate, $discount)
-    {
-        $dateToday = new DateTime(); // Today
-        $todayDate = $dateToday->format('Y:m:d');
-        $dateStart = date('Y:m:d', strtotime($startDate));
-        if ($todayDate >=$dateStart  && $discount > 0) {
-            if ($this->getStatus()==='1'){
-                return false;
-            }
-            return true;
-        }
-        return  false;
+    }, 1000);
+    </script>";
     }
 }
 

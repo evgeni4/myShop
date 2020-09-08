@@ -20,8 +20,8 @@
                 <div class="cart-table">
                     {% if addressUser==null %}
                         <div id="alertMsg" style="text-align: center" class="alert alert-danger" role="alert">
-                            <strong>In order to place a purchase, you need a delivery address, fill in the delivery
-                                address!</strong>
+                            <strong>In order to make a purchase, you need a delivery address, enter your delivery address
+                                <a href="{{ path('address') }}" class="btn btn-outline-dark btn-sm">here!</a></strong>
                         </div>
                     {% endif %}
                     {% if cartsTotal.findByCartStatus|length >0 %}

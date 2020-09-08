@@ -89,7 +89,7 @@ class AddressController extends Controller
         $messages = $this->errorCollection($form, $messages);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addressService->insert($address);
-            $this->addFlash("info", "Create address successfully!");
+            $this->addFlash("successfully", "Create address successfully!");
             return $this->redirectToRoute('address');
         }
         return $this->render('address/address_add.html.twig', [

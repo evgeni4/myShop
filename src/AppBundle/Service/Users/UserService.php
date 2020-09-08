@@ -95,7 +95,7 @@ class UserService implements UserServiceInterface
      */
     private function checkNewUserRoles(): string
     {
-        if (count($this->allUser()) == 0 || count($this->allUser()) === null) {
+        if (count($this->allUser()) == 0 || count($this->allUser()) == null) {
             $role = "ROLE_ADMIN";
         } else if (count($this->allUser()) == 1) {
             $role = "ROLE_SALES";

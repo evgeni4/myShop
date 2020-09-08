@@ -54,7 +54,7 @@ class Metals
     private $author;
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="metalTypeId")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="metalId")
      */
     private $product;
 

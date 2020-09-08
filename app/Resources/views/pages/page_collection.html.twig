@@ -12,6 +12,21 @@
     </div>
     <div id="body">
                 <div class="container">
+                    <form action="" method="POST">
+                        <div class="row">
+                            <div class="col-4">Sort by price: <br>
+                                <input type="text" id="amount" name="sort[price]" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                <div id="slider-range"></div>
+                            </div>
+                            <div class="col-4">Sort by discount: <br>
+                                <input type="text" id="amountDiscount" name="sort[discount]" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                <div id="slider-discoount"></div>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-success btn-sm" >Filter</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="row">
                         <div class="col-12"><h2>Promotion</h2></div>
                         {% if collections|length > 0 %}
@@ -34,27 +49,11 @@
                                             {% else %}
                                                 <h4> {{ collection.price }} $</h4>
                                             {% endif %}
-                                            {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
-                                                <div class="timerByViews"><span class="timer_{{ collection.id }} "></span>
-                                         <script>
-                                    var countDownDate_{{ collection.id }} = new Date("{{ collection.formatDate(collection.discountEnd) }}").getTime();
-                                    var timeClear_{{ collection.id }} = setInterval(function() {
-                                        var now_{{ collection.id }} = new Date().getTime();
-                                        var timeLeft_{{ collection.id }} = countDownDate_{{ collection.id }} - now_{{ collection.id }};
-                                        var days_{{ collection.id }} = Math.floor(timeLeft_{{ collection.id }} / (1000 * 60 * 60 * 24));
-                                        var hours_{{ collection.id }} = Math.floor(
-                                            (timeLeft_{{ collection.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                                        );
-                                        var minutes_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60 * 60)) / (1000 * 60));
-                                        var seconds_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60)) / 1000);
-                                        document.querySelector(".timer_{{ collection.id }}").innerHTML = days_{{ collection.id }} + "d " + hours_{{ collection.id }} + "h " + minutes_{{ collection.id }} + "m " + seconds_{{ collection.id }} + "s ";
-                                        if (timeLeft_{{ collection.id }} < 0) {
-                                            clearInterval(timeClear_{{ collection.id }});
-                                            document.querySelector(".timer_{{ collection.id }}").innerHTML = "{{ collection.title }} Finished";
-                                        }
-                                    }, 1000);
-                                </script></div>
-                                            {%endif %}
+                                            <div class="text-align">
+                                                {% if  collection.discount != null and collection.status ==1 %}
+                                                    {{ collection.timerProduct(collection.id,collection.discountEnd) }}
+                                                {% endif %}
+                                            </div>
                                             {% if collection.discount >0 %}
                                                 <span class="pecents">  - {{ collection.discount}} %</span>
                                             {% endif %}
@@ -78,5 +77,42 @@
                     </div>
                 </div>
         <!-- / container -->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $("#slider-range").slider({
+                    range: true,
+                    min:{{ min(minPrice) }},
+                    step:1,
+                    max:{{ max(minPrice) }},
+                    values: [{{ min(minPrice) }}, {{ max(minPrice)}}],
+                    slide: function (event, ui) {
+                        $("#amount").val(ui.values[0] + " $ - " + ui.values[1]+" $");
+                    }
+                });
+                $("#amount").val($("#slider-range").slider("values", 0) +
+                    "$ - " + $("#slider-range").slider("values", 1)+"$");
+            });
+        </script>
+
+        <script>
+            $(function () {
+                $("#slider-discoount").slider({
+                    range: true,
+                    min:{{ min(minDiscount) }},
+                    step:1,
+                    max:{{ max(minDiscount) }},
+                    values: [{{ min(minDiscount) }}, {{ max(minDiscount)}}],
+                    slide: function (event, ui) {
+                        $("#amountDiscount").val(ui.values[0] + " % - " + ui.values[1]+" %");
+                    }
+                });
+                $("#amountDiscount").val($("#slider-discoount").slider("values", 0) +
+                    "% - " + $("#slider-discoount").slider("values", 1)+"%");
+            });
+        </script>
     </div>
 {% endblock %}

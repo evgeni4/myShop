@@ -55,20 +55,28 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         }
     }
 
-    public function collectionNew()
+    public function collectionNew($minP,$maxP,$minDiscount,$maxDiscount)
     {
         return $this->createQueryBuilder('product')
-            ->andWhere('product.status = 1')
+            ->where('product.status = 1')
+            ->andwhere("product.price >=$minP")
+            ->andwhere("product.price <=$maxP")
+            ->andwhere("product.discount >=$minDiscount")
+            ->andwhere("product.discount <=$maxDiscount")
             ->orderBy('product.dateAdded', 'DESC')
-            ->orderBy('product.discount','DESC')
+            ->orderBy('product.discount', 'DESC')
             ->getQuery()
             ->execute();
     }
 
-    public function productsByCategory($id)
+    public function productsByCategory($id, $minP,$maxP,$minDiscount,$maxDiscount)
     {
         return $this->createQueryBuilder('product')
             ->where("product.category = $id")
+            ->andwhere("product.price >=$minP")
+            ->andwhere("product.price <=$maxP")
+            ->andwhere("product.discount >=$minDiscount")
+            ->andwhere("product.discount <=$maxDiscount")
             ->orderBy('product.dateAdded', 'DESC')
             ->getQuery()
             ->execute();
@@ -83,17 +91,49 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->execute();
     }
 
-    public function searchProcess( $data)
+    public function searchProcess($data)
     {
         return $this->createQueryBuilder('product')
-            ->where( 'product.title LIKE :word')
+            ->where('product.title LIKE :word')
             ->orWhere('product.price LIKE :word')
             ->orWhere('product.oldPrice LIKE :word')
             ->orWhere('product.discount LIKE :word')
             ->orWhere('product.gender LIKE :word')
-            ->setParameter('word', '%'.$data.'%')
+            ->setParameter('word', '%' . $data . '%')
             ->orderBy('product.dateAdded', 'DESC')
             ->getQuery()
             ->getResult();
     }
+
+    public function priceByCategory($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.price')
+            ->where("p.category = $id")
+            ->getQuery()
+            ->execute();
+    }
+    public function discountByCategory($id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.discount')
+            ->where("p.category = $id")
+            ->getQuery()
+            ->execute();
+    }
+    public function priceByPromotion()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.price')
+            ->getQuery()
+            ->execute();
+    }
+    public function discountByPromotion()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.discount')
+            ->getQuery()
+            ->execute();
+    }
+
 }

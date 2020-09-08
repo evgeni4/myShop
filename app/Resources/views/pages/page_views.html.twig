@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 center">
-                    <h2>{{ titlePage}} / Collection</h2>
+                    <h2>{{ titlePage }} / Collection</h2>
                 </div>
             </div>
         </div>
@@ -12,84 +12,118 @@
     </div>
     <div id="body">
         <div class="container">
+            <form action="" method="POST">
+            <div class="row">
+                <div class="col-4">Sort by price: <br>
+                        <input type="text" id="amount" name="sort[price]" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        <div id="slider-range"></div>
+                </div>
+                <div class="col-4">Sort by discount: <br>
+                    <input type="text" id="amountDiscount" name="sort[discount]" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    <div id="slider-discoount"></div>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-success btn-sm" >Filter</button>
+                </div>
+            </div>
+        </form>
             <div class="">
-                <h4>{{ titlePage}}</h4>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            {% for msg in app.session.flashBag.get('info') %}
-                                <div id="alertMsg" class="alert alert-success" role="alert">
-                                    <b>{{ msg }}</b>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        {% if collections|length > 0 %}
-                            {% for collection in collections %}
-                                <div class="col-md-4 col-sm-6 col-xs-12 row-flex">
-                                    <div class="last-products padding">
-                                        <form action="{{ path('add_cart', {'id': collection.id}) }}" method="post">
-                                            <input type="hidden" name="cart[productId]" value="{{ collection.id }}">
-                                            {% if collection.status == 1 and(collection.discount >0) %}
-                                                <span class="pecents">  - {{ collection.discount}} %</span>
+                <h2>Category / {{ titlePage }}</h2>
+                <div class="row">
+                    {% if collections|length > 0 %}
+                        {% for collection in collections %}
+                            <br>
+                            <div class="col-md-4 col-sm-6 col-xs-12 row-flex">
+                                <div class="last-products padding">
+                                    <form action="{{ path('add_cart', {'id': collection.id}) }}" method="post">
+                                        <input type="hidden" name="cart[productId]" value="{{ collection.id }}">
+                                        {% if collection.status == 1 and(collection.discount >0) %}
+                                            <span class="pecents">  - {{ collection.discount }} %</span>
+                                        {% endif %}
+                                        {% set img = collection.image|split(',') %}
+                                        <div class="blk">
+                                            <img src="{{ asset('uploads/products_image/'~img.1) }}" alt=""
+                                                 class="img-thumbnail">
+                                        </div>
+                                        <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
+                                        {% if collection.status ==1 and(collection.discount >0) %}
+                                            <div class="oldP">{{ collection.oldPrice }} $</div>
+                                            <h4> {{ collection.price }} $</h4>
+                                        {% else %}
+                                            <h4> {{ collection.price }} $</h4>
+                                        {% endif %}
+                                        <div class="text-align">
+                                            {% if  collection.discount != null and collection.status ==1 %}
+                                                {{ collection.timerProduct(collection.id,collection.discountEnd) }}
                                             {% endif %}
-                                            {% set img = collection.image|split(',') %}
-                                            <div class="blk">
-                                                <img  src="{{ asset('uploads/products_image/'~img.1)}}" alt="" class="img-thumbnail">
-                                            </div>
-                                            <h3 style="text-transform: uppercase;font-size: 16px;">{{ collection.title }}</h3>
-                                            {% if collection.status ==1 and(collection.discount >0) %}
-                                                <div class="oldP">{{ collection.oldPrice }} $</div>
-                                                <h4> {{ collection.price }} $</h4>
-                                            {% else %}
-                                                <h4> {{ collection.price }} $</h4>
-                                            {% endif %}
-                                            {% if collection.validateDate(collection.discountStart,collection.discountEnd,collection.discount) %}
-                                            <div class="timerByViews"><span class="timer_{{ collection.id }} "></span>
-                                         <script>
-                                    var countDownDate_{{ collection.id }} = new Date("{{ collection.formatDate(collection.discountEnd) }}").getTime();
-                                    var timeClear_{{ collection.id }} = setInterval(function() {
-                                        var now_{{ collection.id }} = new Date().getTime();
-                                        var timeLeft_{{ collection.id }} = countDownDate_{{ collection.id }} - now_{{ collection.id }};
-                                        var days_{{ collection.id }} = Math.floor(timeLeft_{{ collection.id }} / (1000 * 60 * 60 * 24));
-                                        var hours_{{ collection.id }} = Math.floor(
-                                            (timeLeft_{{ collection.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                                        );
-                                        var minutes_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60 * 60)) / (1000 * 60));
-                                        var seconds_{{ collection.id }} = Math.floor((timeLeft_{{ collection.id }} % (1000 * 60)) / 1000);
-                                        document.querySelector(".timer_{{ collection.id }}").innerHTML = days_{{ collection.id }} + "d " + hours_{{ collection.id }} + "h " + minutes_{{ collection.id }} + "m " + seconds_{{ collection.id }} + "s ";
-                                        if (timeLeft_{{ collection.id }} < 0) {
-                                            clearInterval(timeClear_{{ collection.id }});
-                                            document.querySelector(".timer_{{ collection.id }}").innerHTML = "{{ collection.title }} Finished";
-                                        }
-                                    }, 1000);
-                                </script></div>
-                                            {%endif %}
-                                            <div class="btnAdd">
-                                                <button class="btn btn-success btn-sm"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Add to cart</button>
-                                                <a href="{{ path('view_product',{'id':collection.id}) }}" class="btn btn-outline-dark btn-sm">View</a>
-                                            </div>
-                                            <div class="col-12"><input style="text-align: center;font-weight: bold"
-                                                                       type="number" class="form-control"
-                                                                       name="cart[quantity]" value="1"></div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="btnAdd">
+                                            <button class="btn btn-success btn-sm"><i class="fa fa-cart-arrow-down"
+                                                                                      aria-hidden="true"></i> Add to
+                                                cart
+                                            </button>
+                                            <a href="{{ path('view_product',{'id':collection.id}) }}"
+                                               class="btn btn-outline-dark btn-sm">View</a>
+                                        </div>
+                                        <div class="col-12"><input style="text-align: center;font-weight: bold"
+                                                                   type="number" class="form-control"
+                                                                   name="cart[quantity]" value="1"></div>
+                                    </form>
                                 </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="col-12">
-                                <div id="alertMsg" class="alert alert-success">There are no products in this category</div>
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class="col-12 pagination">
-                            {{ knp_pagination_render(collections) }}
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-12">
+                            <div id="alertMsg" class="alert alert-success">There are no products in this category</div>
                         </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-12 pagination">
+                        {{ knp_pagination_render(collections) }}
                     </div>
                 </div>
             </div>
         </div>
-        <!-- / container -->
     </div>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#slider-range").slider({
+                range: true,
+                min:{{ min(minPrice) }},
+                step:1,
+                max:{{ max(minPrice) }},
+                values: [{{ min(minPrice) }}, {{ max(minPrice)}}],
+                slide: function (event, ui) {
+                    $("#amount").val(ui.values[0] + " $ - " + ui.values[1]+" $");
+                }
+            });
+            $("#amount").val($("#slider-range").slider("values", 0) +
+                "$ - " + $("#slider-range").slider("values", 1)+"$");
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#slider-discoount").slider({
+                range: true,
+                min:{{ min(minDiscount) }},
+                step:1,
+                max:{{ max(minDiscount) }},
+                values: [{{ min(minDiscount) }}, {{ max(minDiscount)}}],
+                slide: function (event, ui) {
+                    $("#amountDiscount").val(ui.values[0] + " % - " + ui.values[1]+" %");
+                }
+            });
+            $("#amountDiscount").val($("#slider-discoount").slider("values", 0) +
+                "% - " + $("#slider-discoount").slider("values", 1)+"%");
+        });
+    </script>
+    <!-- / container -->
 {% endblock %}
+
 

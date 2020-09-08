@@ -58,28 +58,11 @@
                                             {% else %}
                                                 <h4> {{ product.price }} $</h4>
                                             {% endif %}
-                                            {% if product.validateDate(product.discountStart,product.discountEnd,product.discount) %}
-                                                <div class="timerByViews"><span class="timer_{{ product.id }} "></span>
-                                                    <script>
-                                                        var countDownDate_{{ product.id }} = new Date("{{ product.formatDate(product.discountEnd) }}").getTime();
-                                                        var timeClear_{{ product.id }} = setInterval(function () {
-                                                            var now_{{ product.id }} = new Date().getTime();
-                                                            var timeLeft_{{ product.id }} = countDownDate_{{ product.id }} - now_{{ product.id }};
-                                                            var days_{{ product.id }} = Math.floor(timeLeft_{{ product.id }} / (1000 * 60 * 60 * 24));
-                                                            var hours_{{ product.id }} = Math.floor(
-                                                                (timeLeft_{{ product.id }} % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-                                                            );
-                                                            var minutes_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60 * 60)) / (1000 * 60));
-                                                            var seconds_{{ product.id }} = Math.floor((timeLeft_{{ product.id }} % (1000 * 60)) / 1000);
-                                                            document.querySelector(".timer_{{ product.id }}").innerHTML = days_{{ product.id }} + "d " + hours_{{ product.id }} + "h " + minutes_{{ product.id }} + "m " + seconds_{{ product.id }} + "s ";
-                                                            if (timeLeft_{{ product.id }} < 0) {
-                                                                clearInterval(timeClear_{{ product.id }});
-                                                                document.querySelector(".timer_{{ product.id }}").innerHTML = "{{ product.title }} Finished";
-                                                            }
-                                                        }, 1000);
-                                                    </script>
-                                                </div>
-                                            {% endif %}
+                                            <div class="text-align">
+                                                {% if  product.discount != null and product.status ==1 %}
+                                                    {{ product.timerProduct(product.id,product.discountEnd) }}
+                                                {% endif %}
+                                            </div>
                                             <div class="btnAdd">
                                                 <button class="btn btn-success btn-sm">Add to cart</button>
                                                 <a href="{{ path('view_product',{'id':product.id}) }}" class="btn btn-outline-dark btn-sm">View</a>
