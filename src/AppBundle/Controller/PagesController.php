@@ -12,6 +12,7 @@ use AppBundle\Service\Product\ProductService;
 use AppBundle\Service\Users\UserService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,8 +79,8 @@ class PagesController extends Controller
         $minPrice = $this->productService->minPricePromotion();
         $minMaxDiscount = $this->productService->minMaxDiscount();
 
-       list($minP, $maxP, $minDiscount, $maxDiscount) = $this->filterProduct($minPrice, $minMaxDiscount, $request);
-        $collections = $this->productService->newCollection($minP,$maxP,$minDiscount,$maxDiscount);
+        list($minP, $maxP, $minDiscount, $maxDiscount) = $this->filterProduct($minPrice, $minMaxDiscount, $request);
+        $collections = $this->productService->newCollection($minP, $maxP, $minDiscount, $maxDiscount);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $collections,
@@ -112,7 +113,7 @@ class PagesController extends Controller
         $minMaxDiscount = $this->productService->minDiscount(intval($id));
 
         list($minP, $maxP, $minDiscount, $maxDiscount) = $this->filterProduct($minPrice, $minMaxDiscount, $request);
-        $collections = $this->productService->productsBy(intval($id),$minP,$maxP,$minDiscount,$maxDiscount);
+        $collections = $this->productService->productsBy(intval($id), $minP, $maxP, $minDiscount, $maxDiscount);
 
 
         $paginator = $this->get('knp_paginator');

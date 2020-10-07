@@ -514,6 +514,7 @@ class Product
     {
         return $oldPrice == 0 || $oldPrice == null ? $price : $oldPrice;
     }
+
     /**
      * @param $productId
      * @param $dateEnd
@@ -540,5 +541,8 @@ class Product
     }, 1000);
     </script>";
     }
+
+
+
 }
 

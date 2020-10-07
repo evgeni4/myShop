@@ -190,7 +190,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
      *
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
 

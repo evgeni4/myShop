@@ -22,6 +22,12 @@
     <list default="true" id="c6e65a9b-c7d4-47de-9f3c-9ac34632ea8d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Resources/views/pages/page_views.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/pages/page_views.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/products/add_product.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/products/add_product.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/PagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/PagesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Service/Product/ProductService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBundle/Service/Product/ProductService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,10 +40,17 @@
       <executable path="composer" />
     </execution>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.3">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
@@ -141,7 +154,7 @@
     <configuration name="server" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/bin/console" scriptParameters="server:run">
       <CommandLine>
         <PhpTestInterpreterSettings>
-          <option name="interpreterName" value="PHP" />
+          <option name="interpreterName" value="PHP 7.3" />
         </PhpTestInterpreterSettings>
       </CommandLine>
       <method v="2" />
@@ -200,7 +213,22 @@
       <workItem from="1599481463410" duration="114000" />
       <workItem from="1599481885114" duration="215000" />
       <workItem from="1599482149939" duration="16476000" />
-      <workItem from="1599569326821" duration="662000" />
+      <workItem from="1599569326821" duration="27696000" />
+      <workItem from="1599635002340" duration="10037000" />
+      <workItem from="1599664852699" duration="934000" />
+      <workItem from="1599665962348" duration="9594000" />
+      <workItem from="1599825279867" duration="5785000" />
+      <workItem from="1600672262578" duration="7194000" />
+      <workItem from="1600683023333" duration="15873000" />
+      <workItem from="1600941375625" duration="10528000" />
+      <workItem from="1601187688185" duration="590000" />
+      <workItem from="1601211527303" duration="2302000" />
+      <workItem from="1601229823370" duration="837000" />
+      <workItem from="1601244230263" duration="687000" />
+      <workItem from="1601548448957" duration="2259000" />
+      <workItem from="1601885264853" duration="1011000" />
+      <workItem from="1601984451321" duration="4067000" />
+      <workItem from="1602051514286" duration="2071000" />
     </task>
     <servers />
   </component>
@@ -208,9 +236,22 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="387" y="0" key="#PHP" timestamp="1600955122762">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="387" y="0" key="#PHP/0.0.1366.728@0.0.1366.728" timestamp="1600955122762" />
     <state x="137" y="0" width="1092" height="728" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597417056538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -231,10 +272,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="328" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1599224353235" />
-    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597729459333">
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599632396067">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1597729459333" />
+    <state x="413" y="109" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1599632396067" />
     <state x="413" y="118" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1599462915267">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -255,26 +296,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="542" y="262" key="ComposerValidateDialog/0.0.1366.728@0.0.1366.728" timestamp="1598887968500" />
-    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1599550330745">
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1601556904646">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1599550330745" />
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom" timestamp="1599224275153">
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1601556904646" />
+    <state width="1320" height="172" key="GridCell.Tab.0.bottom" timestamp="1600965588911">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1599224275153" />
-    <state width="1322" height="165" key="GridCell.Tab.0.center" timestamp="1599224275152">
+    <state width="1320" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1600965588911" />
+    <state width="1320" height="172" key="GridCell.Tab.0.center" timestamp="1600965588911">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1599224275152" />
-    <state width="1322" height="165" key="GridCell.Tab.0.left" timestamp="1599224275152">
+    <state width="1320" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1600965588911" />
+    <state width="1320" height="172" key="GridCell.Tab.0.left" timestamp="1600965588910">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1599224275152" />
-    <state width="1322" height="165" key="GridCell.Tab.0.right" timestamp="1599224275152">
+    <state width="1320" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1600965588910" />
+    <state width="1320" height="172" key="GridCell.Tab.0.right" timestamp="1600965588911">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1322" height="165" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1599224275152" />
+    <state width="1320" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1600965588911" />
     <state width="218" height="539" key="HiddenNamespacesPopup" timestamp="1598544262508">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -303,9 +344,9 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="339" y="157" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1599487423290" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1598699753680">
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1601994458019">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1598699753680" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1601994458019" />
   </component>
 </project>

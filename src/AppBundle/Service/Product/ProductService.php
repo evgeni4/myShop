@@ -57,9 +57,9 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->find($id);
     }
 
-    public function newCollection($minP,$maxP,$minDiscount,$maxDiscount)
+    public function newCollection($minP, $maxP, $minDiscount, $maxDiscount)
     {
-        return $this->productRepository->collectionNew($minP,$maxP,$minDiscount,$maxDiscount);
+        return $this->productRepository->collectionNew($minP, $maxP, $minDiscount, $maxDiscount);
     }
 
     public function newProducts()
@@ -72,9 +72,9 @@ class ProductService implements ProductServiceInterface
         return $this->productRepository->update($product);
     }
 
-    public function productsBy(int $id, $minP,$maxP,$minDiscount,$maxDiscount)
+    public function productsBy(int $id, $minP, $maxP, $minDiscount, $maxDiscount)
     {
-        return $this->productRepository->productsByCategory($id, $minP,$maxP,$minDiscount,$maxDiscount);
+        return $this->productRepository->productsByCategory($id, $minP, $maxP, $minDiscount, $maxDiscount);
     }
 
     /**
@@ -103,6 +103,7 @@ class ProductService implements ProductServiceInterface
         $minMax[] = intval(max($this->productRepository->priceByCategory($id))['price']);
         return $minMax;
     }
+
     /**
      * @param $id
      * @return mixed
@@ -123,6 +124,7 @@ class ProductService implements ProductServiceInterface
         $minMax[] = intval(max($this->productRepository->priceByPromotion())['price']);
         return $minMax;
     }
+
     /**
      * @param $id
      * @return mixed
@@ -133,6 +135,7 @@ class ProductService implements ProductServiceInterface
         $minMaxDiscount[] = intval(max($this->productRepository->discountByPromotion())['discount']);
         return $minMaxDiscount;
     }
+
     public function dateDiscount($products): void
     {
         foreach ($products as $product) {
@@ -167,5 +170,22 @@ class ProductService implements ProductServiceInterface
                 $this->updateDiscountData($product);
             }
         }
+    }
+
+    public function calendar()
+    {
+        echo "
+            <script>
+            $(function () { 
+                $('#discountStart').datepicker({
+                dateFormat : 'dd-mm-yy',
+                minDate: '0'
+                });
+                $('#discountEnd') . datepicker({
+                    dateFormat :  'dd-mm-yy',
+                    minDate: '+1'
+                });
+            });
+    </script > ";
     }
 }

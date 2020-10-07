@@ -67,7 +67,7 @@ class UserController extends Controller
         $form->handleRequest($request);
         $name = $form['fullName']->getData();
         $messages = $this->errorCollection($form, $messages);
-        $user->setImage('');
+        $user->setImage(''); 
         if ($form->isSubmitted() && $form->isValid()) {
             $count= $this->userService->allUser();
            $this->userService->save($user,$count);
